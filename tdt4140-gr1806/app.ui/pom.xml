@@ -9,6 +9,26 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
+	<profiles>
+		<profile>
+			<id>gitlab-ci</id>
+			<activation>
+				<property>
+					<name>gitlab-ci</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+		            <groupId>org.testfx</groupId>
+		            <artifactId>openjfx-monocle</artifactId>
+		            <version>8u76-b04</version>
+		            <scope>test</scope>
+		        </dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>tdt4140-gr1806</groupId>
