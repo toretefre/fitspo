@@ -30,6 +30,6 @@ public class FxAppTest extends ApplicationTest {
 
     @Test
     public void testFxApp() {
-    	Assert.assertTrue(true == true);
+    	Assert.assertTrue(true);
     }
 }
