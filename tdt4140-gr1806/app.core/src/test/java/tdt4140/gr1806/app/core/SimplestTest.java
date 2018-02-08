@@ -4,10 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SimplestTest {
+	
+	private Simplest simple;
 
 	@Test
 	public void test() {
-		Assert.assertTrue(true);
+		simple = new Simplest(20);
+		Assert.assertEquals(20, simple.getNumber());
 	}
 
 }
