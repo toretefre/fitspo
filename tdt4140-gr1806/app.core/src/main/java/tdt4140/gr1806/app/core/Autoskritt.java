@@ -7,6 +7,8 @@ public class Autoskritt {
 	}
 	
 	public void set_skritt(int skritt_input) {
+		
 		skritt = skritt_input;
+		
 	}
 }
