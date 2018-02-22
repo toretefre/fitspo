@@ -38,6 +38,48 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!--  
+		Påfølgende dependencies trengs for Jetty og Jersey, altså REST-implementasjon
+		Klipt og limt fra: https://www.acando.no/thedailypassion/200555/a-rest-service-with-jetty-and-jersey	
+		 -->
+		<dependency>
+		     <groupId>org.eclipse.jetty</groupId>
+		     <artifactId>jetty-server</artifactId>
+		     <version>9.2.3.v20140905</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.eclipse.jetty</groupId>
+		     <artifactId>jetty-servlet</artifactId>
+		     <version>9.2.3.v20140905</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.glassfish.jersey.core</groupId>
+		     <artifactId>jersey-server</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.glassfish.jersey.containers</groupId>
+		     <artifactId>jersey-container-servlet-core</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+		
+		
+		<dependency>
+		 <groupId>org.glassfish.jersey.containers</groupId>
+		     <artifactId>jersey-container-jetty-http</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+
+
+		
+		
 	</dependencies>
 	
 	<build>
