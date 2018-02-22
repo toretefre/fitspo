@@ -2,33 +2,40 @@ package tdt4140.gr1806.app.core;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 
 /**
- * Denne klassen håndterer mottak av data, både fra en html-form og fra en 
- * App som automatisk sender inn data.
- * Tenker at datatypen for automatisk data skal være JSON.
  * 
+ * This class handles receiving data over "web protocols".
+ * It's using Jersey. 
  * 
- * @author Åsmund
+ * @author Aasmund
  * 
  */
 @Path("data")
 public class StepReciever {
 	
+	
+	/*
+	 * Here's a temporary solution to manual entry of
+	 * steps by the data giver. It receives data from a form (which we don't
+	 * have to implement). 
+	 */
 	@Path("manual")
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public String handleFormPost(@FormParam("id") int id, @FormParam("skritt") int steps) {
+	public String handleFormPost(@FormParam("id") int id, @FormParam("steps") int steps) {
 		
 		try {			
-			DatabaseHandler.saveSteps(id, steps); // TODO: Koble logikk til rett database-klasse
-		} catch (EnEllerAnnenDatabaseError e) {
+			// DatabaseHandler.saveSteps(id, steps); // TODO: Koble logikk til rett database-klasse
+		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
 			System.err.println(e);
 			
@@ -39,19 +46,38 @@ public class StepReciever {
 	}
 	
 
+	/*
+	 * The idea here is that the data is automatically sent to
+	 * this web server from the app the data giver is using. 
+	 */
 	@Path("automatic")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String handleAutomaticPost(PersonSteps data) {
 		try {
+			int id = data.getPersonID();
+			int steps = data.getSteps();
+			// DatabaseHandler.saveSteps(id, steps);
 			
-		} catch (EnEllerAnnenDatabaseError e) {
+		} catch (Exception e) {
 			System.err.println();
 		}
+		
 		return "HEI";
 	}
 	
 	
+	/*
+	 * Testing the GET method as it's the easiest.
+	 * Run ServerApp and the open the
+	 * browser at localhost:2222/data/helloworld?name=me
+	 */
+	@GET
+	@Path("helloworld")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String helloWorld(@QueryParam("name") String name) {
+		return "Hello, " + name + "!";
+	}
 	
 }

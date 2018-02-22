@@ -16,5 +16,26 @@ public class PersonSteps {
 	
 	private int PersonID, steps;
 	private Date date;
+	
+	public int getPersonID() {
+		return PersonID;
+	}
+	public void setPersonID(int personID) {
+		PersonID = personID;
+	}
+	public int getSteps() {
+		return steps;
+	}
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 
 }
