@@ -1,0 +1,136 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>tdt4140-gr1806.web.server</artifactId>
+
+	<parent>
+		<groupId>tdt4140-gr1806</groupId>
+		<artifactId>tdt4140-gr1806</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.jenetics</groupId>
+		    <artifactId>jpx</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!--  
+		Påfølgende dependencies trengs for Jetty og Jersey, altså REST-implementasjon
+		Klipt og limt fra: https://www.acando.no/thedailypassion/200555/a-rest-service-with-jetty-and-jersey	
+		 -->
+		<dependency>
+		     <groupId>org.eclipse.jetty</groupId>
+		     <artifactId>jetty-server</artifactId>
+		     <version>9.2.3.v20140905</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.eclipse.jetty</groupId>
+		     <artifactId>jetty-servlet</artifactId>
+		     <version>9.2.3.v20140905</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.glassfish.jersey.core</groupId>
+		     <artifactId>jersey-server</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+		
+		
+		<dependency>
+		     <groupId>org.glassfish.jersey.containers</groupId>
+		     <artifactId>jersey-container-servlet-core</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+		
+		
+		<dependency>
+		 <groupId>org.glassfish.jersey.containers</groupId>
+		     <artifactId>jersey-container-jetty-http</artifactId>
+		     <version>2.7</version>
+		 </dependency>
+
+
+		
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.0</version>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+	        	<groupId>org.codehaus.mojo</groupId>
+	        	<artifactId>exec-maven-plugin</artifactId>
+	        	<version>1.1</version>
+	        	<executions>
+	          		<execution>
+	          			<id>pre-integration-test</id>
+	          			<goals>
+	          				<goal>
+	          					exec
+	          				</goal>
+	          			</goals>
+	          		</execution>
+	        	</executions>
+	        	<configuration>
+	          		<mainClass>tdt4140.gr1806.app.core.ServerApp</mainClass>
+	        	</configuration>
+     		</plugin>
+     		
+     		<plugin>
+		        <groupId>org.eclipse.jetty</groupId>
+		        <artifactId>jetty-maven-plugin</artifactId>
+		        <version>9.4.8.v20171121</version>
+	      	</plugin>
+     		
+		</plugins>
+	</build>
+	
+</project>

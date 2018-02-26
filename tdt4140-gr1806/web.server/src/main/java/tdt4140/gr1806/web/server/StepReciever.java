@@ -1,4 +1,4 @@
-package tdt4140.gr1806.app.core;
+package tdt4140.gr1806.web.server;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;

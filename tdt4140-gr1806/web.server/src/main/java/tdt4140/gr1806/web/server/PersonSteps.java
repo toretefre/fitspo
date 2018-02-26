@@ -1,15 +1,16 @@
 /**
  * 
  */
-package tdt4140.gr1806.app.core;
+package tdt4140.gr1806.web.server;
 
 import java.sql.Date;
 
 /**
  * This object serves to save PersonID, number of steps and date of steps
- * Needed to create a object from JSON in app.core.StepReceiver
+ * Needed to create a object from JSON in app.core.StepReceiver using Jersey.
+ * It's known as a POJO.
  * 
- * @author Åsmund
+ * @author Aasmund
  *
  */
 public class PersonSteps {

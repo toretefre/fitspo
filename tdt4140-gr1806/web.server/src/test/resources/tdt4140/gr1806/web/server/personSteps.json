@@ -1,0 +1,10 @@
+[
+  {
+    "PersonID" : 1,
+    "Steps" : 100,
+  },
+  {
+    "PersonID" : 2,
+    "Steps" : 200,
+  }
+]

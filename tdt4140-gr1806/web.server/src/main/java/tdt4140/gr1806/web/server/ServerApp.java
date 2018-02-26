@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tdt4140.gr1806.app.core;
+package tdt4140.gr1806.web.server;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -16,8 +16,9 @@ import org.glassfish.jersey.servlet.ServletContainer;
 public class ServerApp {
 	
 	public static void main(String[] args) {
+		System.out.println("STARTING SERVERAPP");
 		ResourceConfig config = new ResourceConfig();
-		config.packages("tdt4140.gr1806.app.core");
+		config.packages("tdt4140.gr1806.web.server");
 		ServletHolder servlet = new ServletHolder(new ServletContainer(config));
 		
 		Server server = new Server(2222);
