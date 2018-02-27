@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600" prefWidth="1000" style="-fx-background-color: #85aff2;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
+<BorderPane prefHeight="600" prefWidth="1000" style="-fx-background-color: #85aff2;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
