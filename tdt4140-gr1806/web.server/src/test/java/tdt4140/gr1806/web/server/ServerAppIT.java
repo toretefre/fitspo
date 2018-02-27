@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author Asmund
  *
  */
-public class ServerAppTest {
+public class ServerAppIT {
 	
 	
 	@Test

@@ -104,25 +104,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-			<plugin>
-	        	<groupId>org.codehaus.mojo</groupId>
-	        	<artifactId>exec-maven-plugin</artifactId>
-	        	<version>1.1</version>
-	        	<executions>
-	          		<execution>
-	          			<id>pre-integration-test</id>
-	          			<goals>
-	          				<goal>
-	          					exec
-	          				</goal>
-	          			</goals>
-	          		</execution>
-	        	</executions>
-	        	<configuration>
-	          		<mainClass>tdt4140.gr1806.app.core.ServerApp</mainClass>
-	        	</configuration>
-     		</plugin>
      		
      		<plugin>
 		        <groupId>org.eclipse.jetty</groupId>
