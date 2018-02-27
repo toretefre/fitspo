@@ -1,5 +1,7 @@
 package tdt4140.gr1806.web.server;
 
+import java.sql.Date;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -8,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
+import tdt4140.gr1806.app.core.DatabaseManager;
 
 /**
  * 
@@ -31,10 +33,10 @@ public class StepReciever {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public String handleFormPost(@FormParam("id") int id, @FormParam("steps") int steps) {
+	public String handleFormPost(@FormParam("id") int id, @FormParam("steps") int steps, @FormParam("date") Date date) {
 		
 		try {			
-			// DatabaseHandler.saveSteps(id, steps); // TODO: Koble logikk til rett database-klasse
+			DatabaseManager.saveSteps(id, steps, date);
 		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
 			System.err.println(e);
@@ -48,7 +50,7 @@ public class StepReciever {
 
 	/*
 	 * The idea here is that the data is automatically sent to
-	 * this web server from the app the data giver is using. 
+	 * this web server from the app the data-giver is using. 
 	 */
 	@Path("automatic")
 	@POST
@@ -58,13 +60,17 @@ public class StepReciever {
 		try {
 			int id = data.getPersonID();
 			int steps = data.getSteps();
-			// DatabaseHandler.saveSteps(id, steps);
+			Date date = data.getDate();
+			
+			DatabaseManager.saveSteps(id, steps, date);
+			
+			return "Data saved";
 			
 		} catch (Exception e) {
 			System.err.println();
+			
+			return "Error";
 		}
-		
-		return "HEI";
 	}
 	
 	
