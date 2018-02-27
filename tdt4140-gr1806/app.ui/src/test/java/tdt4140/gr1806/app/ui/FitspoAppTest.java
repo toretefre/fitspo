@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.ui.GitlabCISupport;
 
-public class FxAppTest extends ApplicationTest {
+public class FitspoAppTest extends ApplicationTest {
 	
 	@BeforeClass
     public static void headless() {
