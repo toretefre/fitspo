@@ -5,4 +5,9 @@ public class Autoskritt {
 	public int get_skritt() {
 		return skritt;
 	}
+	
+	public void set_skritt(int skritt_input) {
+		skritt = skritt_input;
+		
+	}
 }
