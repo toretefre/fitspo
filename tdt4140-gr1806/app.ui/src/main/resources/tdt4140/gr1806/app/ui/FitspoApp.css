@@ -1,0 +1,21 @@
+BorderPane {
+	-fx-background-color: "#85aff2";
+}
+	
+#listHeader {
+	-fx-background-color: "grey";
+}
+
+#personbox1 {
+	-fx-background-color: "grey";
+}
+
+#personbox0 {
+	-fx-background-color: "darkgrey";
+}
+
+Pane {
+	-fx-border-color:"black";	
+	-fx-border-size:"0.1em"
+	
+}

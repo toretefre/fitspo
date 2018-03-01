@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600" prefWidth="1000" style="-fx-background-color: #85aff2;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
+<BorderPane prefHeight="600" prefWidth="1000" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
@@ -15,19 +17,34 @@
          </font></Label>
    </top>
    <center>
-      <ScrollPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="386.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="content" prefHeight="479.0" prefWidth="383.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="485.0" prefWidth="388.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="-1.0" prefHeight="50.0" prefWidth="392.0" styleClass="hbox">
                <children>
-                  <HBox prefHeight="55.0" prefWidth="383.0">
-                     <children>
-                        <Label prefHeight="71.0" prefWidth="179.0" text="Navn" />
-                        <Label prefHeight="55.0" prefWidth="153.0" text="Skritt" />
-                     </children>
-                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="205.0" text="Navn" textAlignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="163.0" styleClass="Label" text="Skritt" textAlignment="CENTER">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
                </children>
-            </VBox>
-         </content>
-      </ScrollPane>
+            </HBox>
+            <ScrollPane fx:id="container" layoutX="1.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="386.0" styleClass="scrollpane">
+               <content>
+                  <VBox fx:id="content" prefWidth="383.0" styleClass="vbox" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
    </center>
 </BorderPane>
