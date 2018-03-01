@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600" prefWidth="1000" style="-fx-background-color: #85aff2;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
+<BorderPane prefHeight="600" prefWidth="1000" style="-fx-background-color: #85aff2;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
@@ -15,15 +15,18 @@
          </font></Label>
    </top>
    <center>
-      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="891.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="386.0" BorderPane.alignment="CENTER">
          <content>
-            <HBox prefHeight="41.0" prefWidth="889.0">
+            <VBox fx:id="content" prefHeight="479.0" prefWidth="383.0">
                <children>
-                  <Label prefHeight="41.0" prefWidth="717.0" text="Tjukkas 1" />
-                  <Label prefHeight="42.0" prefWidth="34.0" text="1000" />
-                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="139.0" text="Se mer" />
+                  <HBox prefHeight="55.0" prefWidth="383.0">
+                     <children>
+                        <Label prefHeight="71.0" prefWidth="179.0" text="Navn" />
+                        <Label prefHeight="55.0" prefWidth="153.0" text="Skritt" />
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </content>
       </ScrollPane>
    </center>
