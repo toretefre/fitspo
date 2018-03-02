@@ -10,7 +10,7 @@ public class ResourceConfiguration extends ResourceConfig{
 		register(StepReciever.class);
 		
 		// Enables Jackson-based JSON support
-		register(JacksonFeature.class);
+		//register(JacksonFeature.class);
 	}
 
 }

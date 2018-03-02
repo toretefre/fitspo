@@ -25,7 +25,7 @@ public class ServerAppIT {
 		InputStream urlStream = null;
 		String result = null;
 		try {
-			URL url = new URL("http://localhost:2222/data/helloworld");
+			URL url = new URL("http://localhost:8888/data/helloworld");
 			urlStream = url.openStream();
 			streamScanner = new Scanner(urlStream).useDelimiter("\\A");
 			result = streamScanner.hasNext() ? streamScanner.next() : "";
