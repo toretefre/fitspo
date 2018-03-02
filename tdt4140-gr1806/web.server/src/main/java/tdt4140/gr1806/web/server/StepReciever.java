@@ -10,12 +10,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 //import tdt4140.gr1806.app.core.DatabaseManager;
 
 /**
  * 
  * This class handles receiving data over "web protocols".
- * It's using Jersey. 
+ * Jersey 2.
  * 
  * @author Aasmund
  * 
@@ -56,7 +57,7 @@ public class StepReciever {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String handleAutomaticPost(PersonSteps data) {
+	public Response handleAutomaticPost(PersonSteps data) {
 		try {
 			int id = data.getPersonID();
 			int steps = data.getSteps();
@@ -64,12 +65,12 @@ public class StepReciever {
 			
 			//DatabaseManager.saveSteps(id, steps, date);
 			
-			return "Data saved";
+			return Response.status(201).entity("Received:\nID: "+id+"\nSteps: "+steps+"\nDate: "+date.toString()).build();
+			
 			
 		} catch (Exception e) {
 			System.err.println();
-			
-			return "Error";
+			return Response.status(500).entity("A servererror occured").build();
 		}
 	}
 	
@@ -80,9 +81,9 @@ public class StepReciever {
 	 * from folder /tdt4140-gr1806/web.server/
 	 */
 	@GET
-	@Path("helloworld")
+	@Path("hello")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String helloWorld(@QueryParam("name") String name) {
+	public String Hello(@QueryParam("name") String name) {
 		return "Hello, " + name + "!";
 	}
 	
