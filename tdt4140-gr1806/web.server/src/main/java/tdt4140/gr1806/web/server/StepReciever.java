@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import tdt4140.gr1806.app.core.DatabaseManager;
+//import tdt4140.gr1806.app.core.DatabaseManager;
 
 /**
  * 
@@ -36,7 +36,7 @@ public class StepReciever {
 	public String handleFormPost(@FormParam("id") int id, @FormParam("steps") int steps, @FormParam("date") Date date) {
 		
 		try {			
-			DatabaseManager.saveSteps(id, steps, date);
+			//DatabaseManager.saveSteps(id, steps, date);
 		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
 			System.err.println(e);
@@ -62,7 +62,7 @@ public class StepReciever {
 			int steps = data.getSteps();
 			Date date = data.getDate();
 			
-			DatabaseManager.saveSteps(id, steps, date);
+			//DatabaseManager.saveSteps(id, steps, date);
 			
 			return "Data saved";
 			
