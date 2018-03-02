@@ -8,7 +8,6 @@ public class ConnectionManager {
     public static Connection conn;
 
     /**
-    Connection connect
     *
     * Connects to the database.
     */

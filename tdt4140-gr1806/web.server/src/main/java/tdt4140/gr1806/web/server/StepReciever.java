@@ -75,9 +75,9 @@ public class StepReciever {
 	
 	
 	/*
-	 * Testing the GET method as it's the easiest.
-	 * Run ServerApp and the open the
-	 * browser at localhost:2222/data/helloworld?name=me
+	 * Used for easily testing the connection to the server. 
+	 * Run server using mvn jetty:run in cmd/terminal
+	 * from folder /tdt4140-gr1806/web.server/
 	 */
 	@GET
 	@Path("helloworld")
