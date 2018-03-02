@@ -1,0 +1,46 @@
+BorderPane {
+	-fx-background-color: "white";
+}
+
+ScrollPane {
+	-fx-border-radius: 10;
+	-fx-background: "white";
+}
+	
+#listHeader {
+	-fx-background-color: "grey";
+}
+
+#personbox1 {
+	-fx-background-color: "white";
+}
+
+#personbox0 {
+	-fx-background-color: "B7B5B3";
+}
+#personboxSkrittLabel {
+	-fx-alignment:"CENTER";
+
+}
+#personboxLabel {
+	-fx-pref-width:260;
+	-fx-alignment:"CENTER_LEFT"
+}
+
+Pane {
+	-fx-border-radius: 10;
+	-fx-border-color:"black";	
+	-fx-border-size:1;
+	-fx-background-color:"white";
+}
+
+HBox Label {
+	-fx-font-size:18;
+	-fx-pref-height:50;
+	
+}
+ScrollPane HBox {
+	-fx-pref-height:50;
+}
+
+

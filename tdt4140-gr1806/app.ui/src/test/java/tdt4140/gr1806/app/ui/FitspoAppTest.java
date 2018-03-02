@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.ui.GitlabCISupport;
 
-public class FxAppTest extends ApplicationTest {
+public class FitspoAppTest extends ApplicationTest {
 	
 	@BeforeClass
     public static void headless() {
@@ -22,7 +22,7 @@ public class FxAppTest extends ApplicationTest {
 
 	@Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -32,4 +32,8 @@ public class FxAppTest extends ApplicationTest {
     public void testFxApp() {
     	Assert.assertTrue(true);
     }
+    
+    /* 
+     * Check if number of HBox equals number of persons in the database.
+     */
 }
