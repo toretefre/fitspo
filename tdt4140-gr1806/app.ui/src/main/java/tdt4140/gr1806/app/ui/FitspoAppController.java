@@ -11,14 +11,25 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Trainer;
-
+/**
+ * FitspoAppController Class use the Trainer Class to represent an updated list of customers and their total steps.
+ * Controlling the FitspoApp.fxml
+ * @author Magnus
+ * @version 1.0
+ * @see tdt4140.gr1806.app.core.Trainer.java
+ * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
+ */
 public class FitspoAppController implements Initializable {
-	@FXML ScrollPane container;
-	@FXML VBox content;
+	@FXML private ScrollPane container;
+	@FXML private VBox content;
 	
-	
-	public void homeLanding(ArrayList<ArrayList<String>> customers) {
-		
+	/**
+	 * uses the Trainer Class method getCustomer which returns a ArrayList<ArrayList<String>> of customers and puts it into
+	 * the ScrollPane from FitspoApp.fxml. Sets differents ID for styling purposes.
+	 * @param customers
+	 * @see tdt4140.gr1806.app.core.Trainer.java
+	 */
+	private void homeLanding(ArrayList<ArrayList<String>> customers) {
 		for (int i=0; i<customers.size(); i++) {
 			HBox person = new HBox();
 			person.setId("personbox" + i % 2);
@@ -26,22 +37,19 @@ public class FitspoAppController implements Initializable {
 			
 			Label name = new Label(customers.get(i).get(0));
 			name.setId("personboxLabel");
-			name.setPrefWidth(200);
 			
 			Label skritt = new Label(customers.get(i).get(1));
-			skritt.setId("personboxLabel");
+			skritt.setId("personboxSkrittLabel");
+			
 			person.getChildren().addAll(name,skritt);
-			person.setPrefHeight(50);
-			person.setPrefWidth(380);
 			content.getChildren().add(person);
 		}	
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		container.setFitToWidth(true);
 		Trainer t = new Trainer();
-		homeLanding(t.getCustomers());
-		homeLanding(t.getCustomers());
 		homeLanding(t.getCustomers());
 	}
 }

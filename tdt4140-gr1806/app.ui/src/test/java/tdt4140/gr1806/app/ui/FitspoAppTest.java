@@ -32,4 +32,8 @@ public class FitspoAppTest extends ApplicationTest {
     public void testFxApp() {
     	Assert.assertTrue(true);
     }
+    
+    /* 
+     * Check if number of HBox equals number of persons in the database.
+     */
 }
