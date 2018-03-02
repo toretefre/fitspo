@@ -2,7 +2,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tdt4140-gr1806.web.server</artifactId>
-	<packaging>war</packaging>
 
 	<parent>
 		<groupId>tdt4140-gr1806</groupId>
