@@ -2,6 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tdt4140-gr1806.web.server</artifactId>
+	<packaging>war</packaging>
 
 	<parent>
 		<groupId>tdt4140-gr1806</groupId>
@@ -10,6 +11,13 @@
 	</parent>
 	
 	<dependencies>
+	
+		<dependency>
+			<groupId>tdt4140-gr1806</groupId>
+			<artifactId>tdt4140-gr1806.app.core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -63,6 +71,11 @@
 		     <version>2.7</version>
 		 </dependency>
 		
+		<dependency>
+		     <groupId>org.glassfish.jersey.containers</groupId>
+		     <artifactId>jersey-container-servlet</artifactId>
+		     <version>2.26</version>
+		 </dependency>
 		
 		<dependency>
 		     <groupId>org.glassfish.jersey.containers</groupId>
@@ -84,52 +97,68 @@
 	
 	<build>
 		<plugins>
+		
 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<!-- for starting Jetty for integration tests -->
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.16</version>
 				<executions>
 					<execution>
-						<id>pre-unit-test</id>
+						<id>integration-test</id>
 						<goals>
-							<goal>prepare-agent</goal>
+							<goal>integration-test</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
+						<id>verify</id>
 						<goals>
-							<goal>report</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
+				<!-- http://maven.apache.org/surefire/maven-failsafe-plugin/usage.html -->
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.8.v20171121</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopKey>STOP</stopKey>
+					<stopPort>8005</stopPort>
+					<systemProperties>
+						<systemProperty>
+							<name>data.locations</name>
+							<value>file:${project.basedir}/src/test/resources/tdt4140/gr1806/web/server/personSteps.json</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>stop</goal> <!-- Stop any previous instance to ensure free port -->
+							<goal>start</goal>
+						</goals>
+						<configuration>
+              				<scanIntervalSeconds>0</scanIntervalSeconds>
+              				<daemon>true</daemon>
+            			</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 			
-			<plugin>
-	        	<groupId>org.codehaus.mojo</groupId>
-	        	<artifactId>exec-maven-plugin</artifactId>
-	        	<version>1.1</version>
-	        	<executions>
-	          		<execution>
-	          			<id>pre-integration-test</id>
-	          			<goals>
-	          				<goal>
-	          					exec
-	          				</goal>
-	          			</goals>
-	          		</execution>
-	        	</executions>
-	        	<configuration>
-	          		<mainClass>tdt4140.gr1806.app.core.ServerApp</mainClass>
-	        	</configuration>
-     		</plugin>
-     		
-     		<plugin>
-		        <groupId>org.eclipse.jetty</groupId>
-		        <artifactId>jetty-maven-plugin</artifactId>
-		        <version>9.4.8.v20171121</version>
-	      	</plugin>
-     		
 		</plugins>
 	</build>
 	
