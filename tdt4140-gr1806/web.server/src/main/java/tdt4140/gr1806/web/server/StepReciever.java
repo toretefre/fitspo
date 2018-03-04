@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class StepReciever {
 	
 	
-	/*
+	/**
 	 * Here's a temporary solution to manual entry of
 	 * steps by the data giver. It receives data from a form (which we don't
 	 * have to implement). 
@@ -49,7 +49,7 @@ public class StepReciever {
 	}
 	
 
-	/*
+	/**
 	 * The idea here is that the data is automatically sent to
 	 * this web server from the app the data-giver is using. 
 	 */
@@ -63,6 +63,7 @@ public class StepReciever {
 			int steps = data.getSteps();
 			Date date = data.getDate();
 			
+			// TODO: Actually do something with the incoming data
 			//DatabaseManager.saveSteps(id, steps, date);
 			
 			return Response.status(201).entity("Received:\nID: "+id+"\nSteps: "+steps+"\nDate: "+date.toString()).build();
@@ -75,7 +76,7 @@ public class StepReciever {
 	}
 	
 	
-	/*
+	/**
 	 * Used for easily testing the connection to the server. 
 	 * Run server using mvn jetty:run in cmd/terminal
 	 * from folder /tdt4140-gr1806/web.server/

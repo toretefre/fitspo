@@ -19,13 +19,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Integration test for 
- * @author Asmund
+ * Integration test for the web.server
+ * @author Aasmund
  *
  */
 public class StepReceiverServerIT {
 	
-	/*
+	/**
 	 * Tests the simplest type of request.
 	 * Mostly to verify that the server is responding.
 	 */
@@ -51,7 +51,7 @@ public class StepReceiverServerIT {
 	}
 	
 	
-	/*
+	/**
 	 * Tests sending a simple JSON-object to the server using POST-request.
 	 * Checks if status code is 200 OK, (server received and parsed object).
 	 */
