@@ -60,11 +60,5 @@ import java.sql.ResultSet;
 				return customers;
 			
 		}
-		
-		public static void main(String[] args) {
-			Trainer t = new Trainer();
-			System.out.println(t.getCustomers());
-		}
-
 	}
 
