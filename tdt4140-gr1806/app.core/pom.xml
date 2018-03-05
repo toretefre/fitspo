@@ -8,7 +8,7 @@
 		<artifactId>tdt4140-gr1806</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -39,11 +39,11 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+				<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
    			<groupId>mysql</groupId>
-    			<artifactId>mysql-connector-java</artifactId>
-    			<version>5.1.45</version>
+    		<artifactId>mysql-connector-java</artifactId>
+    		<version>5.1.45</version>
 		</dependency>
 		
 	</dependencies>
