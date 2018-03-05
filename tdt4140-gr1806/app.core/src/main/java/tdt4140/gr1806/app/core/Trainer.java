@@ -27,11 +27,23 @@ import java.sql.ResultSet;
 		
 		
 		public static ArrayList<ArrayList<String>> getCustomers() {
+
 			ArrayList<ArrayList<String>> customers = new ArrayList<>();
+			
+			/**
+			 * Connects to database, 
+			 * Joins steps for each customer with an SQL query
+			 */
+			
 			try {
 				Statement stmt = ConnectionManager.conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT name, SUM(steps) AS steps FROM StepsOnDay "
 						+ "JOIN Customer ON Customer.id = StepsOnDay.customerId GROUP BY name");
+				
+				/**
+				 * The steps from each customer is put into nested Arraylists 
+				 * and added into the main Arraylist.
+				 */
 				
 				while(rs.next()) {
 					String name = rs.getString("name");
