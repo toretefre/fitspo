@@ -8,9 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.sql.Statement;
 
@@ -34,22 +32,10 @@ public class ConnectionManagerTest {
 		return testPersonName;
 	}
 	
-	@Rule 
-	public ExpectedException exception = ExpectedException.none();
-	
-	@Test
-	public void testException () {
-		exception.expect(SQLException.class);
-
-	}
-	
 	@Test
 	public void testConnection() {
 		ConnectionManager.connect();
 		assertTrue(getName("Mikal").equals("Mikal"));
 	}
-	
-	
-
 	
 }
