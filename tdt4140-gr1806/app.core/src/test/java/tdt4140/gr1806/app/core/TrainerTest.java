@@ -5,21 +5,31 @@ import org.junit.Test;
 
 public class TrainerTest {
 	
-	private Trainer t1;
-	
 	@Test
 	public void testConnection() {
 		// Possibly being made by Magnus in superclass?
 	}
 	
+	/**
+	 * Testing if Arraylist containing customer data is being returned
+	 */
+	
 	@Test
 	public void testArraylist() {
-		/**
-		 * Testing if Arraylist containing customer data is being returned
-		 */
-		System.out.println(Trainer.getCustomers());
-		Assert.assertNotNull(t1);
-		Assert.assertArrayEquals(t1 == t1);
 		
+		System.out.println(Trainer.getCustomers());
+		Assert.assertNotNull(Trainer.getCustomers());
+		Assert.assertEquals("message", Trainer.getCustomers(), Trainer.getCustomers());	
+	
 	} 
+	
+	/**
+	 * Tests that NullPpinterException is thrown,
+	 * if Arraylist is not existing
+	 */
+	
+	public void testException() {
+		// https://stackoverflow.com/questions/156503/how-do-you-assert-that-a-certain-exception-is-thrown-in-junit-4-tests
+	}
+	
 }
