@@ -1,6 +1,9 @@
 package tdt4140.gr1806.web.server;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -11,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-//import tdt4140.gr1806.app.core.DatabaseManager;
+import tdt4140.gr1806.app.core.ConnectionManager;
 
 /**
  * 
@@ -37,7 +40,7 @@ public class StepReciever {
 	public String handleFormPost(@FormParam("id") int id, @FormParam("steps") int steps, @FormParam("date") Date date) {
 		
 		try {			
-			//DatabaseManager.saveSteps(id, steps, date);
+			//saveSteps(id, steps, date);
 		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
 			System.err.println(e);
@@ -64,7 +67,7 @@ public class StepReciever {
 			Date date = data.getDate();
 			
 			// TODO: Actually do something with the incoming data
-			//DatabaseManager.saveSteps(id, steps, date);
+			//saveSteps(id, steps, date);
 			
 			return Response.status(201).entity("Received:\nID: "+id+"\nSteps: "+steps+"\nDate: "+date.toString()).build();
 			
@@ -86,6 +89,28 @@ public class StepReciever {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String Hello(@QueryParam("name") String name) {
 		return "Hello, " + name + "!";
+	}
+	
+	/**
+	 * Helpermethod used to save steps to the database
+	 */
+	private void saveSteps(int id, int steps, Date date) {
+		Connection DBConnection = ConnectionManager.connect();
+		
+		String sql = "insert into Customer values ("
+				+ id + ","
+				+ steps + ","
+				+ date
+				+ ")";
+		
+		try {
+			PreparedStatement pstmt = DBConnection.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 }
