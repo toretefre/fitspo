@@ -1,3 +1,5 @@
+/*
+
 package tdt4140.gr1806.app.core;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +23,7 @@ import org.junit.Test;
  * We check if data is correctly saved and loaded.
  * @author henriette_andersen
  *
- */
+ *
 
 public class CustomerPersistenceTest {
 	
@@ -81,3 +83,5 @@ public class CustomerPersistenceTest {
 	
 	
 }
+
+*/
