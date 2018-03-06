@@ -19,7 +19,6 @@ public class TrainerTest {
 		
 		System.out.println(Trainer.getCustomers());
 		Assert.assertNotNull(Trainer.getCustomers());
-		Assert.assertEquals("message", Trainer.getCustomers(), Trainer.getCustomers());	
 	
 	} 
 	
