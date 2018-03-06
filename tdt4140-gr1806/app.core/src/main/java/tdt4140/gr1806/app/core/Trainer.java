@@ -30,9 +30,14 @@ import java.sql.Statement;
 			
 			try {
 				Statement stmt = ConnectionManager.conn.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT name, SUM(steps) AS steps FROM StepsOnDay "
-						+ "JOIN Customer ON Customer.id = StepsOnDay.customerId GROUP BY name");
-				
+				ResultSet rs = stmt.executeQuery(
+						"select Customer.name, StepsTable.steps " + 
+						"from Customer " + 
+						"left join ( " + 
+						"    select customerId, SUM(steps) as steps " + 
+						"    from StepsOnDay " + 
+						"    group by customerId) as StepsTable " + 
+						"on Customer.id=StepsTable.customerId");
 				/**
 				 * The steps from each customer is put into nested Arraylists 
 				 * and added into the main Arraylist.
