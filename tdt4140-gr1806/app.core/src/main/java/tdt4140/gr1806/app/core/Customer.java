@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 //import java.sql.Statement;
 
 public class Customer {
@@ -14,6 +15,8 @@ public class Customer {
 
 	
 	public static void main(String args[]) {
+		//int i = Customer.addCustomer("Henriette");
+		//Customer.addSteps(i, 8000, "2018-03-06");
 	}
 	
 	
@@ -25,9 +28,8 @@ public class Customer {
 	 */
 	public static int addCustomer(String name) {
 		if (name == null) {
-			System.err.println("Customer name cannot be null.");
+			System.err.println("Customer name cannot be null. No new row was added.");
 			return -1;
-			//throw new NullPointerException("Customer name cannot be null.");
 		}
 		try {
 			String sql = "insert into Customer (name) values ('" + name + "')";
@@ -77,11 +79,11 @@ public class Customer {
 	
 	public static void addStepsToday(int id, int steps) {
 		try {
-			String sql = "insert into StepsOnDay values ("
+			Date sqlDate = new Date(System.currentTimeMillis());
+			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"
 					+ "'" + steps + "',"
-					+ "'" + "NOW()" + "',"
-					+ "null,"
+					+ "'" + sqlDate + "'"
 					+ ")";
 			Connection connection = ConnectionManager.connect();
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -93,13 +95,13 @@ public class Customer {
 	}
 	
 	
-	public static void addSteps(int id, int steps, Date date) {
+	public static void addSteps(int id, int steps, String date) {
+		// TODO: Sjekk at string er på riktig form, om vi ikke lar sql ta dette.
 		try {
-			String sql = "insert into StepsOnDay values ("
+			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"
 					+ "'" + steps + "',"
-					+ "'" + date + "',"
-					+ "null,"
+					+ "'" + date + "'"
 					+ ")";
 			Connection connection = ConnectionManager.connect();
 			PreparedStatement pstmt = connection.prepareStatement(sql); 
