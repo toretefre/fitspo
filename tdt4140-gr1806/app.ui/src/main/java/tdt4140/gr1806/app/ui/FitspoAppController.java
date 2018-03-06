@@ -49,7 +49,6 @@ public class FitspoAppController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		container.setFitToWidth(true);
-		Trainer t = new Trainer();
-		homeLanding(t.getCustomers());
+		homeLanding(Trainer.getCustomers());
 	}
 }

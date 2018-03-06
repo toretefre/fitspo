@@ -2,7 +2,6 @@ package tdt4140.gr1806.app.core;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Statement;
-import java.sql.ResultSet;
 
 /**
  * 
@@ -11,22 +10,16 @@ import java.sql.ResultSet;
  */
 
 	public class Trainer {
-		ArrayList<ArrayList<String>> customers;
+		ArrayList<ArrayList<String>> customers;	
 		
-		public Trainer() {
-			ConnectionManager.connect();
-		}
 		
 		/**
 		 *  Get a list of all customers and total number of steps taken by each customer
 		 * 
-		 * 
 		 * @return 		list of customers names and total number of steps from database
 		 */
-		
-		
-		
 		public static ArrayList<ArrayList<String>> getCustomers() {
+			ConnectionManager.connect();
 
 			ArrayList<ArrayList<String>> customers = new ArrayList<>();
 			
@@ -60,11 +53,5 @@ import java.sql.ResultSet;
 				return customers;
 			
 		}
-		
-		public static void main(String[] args) {
-			Trainer t = new Trainer();
-			System.out.println(t.getCustomers());
-		}
-
 	}
 
