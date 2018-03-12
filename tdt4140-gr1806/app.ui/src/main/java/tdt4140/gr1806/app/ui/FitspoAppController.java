@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.Trainer;
 /**
  * FitspoAppController Class use the Trainer Class to represent an updated list of customers and their total steps.
@@ -29,16 +30,16 @@ public class FitspoAppController implements Initializable {
 	 * @param customers
 	 * @see tdt4140.gr1806.app.core.Trainer.java
 	 */
-	private void homeLanding(ArrayList<ArrayList<String>> customers) {
+	private void homeLanding(ArrayList<Customer> customers) {
 		for (int i=0; i<customers.size(); i++) {
 			HBox person = new HBox();
 			person.setId("personbox" + i % 2);
 			person.setPrefWidth(container.getPrefWidth());
 			
-			Label name = new Label(customers.get(i).get(0));
+			Label name = new Label(customers.get(i).getName());
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(customers.get(i).get(1));
+			Label skritt = new Label(String.valueOf(customers.get(i).getSteps()));
 			skritt.setId("personboxSkrittLabel");
 			
 			person.getChildren().addAll(name,skritt);
