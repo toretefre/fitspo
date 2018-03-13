@@ -117,7 +117,7 @@ public class Customer {
 
 
 	// This method uses an inclusive range
-	public static void getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
+	public static int getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
 
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
@@ -132,11 +132,12 @@ public class Customer {
 			pstmt.setObject(3, endDate);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt("SUM(steps)"));
+			return rs.getInt("SUM(steps)");
 		}
 		catch(Exception e) {
 			System.out.println("Error");
 			e.printStackTrace();
+			return -1;
 		}
 	}
 
