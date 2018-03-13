@@ -11,13 +11,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
+
+import com.sun.javafx.image.impl.ByteIndexed.Getter;
 //import java.sql.Statement;
 
 public class Customer implements ActiveDomainObject{
 	
 	private int steps, id, height, weight, telephone;
-	private String name;
-	private Date birthdate, registrationDate;
+	private String name, birthDate, dateRegistered;
+	//private Date birthdate, dateRegistered;
 	private Gender gender;
 
 	/**
@@ -29,87 +31,72 @@ public class Customer implements ActiveDomainObject{
 	 */
 	
 	
-	public Customer(int id) {
-		this.id = id;
+	public Customer() {
 	}
 	
-
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getName() {
 		return name;
 	}
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public int getSteps() {
 		return steps;
 	}
-
-
 	public void setSteps(int steps) {
 		this.steps = steps;
 	}
-
 	
 	public int getHeight() {
 		return height;
 	}
-
-
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
-
-
 	public int getWeight() {
 		return weight;
 	}
-
-
-
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
-
-
 	public int getTelephone() {
 		return telephone;
 	}
-
-
 	public void setTelephone(int telephone) {
 		this.telephone = telephone;
 	}
 
 
-	public Date getBirthdate() {
-		return birthdate;
+	public String getBirthdate() {
+		return birthDate;
 	}
-
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthdate(String birthdate) {
+		this.birthDate = birthdate;
 	}
-
+	
+	public String getDateRegistered() {
+		return dateRegistered;
+	}
+	
 
 	public Gender getGender() {
 		return gender;
 	}
-
-
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
 
-	public int getId() {
-		return id;
-	}
 
 
 	public Date getRegistrationDate() {
@@ -232,24 +219,63 @@ public class Customer implements ActiveDomainObject{
 
 	@Override
 	public void init(Connection conn) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "select name, gender, dateRegistered, telephone, birthDate, height, weight from Customer where id=" + this.id;
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				this.name =  rs.getString("name");
+				try {
+					this.gender = Gender.cast(rs.getString("gender"));
+				} finally {
+				}
+				this.dateRegistered = rs.getString("dateRegistered");
+				try {
+					this.telephone = rs.getInt("telephone");
+				} finally {
+				}
+				try {
+					this.birthDate = rs.getString("birthDate");
+				} finally {
+				}
+				try {
+					this.height = rs.getInt("height");
+				} finally {
+				}
+				try {
+					this.weight = rs.getInt("weight");
+				} finally {
+				}
+			}
+			} catch (Exception e) {
+            	System.out.println("db error during select of customer with id = "+this.id);
+            	System.err.print(e);
+            	return;
+            	}
+		}
+	
 
 	@Override
 	public void refresh(Connection conn) {
-		// TODO Auto-generated method stub
-		
+		this.init(conn);
 	}
 
 
 	@Override
 	public void save(Connection conn) {
-		// TODO Auto-generated method stub
+		try {
+			Statement stmt = conn.createStatement(); 
+			String update = "update Customer set navn="+this.name+",gender="+this.gender+",telephone="+this.telephone+
+							",birthDate="+this.birthDate+",height="+this.height+",weight="+this.weight+" where id="+this.id;
+			stmt.executeQuery(update);
+		} catch (Exception e) {
+        	System.out.println("db error during insert of customer with id = "+this.id);
+        	System.err.print(e);
+        	return;
+        	}
 		
 	}
+
 	
 	
 	
