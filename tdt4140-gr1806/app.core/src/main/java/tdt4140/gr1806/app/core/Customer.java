@@ -33,17 +33,18 @@ public class Customer extends ActiveDomainObject{
 	
 	public static void main(String [ ] args){
 		Connection conn = ConnectionManager.connect();
-		Customer c = new Customer(19);
+		/*Customer c = new Customer(19);
 		c.init(conn);
 		System.out.println(c.getName());
 		System.out.println(c.getGender());
 		c.setName("Henriette Andersen");
-		c.save(conn);
+		c.save(conn); */
 		
 		/*Customer n = new Customer();
 		n.setName("Testie Mc Test");
 		n.setTelephone("12345678");
-		n.save(conn); */
+		n.save(conn);
+		System.out.println(n.getId());*/
 	}
 	
 	public Customer(int id) {
@@ -285,7 +286,7 @@ public class Customer extends ActiveDomainObject{
 		if (this.id == -1) {
 			try {
 				String update = "insert into Customer (name, gender, telephone, birthDate, height, weight) values (?, ?, ?, ?, ?, ?);";
-				PreparedStatement pstmt = conn.prepareStatement(update);
+				PreparedStatement pstmt = conn.prepareStatement(update,Statement.RETURN_GENERATED_KEYS);
 				pstmt.setString(1, this.name);
 				pstmt.setObject(2, this.gender);
 				pstmt.setString(3, this.telephone);
@@ -301,6 +302,9 @@ public class Customer extends ActiveDomainObject{
 					pstmt.setDouble(6, this.weight);
 				}
 				pstmt.executeUpdate();
+				ResultSet rs = pstmt.getGeneratedKeys();
+				rs.next();
+				this.id = rs.getInt(1);
 			} catch (Exception e) {
 	        	System.out.println("db error during inserting of new customer");
 	        	System.err.print(e);
