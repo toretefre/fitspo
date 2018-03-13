@@ -35,7 +35,7 @@ public class CustomerTest {
 	
 	@Test
 	public void testGettersAndSetters() {
-		customer1.setBirthdate(Date.valueOf("1996-07-19"));
+		customer1.setBirthdate("1996-07-19");
 		Assert.assertEquals( "1996-07-19", customer1.getBirthdate().toString());
 		
 		customer1.setGender(Gender.M);
