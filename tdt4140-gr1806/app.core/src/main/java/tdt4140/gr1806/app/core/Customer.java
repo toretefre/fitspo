@@ -220,7 +220,6 @@ public class Customer {
 	
 	
 	public static void addSteps(int id, int steps, String date) {
-		// TODO: Sjekk at string er på riktig form, om vi ikke lar sql ta dette.
 		try {
 			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"
