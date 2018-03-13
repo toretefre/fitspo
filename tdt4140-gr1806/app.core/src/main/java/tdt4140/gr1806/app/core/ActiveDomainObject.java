@@ -5,7 +5,7 @@ package tdt4140.gr1806.app.core;
 
 import java.sql.Connection;
 
-public interface ActiveDomainObject {
+public abstract class ActiveDomainObject {
 
 	public abstract void init(Connection conn);
 	public abstract void refresh(Connection conn);

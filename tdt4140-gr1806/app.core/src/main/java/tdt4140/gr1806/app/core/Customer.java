@@ -15,10 +15,11 @@ import java.util.Calendar;
 import com.sun.javafx.image.impl.ByteIndexed.Getter;
 //import java.sql.Statement;
 
-public class Customer implements ActiveDomainObject{
+public class Customer extends ActiveDomainObject{
 	
-	private int steps, id, height, weight, telephone;
-	private String name, birthDate, dateRegistered;
+	private int steps, height, weight, telephone;
+	private int id = -1;
+	private String name, birthDate = "NULL", dateRegistered;
 	//private Date birthdate, dateRegistered;
 	private Gender gender;
 
@@ -31,6 +32,9 @@ public class Customer implements ActiveDomainObject{
 	 */
 	
 	
+	public Customer(int id) {
+		this.id = id;
+	}
 	public Customer() {
 	}
 	
