@@ -31,7 +31,7 @@ public class FitspoAppController_trainer implements Initializable {
 	 * @see tdt4140.gr1806.app.core.Trainer.java
 	 */
 	private void personalInfo(ArrayList<ArrayList<String>> customers) {
-		for (int i=0; i<customers.; i++) {
+		for (int i=0; i<customers; i++) {
 			HBox person = new HBox();
 			person.setId("personbox" + i % 2);
 			person.setPrefWidth(container.getPrefWidth());
