@@ -43,7 +43,7 @@ import java.sql.Statement;
 					String name = rs.getString("name");
 					int steps = rs.getInt("steps");
 					Customer cus = new Customer(id, name);
-					cus.setSteps(steps);
+					cus.setTotalSteps(steps);
 					customers.add(cus);
 				}}
 				catch (Exception e) {

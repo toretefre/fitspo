@@ -20,7 +20,7 @@ public class CustomerTest {
 	@Before
 	public void makeCustomer() {
 		customer1 = new Customer(1, "Hans");
-		customer2 = new Customer(2, "Kåre");
+		customer2 = new Customer(2, "Kï¿½re");
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class CustomerTest {
 		Assert.assertEquals(1, customer1.getId());
 		Assert.assertEquals(2, customer2.getId());
 		Assert.assertEquals("Hans", customer1.getName());
-		Assert.assertEquals("Kåre", customer2.getName());
+		Assert.assertEquals("Kï¿½re", customer2.getName());
 	}
 	
 	@Test
@@ -48,11 +48,11 @@ public class CustomerTest {
 		Assert.assertNotEquals("Hans", customer1.getName());
 		Assert.assertEquals("Petter", customer1.getName());
 		
-		customer1.setSteps(1337);
-		Assert.assertEquals(1337, customer1.getSteps());
+		customer1.setTotalSteps(1337);
+		Assert.assertEquals(1337, customer1.getTotalSteps());
 		
-		customer1.setTelephone(12345678);
-		Assert.assertEquals(12345678, customer1.getTelephone());
+		customer1.setTelephone("12345678");
+		Assert.assertEquals("12345678", customer1.getTelephone());
 		
 		customer1.setWeight(80);
 		Assert.assertEquals(80, customer1.getWeight());

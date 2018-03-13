@@ -13,8 +13,8 @@ import java.util.Calendar;
 
 public class Customer {
 	
-	private int steps, id, height, weight, telephone;
-	private String name;
+	private int totalSteps, id, height, weight;
+	private String name, telephone;
 	private Date birthdate, registrationDate;
 	private Gender gender;
 
@@ -40,14 +40,14 @@ public class Customer {
 		this.name = name;
 	}
 
-
-	public int getSteps() {
-		return steps;
+	
+	public int getTotalSteps() {
+		return totalSteps;
 	}
 
 
-	public void setSteps(int steps) {
-		this.steps = steps;
+	public void setTotalSteps(int totalSteps) {
+		this.totalSteps = totalSteps;
 	}
 
 	
@@ -61,11 +61,9 @@ public class Customer {
 	}
 
 
-
 	public int getWeight() {
 		return weight;
 	}
-
 
 
 	public void setWeight(int weight) {
@@ -74,12 +72,13 @@ public class Customer {
 
 
 
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
 
-	public void setTelephone(int telephone) {
+	//TODO: Validate number
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 

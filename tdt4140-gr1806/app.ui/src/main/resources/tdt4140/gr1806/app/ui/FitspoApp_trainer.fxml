@@ -24,7 +24,7 @@
                </content>
             </ScrollPane>
             <Button contentDisplay="BOTTOM" layoutY="446.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="387.0" text="Return to list" />
-            <Label alignment="CENTER" layoutX="-1.0" prefHeight="48.0" prefWidth="388.0" text="Navnet til brukeren skal hit" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="userName" alignment="CENTER" layoutX="-1.0" prefHeight="48.0" prefWidth="388.0" text="Navnet til brukeren skal hit" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>

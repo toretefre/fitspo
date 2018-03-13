@@ -20,7 +20,7 @@ public class TrainerTest {
 		if (customerList.size() > 0) {
 			Customer customer = customerList.get(0);
 			Assert.assertEquals(String.class, customer.getName().getClass());
-			Assert.assertTrue(customer.getSteps() >= 0);
+			Assert.assertTrue(customer.getTotalSteps() >= 0);
 		}
 	} 
 	

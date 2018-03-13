@@ -39,7 +39,7 @@ public class FitspoAppController implements Initializable {
 			Label name = new Label(customers.get(i).getName());
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(String.valueOf(customers.get(i).getSteps()));
+			Label skritt = new Label(String.valueOf(customers.get(i).getTotalSteps()));
 			skritt.setId("personboxSkrittLabel");
 			
 			person.getChildren().addAll(name,skritt);
