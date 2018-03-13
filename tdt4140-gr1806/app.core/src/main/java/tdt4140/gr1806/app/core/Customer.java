@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
 //import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Customer {
 	
@@ -130,6 +131,7 @@ public class Customer {
 			e.printStackTrace();
 		}
 		return null;
+
 	}
 	
 	
@@ -225,9 +227,31 @@ public class Customer {
 			e.printStackTrace();
 		}	
 	}
-	
-	
-	
-	
+
+
+	// This method uses an inclusive range
+	public static int getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
+
+		String sql = "select SUM(steps) " +
+				"from StepsOnDay " +
+				"where customerId=? and ?<=walkDay and walkDay<=? " +
+				"group by customerId";
+
+		Connection connection = ConnectionManager.connect();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("SUM(steps)");
+		}
+		catch(Exception e) {
+			System.out.println("Error");
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 }
