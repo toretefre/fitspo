@@ -36,15 +36,14 @@ import java.sql.Statement;
 						"    from StepsOnDay " + 
 						"    group by customerId) as StepsTable " + 
 						"on Customer.id=StepsTable.customerId");
-				/**
-				 * The steps from each customer is put into nested Arraylists 
-				 * and added into the main Arraylist.
-				 */
+
 				
 				while(rs.next()) {
+					int id = rs.getInt("customerId");
 					String name = rs.getString("name");
 					int steps = rs.getInt("steps");
-					Customer cus = new Customer(name, steps);
+					Customer cus = new Customer(id, name);
+					cus.setSteps(steps);
 					customers.add(cus);
 				}}
 				catch (Exception e) {
