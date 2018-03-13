@@ -15,7 +15,7 @@ public class Customer {
 	
 	private int totalSteps, id, height, weight;
 	private String name, telephone;
-	private Date birthdate, registrationDate;
+	private String birthdate, registrationDate;
 	private Gender gender;
 
 	/**
@@ -25,9 +25,16 @@ public class Customer {
 	 * 
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
-	public Customer(int id, String name) {
+	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int totalSteps, String registrationDate) {
 		this.id = id;
+		this.telephone = telephone;
 		this.name = name;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.height = height;
+		this.weight = weight;
+		this.totalSteps = totalSteps;
+		this.registrationDate = registrationDate;
 	}
 	
 
@@ -83,12 +90,12 @@ public class Customer {
 	}
 
 
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
 
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -107,8 +114,11 @@ public class Customer {
 		return id;
 	}
 
-
-	public Date getRegistrationDate() {
+	public String getRegistrationDate() {
+		return registrationDate;
+	}
+/*
+	public String getRegistrationDate() {
 		ConnectionManager.connect();
 		
 		try {
@@ -122,7 +132,7 @@ public class Customer {
 			while(rs.next()) {
 				Timestamp registrationDate = rs.getTimestamp("dateRegistered");
 				System.out.println(registrationDate.toString());
-				return new Date(registrationDate.getTime());
+				return new String(registrationDate.getTime());
 			}
 			
 		} catch (Exception e) {
@@ -130,6 +140,7 @@ public class Customer {
 		}
 		return null;
 	}
+	*/
 	
 	
 	/**

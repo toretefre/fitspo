@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Customer;
+import tdt4140.gr1806.app.core.Gender;
 /**
  * FitspoAppController Class use the Trainer Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -32,12 +33,12 @@ public class FitspoAppController_trainer implements Initializable {
 		// resulting in errors here (.toString() for example). This should be solved in Customer and not here.
 		ArrayList<String[]> data = new ArrayList<>();
 		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
-//		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate().toString()});
-//		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
-//		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
-//		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
+		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate().toString()});
+		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
+		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
+		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(selectedPerson.getTotalSteps())});
-//		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
+		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -61,7 +62,7 @@ public class FitspoAppController_trainer implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		container.setFitToWidth(true);
-		Customer test = new Customer(1, "Hans");
+		Customer test = new Customer(1, "95704576", "Hans", "1997-09-02", Gender.M, 182, 80, 20000, "2018-03-03");
 		loadCustomerData(test);
 	}
 }
