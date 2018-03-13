@@ -7,6 +7,10 @@
 		<groupId>tdt4140-gr1806</groupId>
 		<artifactId>tdt4140-gr1806</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+	<properties>	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 	</parent>
 	
 	<dependencies>
