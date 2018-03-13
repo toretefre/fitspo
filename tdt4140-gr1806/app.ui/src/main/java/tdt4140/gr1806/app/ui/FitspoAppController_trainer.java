@@ -24,9 +24,9 @@ public class FitspoAppController_trainer implements Initializable {
 	@FXML private ScrollPane container;
 	@FXML private VBox content;
 
+	private void loadCustomerData(ArrayList)
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		container.setFitToWidth(true);
-		// personalInfo(Trainer.getCustomers());
 	}
 }
