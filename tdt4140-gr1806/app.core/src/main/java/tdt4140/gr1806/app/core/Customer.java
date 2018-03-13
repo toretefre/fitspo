@@ -10,23 +10,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Customer {
 	
+	private int steps, id, height, weight, telephone;
 	private String name;
-	private int steps;
-	
-	public Customer(String name, int steps) {
+	private Date birthdate, registrationDate;
+	private Gender gender;
+
+	/**
+	 * 
+	 * @param id ID corresponding to customer row in DB
+	 * @param name Customer name
+	 * 
+	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
+	 */
+	public Customer(int id, String name) {
+		this.id = id;
 		this.name = name;
-		this.steps = steps;
 	}
 	
-	
-	
+
 	public String getName() {
 		return this.name;
 	}
-
 
 
 	public void setName(String name) {
@@ -34,24 +42,96 @@ public class Customer {
 	}
 
 
-
 	public int getSteps() {
 		return steps;
 	}
 
 
-
 	public void setSteps(int steps) {
 		this.steps = steps;
 	}
+
 	
+	public int getHeight() {
+		return height;
+	}
 
 
-	public static void main(String args[]) {
-		//int i = Customer.addCustomer("Henriette");
-		//Customer.addSteps(i, 8000, "2018-03-06");
-		System.out.println(Trainer.getCustomers());
-		System.out.println(getCustomer("Berit"));
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+
+	public int getWeight() {
+		return weight;
+	}
+
+
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+
+
+	public int getTelephone() {
+		return telephone;
+	}
+
+
+	public void setTelephone(int telephone) {
+		this.telephone = telephone;
+	}
+
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+
+	public Gender getGender() {
+		return gender;
+	}
+
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public Date getRegistrationDate() {
+		ConnectionManager.connect();
+		
+		try {
+			System.out.println("UserID is " + this.id);
+			Statement stmt = ConnectionManager.conn.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"select dateRegistered " + 
+					"from Customer " + 
+					"where id = " + this.id);
+
+			while(rs.next()) {
+				Timestamp registrationDate = rs.getTimestamp("dateRegistered");
+				System.out.println(registrationDate.toString());
+				return new Date(registrationDate.getTime());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 	
 	
@@ -83,6 +163,7 @@ public class Customer {
 	 * 
 	 * @param name; name of a new customer.
 	 * @return auto generated id if there is made a new row in the DB, -1 if not.
+	 * 
 	 */
 	public static int addCustomer(String name) {
 		if (name == null) {
@@ -169,11 +250,31 @@ public class Customer {
 			e.printStackTrace();
 		}	
 	}
-	
-	
-	
-	
-	
-	
+
+
+	// This method uses an inclusive range
+	public static int getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
+
+		String sql = "select SUM(steps) " +
+				"from StepsOnDay " +
+				"where customerId=? and ?<=walkDay and walkDay<=? " +
+				"group by customerId";
+
+		Connection connection = ConnectionManager.connect();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("SUM(steps)");
+		}
+		catch(Exception e) {
+			System.out.println("Error");
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 }
