@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,7 +23,10 @@ public class FitspoAppController_trainer implements Initializable {
 	@FXML private ScrollPane container;
 	@FXML private VBox content;
 
-	private void loadCustomerData(ArrayList)
+	private void loadCustomerData(ArrayList<String> customer) {
+		// heftig shit
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		container.setFitToWidth(true);
