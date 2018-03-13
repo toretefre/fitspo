@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
 
@@ -23,7 +24,7 @@ public class Customer {
 	
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -43,15 +44,40 @@ public class Customer {
 	public void setSteps(int steps) {
 		this.steps = steps;
 	}
-
+	
 
 
 	public static void main(String args[]) {
 		//int i = Customer.addCustomer("Henriette");
 		//Customer.addSteps(i, 8000, "2018-03-06");
+		System.out.println(Trainer.getCustomers());
+		System.out.println(getCustomer("Berit"));
 	}
 	
 	
+	@Override
+	public String toString() {
+		return name + " " + steps;
+	}
+
+	/**
+	 * Get a specified customer from the list of customers
+	 * @param name
+	 * @return specified customer from name
+	 */
+	
+	public static Customer getCustomer(String name) {
+		ArrayList<Customer> customers = Trainer.getCustomers();
+		
+		for (Customer customer : customers) {
+			if (name.equals(customer.getName())) {
+				return customer;
+			}
+		}
+		
+		return null;
+	}
+
 	/**
 	 * Adds a new customer to the database, where only the name is set.
 	 * 
@@ -143,6 +169,8 @@ public class Customer {
 			e.printStackTrace();
 		}	
 	}
+	
+	
 	
 	
 	
