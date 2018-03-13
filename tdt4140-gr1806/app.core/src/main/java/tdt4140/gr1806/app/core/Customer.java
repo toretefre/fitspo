@@ -19,8 +19,8 @@ public class Customer extends ActiveDomainObject{
 	
 	private int steps, height;
 	private double weight;
-	private int id;
-	private String name, birthDate = "NULL", dateRegistered, telephone;
+	private int id = -1;
+	private String name, birthDate, dateRegistered, telephone;
 	private Gender gender;
 
 	/**
@@ -37,9 +37,13 @@ public class Customer extends ActiveDomainObject{
 		c.init(conn);
 		System.out.println(c.getName());
 		System.out.println(c.getGender());
+		c.setName("Henriette Andersen");
+		c.save(conn);
 		
-		
-		
+		/*Customer n = new Customer();
+		n.setName("Testie Mc Test");
+		n.setTelephone("12345678");
+		n.save(conn); */
 	}
 	
 	public Customer(int id) {
@@ -278,28 +282,58 @@ public class Customer extends ActiveDomainObject{
 
 	@Override
 	public void save(Connection conn) {
-		try {
-			String update = "update Customer set name=?, gender=?, telephone=?, birthDate=?, height=?, weight=? where id=?";
-			PreparedStatement pstmt = conn.prepareStatement(update);
-			pstmt.setString(1, this.name);
-			pstmt.setObject(2, this.gender);
-			pstmt.setString(3, this.telephone);
-			pstmt.setString(4, this.birthDate);
-			pstmt.setInt(5, this.height);
-			pstmt.setDouble(6, this.weight);
-			pstmt.setInt(7, this.id);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-        	System.out.println("db error during insert of customer with id = "+this.id);
-        	System.err.print(e);
-        	return;
-        	}
-		
+		if (this.id == -1) {
+			try {
+				String update = "insert into Customer (name, gender, telephone, birthDate, height, weight) values (?, ?, ?, ?, ?, ?);";
+				PreparedStatement pstmt = conn.prepareStatement(update);
+				pstmt.setString(1, this.name);
+				pstmt.setObject(2, this.gender);
+				pstmt.setString(3, this.telephone);
+				pstmt.setString(4, this.birthDate);
+				if (this.height == 0) {
+					pstmt.setString(5, null);
+				} else {
+					pstmt.setInt(5, this.height);
+				}
+				if (this.height == 0.0) {
+					pstmt.setString(6, null);
+				} else {
+					pstmt.setDouble(6, this.weight);
+				}
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+	        	System.out.println("db error during inserting of new customer");
+	        	System.err.print(e);
+	        	return;
+	        	}
+		} else {
+			try {
+				String update = "update Customer set name=?, gender=?, telephone=?, birthDate=?, height=?, weight=? where id=?";
+				PreparedStatement pstmt = conn.prepareStatement(update);
+				pstmt.setString(1, this.name);
+				pstmt.setObject(2, this.gender);
+				pstmt.setString(3, this.telephone);
+				pstmt.setString(4, this.birthDate);
+				if (this.height == 0) {
+					pstmt.setString(5, null);
+				} else {
+					pstmt.setInt(5, this.height);
+				}
+				if (this.height == 0.0) {
+					pstmt.setString(6, null);
+				} else {
+					pstmt.setDouble(6, this.weight);
+				}
+				pstmt.setInt(7, this.id);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+	        	System.out.println("db error during insert of customer with id = "+this.id);
+	        	System.err.print(e);
+	        	return;
+	        	}
+		}
 	}
 
-	
-	
-	
 	
 
 }
