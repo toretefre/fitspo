@@ -17,10 +17,10 @@ import com.sun.javafx.image.impl.ByteIndexed.Getter;
 
 public class Customer extends ActiveDomainObject{
 	
-	private int steps, height, weight, telephone;
-	private int id = -1;
-	private String name, birthDate = "NULL", dateRegistered;
-	//private Date birthdate, dateRegistered;
+	private int steps, height;
+	private double weight;
+	private int id;
+	private String name, birthDate = "NULL", dateRegistered, telephone;
 	private Gender gender;
 
 	/**
@@ -31,6 +31,16 @@ public class Customer extends ActiveDomainObject{
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
 	
+	public static void main(String [ ] args){
+		Connection conn = ConnectionManager.connect();
+		Customer c = new Customer(19);
+		c.init(conn);
+		System.out.println(c.getName());
+		System.out.println(c.getGender());
+		
+		
+		
+	}
 	
 	public Customer(int id) {
 		this.id = id;
@@ -66,17 +76,17 @@ public class Customer extends ActiveDomainObject{
 		this.height = height;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
-	public int getTelephone() {
-		return telephone;
+	public String getTelephone() {
+		return this.telephone;
 	}
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
@@ -224,31 +234,32 @@ public class Customer extends ActiveDomainObject{
 	@Override
 	public void init(Connection conn) {
 		try {
-			Statement stmt = conn.createStatement();
-			String query = "select name, gender, dateRegistered, telephone, birthDate, height, weight from Customer where id=" + this.id;
-			ResultSet rs = stmt.executeQuery(query);
+			String query = "select name, gender, dateRegistered, telephone, birthDate, height, weight from Customer where id=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, this.id);
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				this.name =  rs.getString("name");
 				try {
 					this.gender = Gender.cast(rs.getString("gender"));
-				} finally {
+				} catch(Exception e){
 				}
 				this.dateRegistered = rs.getString("dateRegistered");
 				try {
-					this.telephone = rs.getInt("telephone");
-				} finally {
+					this.telephone = rs.getString("telephone");
+				} catch(Exception e){
 				}
 				try {
 					this.birthDate = rs.getString("birthDate");
-				} finally {
+				} catch(Exception e){
 				}
 				try {
 					this.height = rs.getInt("height");
-				} finally {
+				} catch(Exception e){
 				}
 				try {
-					this.weight = rs.getInt("weight");
-				} finally {
+					this.weight = rs.getDouble("weight");
+				} catch(Exception e){
 				}
 			}
 			} catch (Exception e) {
@@ -268,10 +279,16 @@ public class Customer extends ActiveDomainObject{
 	@Override
 	public void save(Connection conn) {
 		try {
-			Statement stmt = conn.createStatement(); 
-			String update = "update Customer set navn="+this.name+",gender="+this.gender+",telephone="+this.telephone+
-							",birthDate="+this.birthDate+",height="+this.height+",weight="+this.weight+" where id="+this.id;
-			stmt.executeQuery(update);
+			String update = "update Customer set name=?, gender=?, telephone=?, birthDate=?, height=?, weight=? where id=?";
+			PreparedStatement pstmt = conn.prepareStatement(update);
+			pstmt.setString(1, this.name);
+			pstmt.setObject(2, this.gender);
+			pstmt.setString(3, this.telephone);
+			pstmt.setString(4, this.birthDate);
+			pstmt.setInt(5, this.height);
+			pstmt.setDouble(6, this.weight);
+			pstmt.setInt(7, this.id);
+			pstmt.executeUpdate();
 		} catch (Exception e) {
         	System.out.println("db error during insert of customer with id = "+this.id);
         	System.err.print(e);
