@@ -1,5 +1,7 @@
 package tdt4140.gr1806.app.core;
-
+/**
+ * Instances of this class will represent a customer
+ */
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 //import java.sql.Statement;
 
-public class Customer {
+public class Customer implements ActiveDomainObject{
 	
 	private int steps, id, height, weight, telephone;
 	private String name;
@@ -25,9 +27,10 @@ public class Customer {
 	 * 
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
-	public Customer(int id, String name) {
+	
+	
+	public Customer(int id) {
 		this.id = id;
-		this.name = name;
 	}
 	
 
@@ -224,6 +227,28 @@ public class Customer {
 			System.err.println("Could not save to database.");
 			e.printStackTrace();
 		}	
+	}
+
+
+	@Override
+	public void init(Connection conn) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+
+
+	@Override
+	public void refresh(Connection conn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void save(Connection conn) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

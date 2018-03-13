@@ -3,7 +3,7 @@ package tdt4140.gr1806.app.core;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionManager {
+public abstract class ConnectionManager {
 
     public static Connection conn;
 
