@@ -1,8 +1,13 @@
 package tdt4140.gr1806.app.core;
 
+/**
+ * Demo for Customer from sprint1 (before architecture change, and remove customer);
+ * @author henriette_andersen
+ *
+ */
 public class DemoCustomer {
 	
-	// Run and show database:
+	// Show database, run, and show updates to database:
 	public static void main(String args[]) {
 		// This will create a customer with name Bartosz in the Customer table, 
 		// auto_generate an id, and assign that id to i.
