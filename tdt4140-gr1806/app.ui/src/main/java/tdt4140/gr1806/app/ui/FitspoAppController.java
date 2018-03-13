@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Trainer;
+import tdt4140.gr1806.app.ui.MenuController;
 /**
  * FitspoAppController Class use the Trainer Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp.fxml
@@ -22,6 +23,7 @@ import tdt4140.gr1806.app.core.Trainer;
 public class FitspoAppController implements Initializable {
 	@FXML private ScrollPane container;
 	@FXML private VBox content;
+	@FXML MenuController menucontroller; 
 	
 	/**
 	 * uses the Trainer Class method getCustomer which returns a ArrayList<ArrayList<String>> of customers and puts it into
@@ -48,6 +50,7 @@ public class FitspoAppController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		menucontroller.init(this);
 		container.setFitToWidth(true);
 		homeLanding(Trainer.getCustomers());
 	}

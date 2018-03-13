@@ -16,6 +16,9 @@
             <Font name="Arial" size="50.0" />
          </font></Label>
    </top>
+   <left>
+   		<fx:include fx:id="menucontroller" source="Menu.fxml"/>	
+   </left>
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="485.0" prefWidth="388.0" BorderPane.alignment="CENTER">
          <children>
