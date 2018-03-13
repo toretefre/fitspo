@@ -42,7 +42,7 @@ import java.sql.Statement;
 					int id = rs.getInt("customerId");
 					String name = rs.getString("name");
 					int steps = rs.getInt("steps");
-					Customer cus = new Customer(id, telephone, name, birthdate, gender, height, weight, totalSteps, registrationDate);
+					Customer cus = new Customer(id, name);
 					cus.setTotalSteps(steps);
 					customers.add(cus);
 				}}

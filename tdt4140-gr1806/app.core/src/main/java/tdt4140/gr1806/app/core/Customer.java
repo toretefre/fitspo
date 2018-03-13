@@ -38,6 +38,13 @@ public class Customer {
 	}
 	
 
+	public Customer(int id, String name) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+	}
+
+
 	public String getName() {
 		return name;
 	}
