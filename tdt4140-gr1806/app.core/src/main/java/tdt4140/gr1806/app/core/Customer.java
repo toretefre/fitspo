@@ -12,8 +12,40 @@ import java.util.Calendar;
 
 public class Customer {
 	
-
+	private String name;
+	private int steps;
 	
+	public Customer(String name, int steps) {
+		this.name = name;
+		this.steps = steps;
+	}
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public int getSteps() {
+		return steps;
+	}
+
+
+
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+
+
+
 	public static void main(String args[]) {
 		//int i = Customer.addCustomer("Henriette");
 		//Customer.addSteps(i, 8000, "2018-03-06");
