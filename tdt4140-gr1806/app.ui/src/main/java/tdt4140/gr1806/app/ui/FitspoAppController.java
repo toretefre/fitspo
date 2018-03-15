@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Trainer;
@@ -21,37 +23,19 @@ import tdt4140.gr1806.app.ui.MenuController;
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
  */
 public class FitspoAppController implements Initializable {
-	@FXML private ScrollPane container;
-	@FXML private VBox content;
-	@FXML MenuController menucontroller; 
+	// All different controllers
+	@FXML private CustomerViewController customerViewController;
+	@FXML private MenuController menuBarController; 
 	
-	/**
-	 * uses the Trainer Class method getCustomer which returns a ArrayList<ArrayList<String>> of customers and puts it into
-	 * the ScrollPane from FitspoApp.fxml. Sets differents ID for styling purposes.
-	 * @param customers
-	 * @see tdt4140.gr1806.app.core.Trainer.java
-	 */
-	private void homeLanding(ArrayList<ArrayList<String>> customers) {
-		for (int i=0; i<customers.size(); i++) {
-			HBox person = new HBox();
-			person.setId("personbox" + i % 2);
-			person.setPrefWidth(container.getPrefWidth());
-			
-			Label name = new Label(customers.get(i).get(0));
-			name.setId("personboxLabel");
-			
-			Label skritt = new Label(customers.get(i).get(1));
-			skritt.setId("personboxSkrittLabel");
-			
-			person.getChildren().addAll(name,skritt);
-			content.getChildren().add(person);
-		}	
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		menucontroller.init(this);
-		container.setFitToWidth(true);
-		homeLanding(Trainer.getCustomers());
+	@FXML BorderPane mainStage;
+	@FXML VBox centerContent;
+	
+	
+	
+	
+	@FXML public void initialize(URL location, ResourceBundle resources) {
+		System.out.println("Start");
+		menuBarController.init(this);
+		customerViewController.init(this);
 	}
 }
