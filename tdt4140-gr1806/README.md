@@ -43,7 +43,7 @@ Give an example
 ```
 
 ## Deployment
-1. Set up your database information in ConnectionManager
+1. Set up your database information in ConnectionManager in the core folder.
 2. Create a .jar file for the project and run the application.
 
 ## Built With
@@ -70,13 +70,13 @@ We use [Gitlab](https://about.gitlab.com/) for versioning.
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Magnus Gaustad Eriksson** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/graphs/master) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
