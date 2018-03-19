@@ -4,18 +4,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- * Implements methods for use on customer objects
+ * Implements methods for use to add customer.
  * @author henriette_andersen
  *
  */
 
-public class CustomerController {
+public class AddCustomerController extends ConnectionManager {
 	public static void main(String[] args) {
-		int yey;
-		Connection connection = ConnectionManager.connect();
-		String sql = "insert into "
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.executeUpdate();
+	}
+	
+	Customer customer = new Customer();
+	
+	public AddCustomerController() {
+		connect();
+	}
+	
+	public void registerName(String name) {
+		customer.setName(name);
 	}
 	
 }
