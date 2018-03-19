@@ -226,8 +226,29 @@ public class Customer {
 		}	
 	}
 	
+	/**
+	 * Deletes specified customer and all associated data in database
+	 * @param id 
+	 * @exception 
+	 */
+
 	
-	
+	public static void removeCustomer(int id) {
+		
+		try {
+			String sql = "delete from Customer where id=?";
+			Connection connection = ConnectionManager.connect();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Could not find customer id in database");
+			e.printStackTrace();
+		}
+	}
+}
+
 	
 
-}
+
