@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.Trainer;
 
 public class CustomerViewController {
@@ -23,16 +24,16 @@ public class CustomerViewController {
 	 * @see tdt4140.gr1806.app.core.Trainer.java
 	 * OBS: Alle metoder og felt skal være merket med @FXML
 	 */
-	public void homeLanding(ArrayList<ArrayList<String>> customers) {
+	public void homeLanding(ArrayList<Customer> customers) {
 		for (int i=0; i<customers.size(); i++) {
 			HBox person = new HBox();
 			person.setId("personbox" + i % 2);
 			person.setPrefWidth(customerlist.getPrefWidth());
 			
-			Label name = new Label(customers.get(i).get(0));
+			Label name = new Label(customers.get(i).getName());
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(customers.get(i).get(1));
+			Label skritt = new Label(Integer.toString(customers.get(i).getSteps()));
 			skritt.setId("personboxSkrittLabel");
 			
 			person.getChildren().addAll(name,skritt);
@@ -44,7 +45,6 @@ public class CustomerViewController {
 		fitspo = fitspoAppController;
 		//customerlist.setFitToHeight(true);
 		customerlist.setFitToWidth(true);
-		homeLanding(Trainer.getCustomers());
 		homeLanding(Trainer.getCustomers());
 	}
 
