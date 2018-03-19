@@ -3,9 +3,13 @@ package tdt4140.gr1806.app.ui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.annotation.Resources;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.ui.MenuController;
+import tdt4140.gr1806.app.ui.FitspoAppController_trainer;
 
 
 /**
@@ -19,20 +23,21 @@ import tdt4140.gr1806.app.ui.MenuController;
 
 
 public class FitspoAppController implements Initializable {
+	ResourceBundle resources;
+	
 	// All different controllers
 	@FXML private CustomerViewController customerViewController;
 	@FXML private MenuController menuBarController; 
+	@FXML private FitspoAppController_trainer fitspoAppController_trainer;
 	
-	/**
-	 * uses the Trainer Class method getCustomer which returns a ArrayList<ArrayList<String>> of customers and puts it into
-	 * the ScrollPane from FitspoApp.fxml. Sets differents ID for styling purposes.
-	 * @param customers
-	 * @see tdt4140.gr1806.app.core.Trainer.java
-	 */
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.resources = resources;
 		System.out.println("Start");
+		System.out.println(fitspoAppController_trainer);
+		System.out.println(menuBarController);
+		System.out.println(customerViewController);
 		menuBarController.init(this);
 		customerViewController.init(this);
 	}

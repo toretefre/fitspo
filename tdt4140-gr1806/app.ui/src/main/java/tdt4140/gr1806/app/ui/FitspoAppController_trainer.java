@@ -21,7 +21,9 @@ import tdt4140.gr1806.app.core.Gender;
  * @see tdt4140.gr1806.app.core.Trainer.java
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
  */
-public class FitspoAppController_trainer implements Initializable {
+public class FitspoAppController_trainer {
+	FitspoAppController mainController;
+	
 	@FXML private ScrollPane container;
 	@FXML private VBox content;
 	@FXML private Label userName;
@@ -32,13 +34,13 @@ public class FitspoAppController_trainer implements Initializable {
 		// The reason a lot is commented out is because the Customer can be constructed without the fields
 		// resulting in errors here (.toString() for example). This should be solved in Customer and not here.
 		ArrayList<String[]> data = new ArrayList<>();
-		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
-		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate().toString()});
-		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
-		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
-		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
+//		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
+//		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate().toString()});
+//		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
+//		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
+//		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(selectedPerson.getSteps())});
-		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
+//		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -59,14 +61,8 @@ public class FitspoAppController_trainer implements Initializable {
 
 	}
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		container.setFitToWidth(true);
-		Customer test = new Customer(1, "95704576", "Hans", "1997-09-02", Gender.M, 182, 80, 20000, "2018-03-03");
-		loadCustomerData(test);
-	}
-	
-	public void initialize(URL location, ResourceBundle resources, Customer target) {
+	public void init(Customer target) {
+		System.out.println("Init called in fitspoappcontroller_trainer");
 		container.setFitToWidth(true);
 		loadCustomerData(target);
 	}
