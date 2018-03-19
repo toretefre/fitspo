@@ -8,10 +8,10 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="133.0">
          <children>
-            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#navigateHome" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
             <Button fx:id="somethingButton" mnemonicParsing="false" onAction="#something" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Something" />
-            <Button fx:id="somethingElseButton" mnemonicParsing="false" onAction="#navigateHome" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="SomethingElse" />
-            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#navigateHome" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="SomethingStrange" />
+            <Button fx:id="somethingElseButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="SomethingElse" />
+            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="SomethingStrange" />
          </children>
       </VBox>
    </children>

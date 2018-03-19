@@ -7,13 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FitspoApp extends Application {
+	Stage window;
+	Scene startScene;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        startScene = new Scene(root);
+        window.setScene(startScene);
+        window.show();
     }
 
     public static void main(String[] args) {
