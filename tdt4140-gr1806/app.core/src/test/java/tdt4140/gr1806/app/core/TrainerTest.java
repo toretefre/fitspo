@@ -1,14 +1,13 @@
 package tdt4140.gr1806.app.core;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TrainerTest {
-	
-	@Test
-	public void testConnection() {
-		// Possibly being made by Magnus in superclass?
-	}
+
 	
 	/**
 	 * Testing if Arraylist containing customer data is being returned
@@ -16,11 +15,13 @@ public class TrainerTest {
 	
 	@Test
 	public void testArraylist() {
-		
-		System.out.println(Trainer.getCustomers());
-		Assert.assertNotNull(Trainer.getCustomers());
-		Assert.assertEquals("message", Trainer.getCustomers(), Trainer.getCustomers());	
-	
+		ArrayList<Customer> customerList = Trainer.getCustomers();
+		Assert.assertEquals(ArrayList.class, customerList.getClass());
+		if (customerList.size() > 0) {
+			Customer customer = customerList.get(0);
+			Assert.assertEquals(String.class, customer.getName().getClass());
+			Assert.assertTrue(customer.getTotalSteps() >= 0);
+		}
 	} 
 	
 	/**

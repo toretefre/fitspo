@@ -9,19 +9,17 @@ import java.sql.Statement;
  *
  */
 
-	public class Trainer {
-		ArrayList<ArrayList<String>> customers;	
-		
+	public class Trainer {		
 		
 		/**
 		 *  Get a list of all customers and total number of steps taken by each customer
 		 * 
-		 * @return 		list of customers names and total number of steps from database
+		 * @return 		list of customer-objects from database
 		 */
-		public static ArrayList<ArrayList<String>> getCustomers() {
+		public static ArrayList<Customer> getCustomers() {
 			ConnectionManager.connect();
 
-			ArrayList<ArrayList<String>> customers = new ArrayList<>();
+			ArrayList<Customer> customers = new ArrayList<>();
 			
 			/**
 			 * Connects to database, 
@@ -31,26 +29,22 @@ import java.sql.Statement;
 			try {
 				Statement stmt = ConnectionManager.conn.createStatement();
 				ResultSet rs = stmt.executeQuery(
-						"select Customer.name, StepsTable.steps " + 
+						"select Customer.id, Customer.name, StepsTable.steps " + 
 						"from Customer " + 
 						"left join ( " + 
 						"    select customerId, SUM(steps) as steps " + 
 						"    from StepsOnDay " + 
 						"    group by customerId) as StepsTable " + 
 						"on Customer.id=StepsTable.customerId");
-				/**
-				 * The steps from each customer is put into nested Arraylists 
-				 * and added into the main Arraylist.
-				 */
+
 				
 				while(rs.next()) {
+					int id = rs.getInt("id");
 					String name = rs.getString("name");
-					String steps = String.valueOf(rs.getInt("steps"));
-					ArrayList<String> cus = new ArrayList<String>();
-					cus.add(name);
-					cus.add(steps);
+					int steps = rs.getInt("steps");
+					Customer cus = new Customer(id, name);
+					cus.setSteps(steps);
 					customers.add(cus);
-					
 				}}
 				catch (Exception e) {
 					System.err.println(e);
@@ -59,4 +53,3 @@ import java.sql.Statement;
 			
 		}
 	}
-
