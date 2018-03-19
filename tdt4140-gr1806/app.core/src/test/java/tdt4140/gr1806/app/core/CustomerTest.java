@@ -30,12 +30,10 @@ public class CustomerTest {
 	
 	@Test
 	public void testGetCustomer() {
-		ArrayList<Customer> testCustomer = Trainer.getCustomers();
-		for(Customer c : testCustomer) {
-			if(c.getName().equals("Berit")) {
-				assertTrue("This will be true", true);
-			}
-		}
+		Customer cus = Customer.getCustomer("Berit");
+		Assert.assertEquals("Berit", cus.getName());
+		Customer cus2 = Customer.getCustomer("12345");
+		Assert.assertNull(cus2);
 	}
 
 	Customer customer1, customer2;
