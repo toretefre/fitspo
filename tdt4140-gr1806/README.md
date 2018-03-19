@@ -18,8 +18,10 @@ When installing eclipse choose advanced mode and select product tdt4180 without 
 
 
 Clone the project from terminal:
-- cd path/to/yourEclipseWorkspace
-- git clone git@gitlab.stud.iie.ntnu.no:tdt4140-2018/06.git
+```
+cd path/to/yourEclipseWorkspace
+git clone git@gitlab.stud.iie.ntnu.no:tdt4140-2018/06.git
+```
 
 Try run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 
@@ -70,7 +72,7 @@ We use [Gitlab](https://about.gitlab.com/) for versioning.
 
 ## Authors
 
-* **Magnus Gaustad Eriksson** 
+* Magnus Gaustad Eriksson
 
 See also the list of [contributors](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/graphs/master) who participated in this project.
 
