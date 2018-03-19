@@ -38,24 +38,6 @@ public class CustomerTest {
 		}
 	}
 
-
-
-	@Test
-	public void testGetCustomerNotNull() {
-		ArrayList<Customer> testCustomer = Trainer.getCustomers();
-		//assertNotNull("List should not be null", testCustomer);
-		for(Customer c : testCustomer) {
-			List<Customer> objekter = new ArrayList<>();
-			if(c.getName().equals("Berit")) {
-				objekter.add(new Customer("Berit", 222));
-		assertNotNull("List should not be null", objekter);
-			}
-		}
-		
-		
-	}
-	
-
 	Customer customer1, customer2;
 	
 	@Before
