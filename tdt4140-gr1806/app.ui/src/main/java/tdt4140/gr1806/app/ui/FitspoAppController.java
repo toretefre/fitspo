@@ -40,25 +40,8 @@ public class FitspoAppController implements Initializable {
 	 * @param customers
 	 * @see tdt4140.gr1806.app.core.Trainer.java
 	 */
-	private void homeLanding(ArrayList<Customer> customers) {
-		for (int i=0; i<customers.size(); i++) {
-			HBox person = new HBox();
-			person.setId("personbox" + i % 2);
-			person.setPrefWidth(container.getPrefWidth());
-			
-			Label name = new Label(customers.get(i).getName());
-			name.setId("personboxLabel");
-			
-			Label skritt = new Label(String.valueOf(customers.get(i).getSteps()));
-			skritt.setId("personboxSkrittLabel");
-			
-			person.getChildren().addAll(name,skritt);
-			content.getChildren().add(person);
-		}	
-	}
 
-	
-	@FXML public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Start");
 		menuBarController.init(this);
 		customerViewController.init(this);
