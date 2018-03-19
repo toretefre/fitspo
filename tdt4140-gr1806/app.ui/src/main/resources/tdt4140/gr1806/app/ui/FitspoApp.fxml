@@ -1,50 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600" prefWidth="500" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
+<BorderPane fx:id="mainStage" prefHeight="600" prefWidth="600.0" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
             <Font name="Arial" size="50.0" />
          </font></Label>
    </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      	<children>
+        		<fx:include fx:id="menuBar" source="Menu.fxml" />
+   		</children>
+      </VBox>
+   </left>
    <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="485.0" prefWidth="388.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox layoutX="-1.0" prefHeight="50.0" prefWidth="392.0" styleClass="hbox">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="205.0" text="Navn">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="163.0" styleClass="Label" text="Skritt">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <ScrollPane fx:id="container" layoutX="1.0" layoutY="50.0" pickOnBounds="false" prefHeight="433.0" prefWidth="386.0" styleClass="scrollpane">
-               <content>
-                  <VBox fx:id="content" prefWidth="383.0" styleClass="vbox" />
-               </content>
-            </ScrollPane>
-         </children>
-      </Pane>
+      <VBox fx:id="centerContent" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      	<children>
+      		<fx:include fx:id="customerView" source="CustomerView.fxml" />
+      	</children>
+      </VBox>
    </center>
 </BorderPane>
