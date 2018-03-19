@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public class Customer {
 	
-	private int totalSteps, id, height, weight;
+	private int steps, id, height, weight;
 	private String name, telephone;
 	private String birthdate, registrationDate;
 	private Gender gender;
@@ -25,7 +25,7 @@ public class Customer {
 	 * 
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
-	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int totalSteps, String registrationDate) {
+	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int steps, String registrationDate) {
 		this.id = id;
 		this.telephone = telephone;
 		this.name = name;
@@ -33,7 +33,7 @@ public class Customer {
 		this.gender = gender;
 		this.height = height;
 		this.weight = weight;
-		this.totalSteps = totalSteps;
+		this.steps = steps;
 		this.registrationDate = registrationDate;
 	}
 	
@@ -55,13 +55,13 @@ public class Customer {
 	}
 
 	
-	public int getTotalSteps() {
-		return totalSteps;
+	public int getSteps() {
+		return steps;
 	}
 
 
-	public void setTotalSteps(int totalSteps) {
-		this.totalSteps = totalSteps;
+	public void setSteps(int steps) {
+		this.steps = steps;
 	}
 
 	

@@ -37,7 +37,7 @@ public class FitspoAppController_trainer implements Initializable {
 		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
 		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
 		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
-		data.add(new String[]{"Steps", Integer.toString(selectedPerson.getTotalSteps())});
+		data.add(new String[]{"Steps", Integer.toString(selectedPerson.getSteps())});
 		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
 		
 		for (int i = 0; i < data.size(); i++) {
@@ -64,5 +64,10 @@ public class FitspoAppController_trainer implements Initializable {
 		container.setFitToWidth(true);
 		Customer test = new Customer(1, "95704576", "Hans", "1997-09-02", Gender.M, 182, 80, 20000, "2018-03-03");
 		loadCustomerData(test);
+	}
+	
+	public void initialize(URL location, ResourceBundle resources, Customer target) {
+		container.setFitToWidth(true);
+		loadCustomerData(target);
 	}
 }

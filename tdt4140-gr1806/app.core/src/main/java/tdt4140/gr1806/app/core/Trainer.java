@@ -29,7 +29,7 @@ import java.sql.Statement;
 			try {
 				Statement stmt = ConnectionManager.conn.createStatement();
 				ResultSet rs = stmt.executeQuery(
-						"select Customer.name, StepsTable.steps " + 
+						"select Customer.id, Customer.name, StepsTable.steps " + 
 						"from Customer " + 
 						"left join ( " + 
 						"    select customerId, SUM(steps) as steps " + 
@@ -39,11 +39,11 @@ import java.sql.Statement;
 
 				
 				while(rs.next()) {
-					int id = rs.getInt("customerId");
+					int id = rs.getInt("id");
 					String name = rs.getString("name");
 					int steps = rs.getInt("steps");
 					Customer cus = new Customer(id, name);
-					cus.setTotalSteps(steps);
+					cus.setSteps(steps);
 					customers.add(cus);
 				}}
 				catch (Exception e) {
@@ -53,4 +53,3 @@ import java.sql.Statement;
 			
 		}
 	}
-
