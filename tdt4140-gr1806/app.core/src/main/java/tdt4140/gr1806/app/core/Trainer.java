@@ -9,7 +9,7 @@ import java.sql.Statement;
  *
  */
 
-	public class Trainer {		
+	public class Trainer {
 		
 		/**
 		 *  Get a list of all customers and total number of steps taken by each customer

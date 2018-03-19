@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ public class Customer {
 	
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -135,6 +136,29 @@ public class Customer {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return name + " " + steps;
+	}
+
+	/**
+	 * Get a specified customer from the list of customers
+	 * @param name
+	 * @return specified customer from name
+	 */
+	
+	public static Customer getCustomer(String name) {
+		ArrayList<Customer> customers = Trainer.getCustomers();
+		
+		for (Customer customer : customers) {
+			if (name.equals(customer.getName())) {
+				return customer;
+			}
+		}
+		
+		return null;
+	}
+
 	/**
 	 * Adds a new customer to the database, where only the name is set.
 	 * 

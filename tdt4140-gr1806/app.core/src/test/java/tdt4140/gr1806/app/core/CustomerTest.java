@@ -9,6 +9,16 @@ import org.junit.Before;
 
 import org.junit.Test;
 
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+
 /**
  * This is a class for ONLY testing Customer's methods,
  * so we use mock objects for this purpose.
@@ -17,6 +27,14 @@ import org.junit.Test;
  *
  */
 public class CustomerTest {
+	
+	@Test
+	public void testGetCustomer() {
+		Customer cus = Customer.getCustomer("Berit");
+		Assert.assertEquals("Berit", cus.getName());
+		Customer cus2 = Customer.getCustomer("12345");
+		Assert.assertNull(cus2);
+	}
 
 	Customer customer1, customer2;
 	
