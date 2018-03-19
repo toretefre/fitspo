@@ -7,34 +7,24 @@ An application for a personal trainer to follow up his/hers customers.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-IDE with maven extension
+- JDK version 1.8
+- IDE with Maven Extension, e.g Eclipse
 
 
-```
-Give examples
-```
+### Installing with Eclipse
+These instructions will give you a development env running in Eclipse
+1. Download Eclipse with TDT4180 extension. This version will give you access to testfunctonalites through Maven
+When installing eclipse choose advanced mode and select product tdt4180 without any projects.
 
-### Installing
 
-A step by step series of examples that tell you have to get a development env running
+Clone the project from terminal:
+- cd path/to/yourEclipseWorkspace
+- git clone git@gitlab.stud.iie.ntnu.no:tdt4140-2018/06.git
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Try run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 
 ## Running the tests
-
-Right-click
+Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test"
 
 ### Break down into end to end tests
 
@@ -53,22 +43,30 @@ Give an example
 ```
 
 ## Deployment
-
-Add additional notes about how to deploy this on a live system
+1. Set up your database information in ConnectionManager
+2. Create a .jar file for the project and run the application.
 
 ## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Eclipse](https://www.eclipse.org/) - IDE
+* [IntelliJ] (https://www.jetbrains.com/idea/) - IDE
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+### List of contributors
+- Adrian Hofseth
+- Åsmund Staldvik
+- Tore Tefre
+- Matias Ravnå Eidem
+- Henriette Andersen
+- Ingrid Domben
+- Magnus Gaustad Eriksson
+
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [Gitlab](https://about.gitlab.com/) for versioning.
 
 ## Authors
 
@@ -82,6 +80,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* Our teaching assistants for great help and reviews.
