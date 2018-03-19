@@ -42,6 +42,9 @@ public class CustomerViewController {
 
 	public void init(FitspoAppController fitspoAppController) {
 		fitspo = fitspoAppController;
+		//customerlist.setFitToHeight(true);
+		customerlist.setFitToWidth(true);
+		homeLanding(Trainer.getCustomers());
 		homeLanding(Trainer.getCustomers());
 	}
 

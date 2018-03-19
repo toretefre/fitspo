@@ -17,16 +17,21 @@ public class MenuController {
 	private FitspoAppController fitspo;
 	
 	@FXML Button homeButton;
+	@FXML Button somethingButton;
 	FXMLLoader loader;
 	
 	@FXML public void navigateHome(ActionEvent event) throws Exception {
 		
-		
-		
 		fitspo.centerContent.getChildren().clear();
 		fitspo.centerContent.getChildren().add(loader.load(getClass().getResource("CustomerView.fxml")));
+		fitspo.mainStage.getChildren().add(fitspo.centerContent.getChildren().add(loader.load(getClass().getResource("CustomerView.fxml"))));
        }
 
+	@FXML public void something(ActionEvent event) throws Exception {
+		System.out.println("Something cool happend here");
+		
+	}
+	
 	public void init(FitspoAppController fitspoAppController) {
 		fitspo = fitspoAppController;
 	};

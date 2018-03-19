@@ -33,6 +33,8 @@ public class FitspoAppController implements Initializable {
 	
 	
 	
+	
+	
 	@FXML public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Start");
 		menuBarController.init(this);

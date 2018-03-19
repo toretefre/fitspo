@@ -43,4 +43,10 @@ ScrollPane HBox {
 	-fx-pref-height:50;
 }
 
+.menuButton {
+	-fx-background-color:"white";
+	-fx-font-size: 15;
+	-fx-border-color:"black";
+	-fx-wrap-text: true;
+}
 
