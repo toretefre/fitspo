@@ -3,11 +3,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600" prefWidth="500" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController_trainer">
+<BorderPane prefHeight="600" prefWidth="700" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.FitspoAppController_trainer">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
@@ -15,20 +16,31 @@
          </font></Label>
    </top>
    <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400" prefWidth="500" BorderPane.alignment="CENTER">
-         <children>
-            <ScrollPane fx:id="container" layoutX="1.0" layoutY="49.0" pickOnBounds="false" prefHeight="397.0" prefWidth="362.0" styleClass="scrollpane">
+   	<VBox prefHeight="404.0" prefWidth="480.0" BorderPane.alignment="CENTER">
+      <children>
+      	<Pane maxHeight="400" maxWidth="500" prefHeight="400" prefWidth="500" BorderPane.alignment="CENTER">
+        	 <children>
+         	<HBox layoutX="-1.0" layoutY="-1.0" prefHeight="50.0" prefWidth="444.0" styleClass="hbox">
+         		<children>
+            			<Label fx:id="userName" alignment="CENTER" layoutX="-1.0" prefHeight="50.0" prefWidth="444" text="Navnet til brukeren skal hit" textAlignment="CENTER" wrapText="true">
+               			<font>
+                 			 <Font name="Arial" size="18.0" />
+               			</font>
+            			</Label>
+
+            
+         		</children>
+      		</HBox>
+            <ScrollPane fx:id="container" layoutX="5.0" layoutY="49.0" pickOnBounds="false" prefHeight="348.0" prefWidth="491.0" styleClass="scrollpane">
                <content>
                   <VBox fx:id="content" prefWidth="383.0" styleClass="vbox" />
                </content>
             </ScrollPane>
-            <Label fx:id="userName" alignment="CENTER" layoutX="-1.0" prefHeight="48.0" prefWidth="388.0" text="Navnet til brukeren skal hit" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </Label>
+           
          </children>
       </Pane>
+      </children>
+      </VBox>
    </center>
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">

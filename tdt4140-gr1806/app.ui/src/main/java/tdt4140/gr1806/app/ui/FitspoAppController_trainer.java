@@ -46,7 +46,6 @@ public class FitspoAppController_trainer {
 			HBox dataRow = new HBox();
 			dataRow.setId("datarow" + i % 2);
 			dataRow.setPrefWidth(container.getPrefWidth());
-			
 			Label name = new Label(data.get(i)[0]);
 			name.setId("personboxLabel");
 			

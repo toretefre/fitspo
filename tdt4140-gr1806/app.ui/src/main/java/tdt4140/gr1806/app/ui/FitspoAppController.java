@@ -35,9 +35,6 @@ public class FitspoAppController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.resources = resources;
 		System.out.println("Start");
-		System.out.println(fitspoAppController_trainer);
-		System.out.println(menuBarController);
-		System.out.println(customerViewController);
 		menuBarController.init(this);
 		customerViewController.init(this);
 	}

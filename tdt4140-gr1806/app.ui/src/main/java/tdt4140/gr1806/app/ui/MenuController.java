@@ -38,7 +38,6 @@ public class MenuController {
 	}
 	
 	public void init(FitspoAppController fitspoAppController) {
-		System.out.println("init called in menucontroller");
 		fitspo = fitspoAppController;
 	};
 	

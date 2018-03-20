@@ -71,8 +71,6 @@ public class CustomerViewController {
 	}
 
 	public void init(FitspoAppController fitspoAppController) {
-		System.out.println("Init called in customerview");
-		System.out.println(oneCust);
 		this.fitspo = fitspoAppController;
 		//customerlist.setFitToHeight(true);
 		customerlist.setFitToWidth(true);
