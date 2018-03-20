@@ -121,8 +121,21 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
-	public void getTotalStepsFromCustomer(Customer customer) {
-		String query = ""
+	// Or throw something, so we do not return -1 if it doesn't work...
+	public int getTotalSteps(Customer customer) {
+		int i = -1;
+		try {
+			String query = "select sum(steps) from StepsOnDay where id=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, customer.getId());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			i = rs.getInt(1);
+		} catch (Exception e) {
+			System.out.println("db error during selection of customers");
+    			System.err.print(e);
+		}
+		return i;
 	}
 	
 	

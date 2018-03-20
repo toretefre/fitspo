@@ -19,9 +19,9 @@ public class CustomerTest {
 	
 	@Before
 	public void makeCustomer() {
-		customer1 = new Customer(1, "Hans");
-		customer2 = new Customer(2, "Kåre");
-	}
+		customer1 = new Customer("Henriette", "F", "99352762", "", int height, double weight);
+		customer2 = new Customer(int id, String name, String gender, String dateRegistered, String telephone, String birthDate, int height, double weight);
+		customer3 = new Customer(customer1 = new Customer(String name, String gender, String telephone, String birthDate, int height, double weight);
 	
 	@Test
 	public void testConstructor() {
@@ -30,7 +30,7 @@ public class CustomerTest {
 		Assert.assertEquals(1, customer1.getId());
 		Assert.assertEquals(2, customer2.getId());
 		Assert.assertEquals("Hans", customer1.getName());
-		Assert.assertEquals("Kåre", customer2.getName());
+		Assert.assertEquals("Kï¿½re", customer2.getName());
 	}
 	
 	@Test

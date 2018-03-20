@@ -29,42 +29,56 @@ public class Customer{
 	 */
 	
 	public Customer(String name, String gender, String telephone, String birthDate, int height, double weight) {
-		this.name = name;
-		this.birthDate = birthDate;
-		this.telephone = telephone;
-		this.gender = gender;
-		this.height = height;
-		this.weight = weight;
+		this.setName(name);
+		this.setGender(gender);
+		this.setTelephone(telephone);
+		this.setBirthDate(birthDate);
+		this.setHeight(height);
+		this.setWeight(weight);
 	}
 	
 	public Customer(int id, String name, String gender, String dateRegistered, String telephone, String birthDate, int height, double weight) {
-		this.id = id;
-		this.name = name;
-		this.birthDate = birthDate;
-		this.telephone = telephone;
-		this.gender = gender;
-		this.dateRegistered = dateRegistered;
-		this.height = height;
-		this.weight = weight;
-	}
-	
-	public static void main(String[] args) {
-		Customer c = new Customer("Navn", null, "Telefon", null, 0, 0);
-		System.out.println(c);
+		this.setId(id);
+		this.setName(name);
+		this.setGender(gender);
+		this.setTelephone(telephone);
+		this.setDateRegistered(dateRegistered);
+		this.setBirthDate(birthDate);
+		this.setHeight(height);
+		this.setWeight(weight);
 	}
 	
 	
-	public void setId(int id) {
-		this.id = id;
+	
+	private final String illegalNameCharacters = "!$@*^?><&%#/\\}{:\"'+";
+	private final String illegalPhoneCharacters = "!$@*^?><&%#/\\}{:\"'´`";
+	
+	private void checkIllegalCharacters(String string, String illegalCharacters) {
+		for (int i=0; i<string.length(); i++) {
+			String c = string.substring(i, i+1);
+			if (illegalCharacters.contains(c)) {
+				throw new IllegalArgumentException(name + "contains the illegal character " + c);
+			}
+		}
 	}
+	
 	public int getId() {
 		return this.id;
+	}
+	
+	// Should only be called via CustomerReposit
+	protected void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
+		this.checkIllegalCharacters(name, this.illegalNameCharacters);
+		if (name.length() > 300) {
+			throw new IllegalArgumentException("Name is too long.");
+		}
 		this.name = name;
 	}	
 	
@@ -72,6 +86,9 @@ public class Customer{
 		return height;
 	}
 	public void setHeight(int height) {
+		if (height > 500 || height < 10) {
+			throw new IllegalArgumentException("The height seems wrong. The integer is in cm.");
+		}
 		this.height = height;
 	}
 
@@ -79,6 +96,9 @@ public class Customer{
 		return weight;
 	}
 	public void setWeight(double weight) {
+		if (weight > 500 || weight < 10) {
+			throw new IllegalArgumentException("The weight seems wrong. The double is in kg.");
+		}
 		this.weight = weight;
 	}
 
@@ -86,6 +106,10 @@ public class Customer{
 		return this.telephone;
 	}
 	public void setTelephone(String telephone) {
+		if (telephone.length() > 20) {
+			throw new IllegalArgumentException("Too long phone number.");
+		}
+		this.checkIllegalCharacters(telephone, this.illegalPhoneCharacters);
 		this.telephone = telephone;
 	}
 
@@ -93,8 +117,12 @@ public class Customer{
 	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthdate(String birthdate) {
-		this.birthDate = birthdate;
+	public void setBirthDate(String birthDate) {
+		String[] parts = birthDate.split("-");
+		if (parts.length != 3 || parts[0].length() != 4 || parts[1].length() != 2 || parts[2].length() != 2) {
+			throw new IllegalArgumentException("The birthDate needs to be of the form \"yyyy-mm-dd\"");
+		}
+		this.birthDate = birthDate;
 	}
 	
 	
@@ -102,7 +130,8 @@ public class Customer{
 		return dateRegistered;
 	}
 	
-	public void setDateRegistered(String date) {
+	// Should only be called via CustomerReposit
+	protected void setDateRegistered(String date) {
 		this.dateRegistered = date;
 	}
 	
@@ -111,6 +140,9 @@ public class Customer{
 		return gender;
 	}
 	public void setGender(String gender) {
+		if (gender != "M" && gender != "F" && gender != "O") {
+			throw new IllegalArgumentException("Only \"M\", \"F\", and \"O\" are legal gender inputs. You inserted: " + gender);
+		}
 		this.gender = gender;
 	}
 
@@ -121,6 +153,4 @@ public class Customer{
         		"\nTelephone: " + this.telephone + "\nGender: " + this.gender + "\nDate Registered: " + this.dateRegistered + 
         		"\nHeight: "+ this.height + "\nWeight: "+ this.weight;
     }
-	
-
 }
