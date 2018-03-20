@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -37,22 +38,20 @@ public class CustomerViewController {
 			person.setId("personbox" + i % 2);
 			person.setPrefWidth(customerlist.getPrefWidth());
 			person.setOnMouseClicked((event) -> {
-				Parent root = null;
+				Parent root;
 				try {
-					 FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
-					 root = loader.load();
-					 FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
-					 controller.init(currentCust);
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
+					root = loader.load();
+					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
+					controller.init(currentCust);
+					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					stage.setScene(new Scene(root));
+					stage.show();	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	            Stage stage = new Stage();
-	            stage.setTitle("My New Stage Title");
-	            stage.setScene(new Scene(root, 450, 800));
-	            stage.show();
 			});
-			
 			Label name = new Label(currentCust.getName());
 			name.setId("personboxLabel");
 			
@@ -62,6 +61,13 @@ public class CustomerViewController {
 			person.getChildren().addAll(name,skritt);
 			content.getChildren().add(person);
 		}	
+	}
+	
+	@FXML public void CustomerStage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp_trainer.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
 	}
 
 	public void init(FitspoAppController fitspoAppController) {
