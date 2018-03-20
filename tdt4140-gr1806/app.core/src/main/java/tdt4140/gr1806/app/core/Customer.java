@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
 import java.time.LocalDate;
@@ -16,8 +17,7 @@ import java.time.LocalDate;
 public class Customer {
 	
 	private int steps, id, height, weight;
-	private String name, telephone, birthdate;
-	private Date registrationDate;
+	private String name, telephone, birthdate, registrationDate;
 	private Gender gender;
 
 	/**
