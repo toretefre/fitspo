@@ -91,7 +91,6 @@ public class CustomerTest {
 		customer1.setWeight(80);
 		Assert.assertEquals(80, customer1.getWeight());
 		
-		Assert.assertNotNull(customer1.getRegistrationDate());
 	}
 	
 	
@@ -128,5 +127,4 @@ public class CustomerTest {
 		return false;
 	}
 
-	}
 }
