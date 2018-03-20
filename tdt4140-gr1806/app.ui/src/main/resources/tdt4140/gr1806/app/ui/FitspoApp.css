@@ -24,7 +24,8 @@ ScrollPane {
 }
 #personboxLabel {
 	-fx-pref-width:260;
-	-fx-alignment:"CENTER_LEFT"
+	-fx-alignment:"CENTER_LEFT";
+	-fx-padding:10px;
 }
 
 Pane {
