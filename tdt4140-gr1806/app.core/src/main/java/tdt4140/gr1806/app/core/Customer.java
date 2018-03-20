@@ -7,24 +7,156 @@ import java.sql.ResultSet;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Customer {
 	
+	private int steps, id, height, weight;
+	private String name, telephone, birthdate, registrationDate;
+	private Gender gender;
+
+	/**
+	 * 
+	 * @param id ID corresponding to customer row in DB
+	 * @param name Customer name
+	 * 
+	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
+	 */
+	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int steps, String registrationDate) {
+		this.id = id;
+		this.telephone = telephone;
+		this.name = name;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.height = height;
+		this.weight = weight;
+		this.steps = steps;
+		this.registrationDate = registrationDate;
+	}
+	
+
+	public Customer(int id, String name) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+	}
+
+
+	public String getName() {
+		return this.name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	
-	public static void main(String args[]) {
-		//int i = Customer.addCustomer("Henriette");
-		//Customer.addSteps(i, 8000, "2018-03-06");
+	public int getSteps() {
+		return steps;
+	}
+
+
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+
+	
+	public int getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+	public int getWeight() {
+		return weight;
+	}
+
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+
+	//TODO: Validate number
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
+
+	public Gender getGender() {
+		return gender;
+	}
+
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+	public String getRegistrationDate() {
+		return registrationDate;
 	}
 	
 	
+	@Override
+	public String toString() {
+		return name + " " + steps;
+	}
+
+	/**
+	 * Get a specified customer from the list of customers
+	 * @param name
+	 * @return specified customer from name
+	 */
+	
+	public static Customer getCustomer(String name) {
+		ArrayList<Customer> customers = Trainer.getCustomers();
+		
+		for (Customer customer : customers) {
+			if (name.equals(customer.getName())) {
+				return customer;
+			}
+		}
+		
+		return null;
+	}
+
 	/**
 	 * Adds a new customer to the database, where only the name is set.
 	 * 
 	 * @param name; name of a new customer.
 	 * @return auto generated id if there is made a new row in the DB, -1 if not.
+	 * 
 	 */
 	public static int addCustomer(String name) {
 		if (name == null) {
@@ -46,6 +178,7 @@ public class Customer {
 			e.printStackTrace();
 			return -1;
 		}	
+		
 	}
 	
 	
@@ -96,7 +229,6 @@ public class Customer {
 	
 	
 	public static void addSteps(int id, int steps, String date) {
-		// TODO: Sjekk at string er på riktig form, om vi ikke lar sql ta dette.
 		try {
 			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"
@@ -112,8 +244,55 @@ public class Customer {
 		}	
 	}
 	
+	// This method uses an inclusive range
+	public static int getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
+
+		String sql = "select SUM(steps) " +
+				"from StepsOnDay " +
+				"where customerId=? and ?<=walkDay and walkDay<=? " +
+				"group by customerId";
+
+		Connection connection = ConnectionManager.connect();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("SUM(steps)");
+		}
+		catch(Exception e) {
+			System.out.println("Error");
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 	
+	/**
+	 * Deletes specified customer and all associated data in database
+	 * @param id 
+	 * @exception 
+	 */
+
 	
+	public static void removeCustomer(int id) {
+		
+		try {
+			String sql = "delete from Customer where id=?";
+			Connection connection = ConnectionManager.connect();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Could not find customer id in database");
+			e.printStackTrace();
+		}
+	}
+}
+
 	
 
-}
+
