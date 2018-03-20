@@ -15,9 +15,9 @@ import java.time.LocalDate;
 
 public class Customer {
 	
-	private int steps, id, height, weight, telephone;
-	private String name;
-	private Date birthdate, registrationDate;
+	private int steps, id, height, weight;
+	private String name, telephone;
+	private String birthdate, registrationDate;
 	private Gender gender;
 
 	/**
@@ -27,11 +27,25 @@ public class Customer {
 	 * 
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
+	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int steps, String registrationDate) {
+		this.id = id;
+		this.telephone = telephone;
+		this.name = name;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.height = height;
+		this.weight = weight;
+		this.steps = steps;
+		this.registrationDate = registrationDate;
+	}
+	
+
 	public Customer(int id, String name) {
+		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.name = name;
 	}
-	
+
 
 	public String getName() {
 		return this.name;
@@ -42,7 +56,7 @@ public class Customer {
 		this.name = name;
 	}
 
-
+	
 	public int getSteps() {
 		return steps;
 	}
@@ -63,11 +77,9 @@ public class Customer {
 	}
 
 
-
 	public int getWeight() {
 		return weight;
 	}
-
 
 
 	public void setWeight(int weight) {
@@ -76,22 +88,23 @@ public class Customer {
 
 
 
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
 
-	public void setTelephone(int telephone) {
+	//TODO: Validate number
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
 
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
 
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -110,29 +123,8 @@ public class Customer {
 		return id;
 	}
 
-
-	public Date getRegistrationDate() {
-		ConnectionManager.connect();
-		
-		try {
-			System.out.println("UserID is " + this.id);
-			Statement stmt = ConnectionManager.conn.createStatement();
-			ResultSet rs = stmt.executeQuery(
-					"select dateRegistered " + 
-					"from Customer " + 
-					"where id = " + this.id);
-
-			while(rs.next()) {
-				Timestamp registrationDate = rs.getTimestamp("dateRegistered");
-				System.out.println(registrationDate.toString());
-				return new Date(registrationDate.getTime());
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-
+	public String getRegistrationDate() {
+		return registrationDate;
 	}
 	
 	
@@ -236,7 +228,6 @@ public class Customer {
 	
 	
 	public static void addSteps(int id, int steps, String date) {
-		// TODO: Sjekk at string er på riktig form, om vi ikke lar sql ta dette.
 		try {
 			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"

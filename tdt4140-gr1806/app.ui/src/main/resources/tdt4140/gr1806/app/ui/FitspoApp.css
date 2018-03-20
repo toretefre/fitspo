@@ -11,11 +11,11 @@ ScrollPane {
 	-fx-background-color: "grey";
 }
 
-#personbox1 {
+#personbox1, #datarow1 {
 	-fx-background-color: "white";
 }
 
-#personbox0 {
+#personbox0, #datarow0 {
 	-fx-background-color: "B7B5B3";
 }
 #personboxSkrittLabel {
@@ -44,4 +44,10 @@ ScrollPane HBox {
 	-fx-pref-height:50;
 }
 
+.menuButton {
+	-fx-background-color:"white";
+	-fx-font-size: 15;
+	-fx-border-color:"black";
+	-fx-wrap-text: true;
+}
 
