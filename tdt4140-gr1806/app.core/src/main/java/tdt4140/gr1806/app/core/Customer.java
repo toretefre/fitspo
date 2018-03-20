@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
 //import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Customer {
 	
@@ -26,14 +27,28 @@ public class Customer {
 	 * 
 	 * TODO: Maybe this construtor only should take in id and fetch data from the database?
 	 */
-	public Customer(int id, String name) {
+	public Customer(int id, String telephone, String name, String birthdate, Gender gender, int height, int weight, int steps, String registrationDate) {
 		this.id = id;
+		this.telephone = telephone;
 		this.name = name;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.height = height;
+		this.weight = weight;
+		this.steps = steps;
+		this.registrationDate = registrationDate;
 	}
 	
 
+	public Customer(int id, String name) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+	}
+
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -41,7 +56,7 @@ public class Customer {
 		this.name = name;
 	}
 
-
+	
 	public int getSteps() {
 		return steps;
 	}
@@ -62,11 +77,9 @@ public class Customer {
 	}
 
 
-
 	public int getWeight() {
 		return weight;
 	}
-
 
 
 	public void setWeight(int weight) {
@@ -80,6 +93,7 @@ public class Customer {
 	}
 
 
+	//TODO: Validate number
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
@@ -109,31 +123,34 @@ public class Customer {
 		return id;
 	}
 
-
-	public Date getRegistrationDate() {
-		ConnectionManager.connect();
-		
-		try {
-			System.out.println("UserID is " + this.id);
-			Statement stmt = ConnectionManager.conn.createStatement();
-			ResultSet rs = stmt.executeQuery(
-					"select dateRegistered " + 
-					"from Customer " + 
-					"where id = " + this.id);
-
-			while(rs.next()) {
-				Timestamp registrationDate = rs.getTimestamp("dateRegistered");
-				System.out.println(registrationDate.toString());
-				return new Date(registrationDate.getTime());
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public String getRegistrationDate() {
+		return registrationDate;
 	}
 	
 	
+	@Override
+	public String toString() {
+		return name + " " + steps;
+	}
+
+	/**
+	 * Get a specified customer from the list of customers
+	 * @param name
+	 * @return specified customer from name
+	 */
+	
+	public static Customer getCustomer(String name) {
+		ArrayList<Customer> customers = Trainer.getCustomers();
+		
+		for (Customer customer : customers) {
+			if (name.equals(customer.getName())) {
+				return customer;
+			}
+		}
+		
+		return null;
+	}
+
 	/**
 	 * Adds a new customer to the database, where only the name is set.
 	 * 
@@ -212,7 +229,6 @@ public class Customer {
 	
 	
 	public static void addSteps(int id, int steps, String date) {
-		// TODO: Sjekk at string er på riktig form, om vi ikke lar sql ta dette.
 		try {
 			String sql = "insert into StepsOnDay (customerId, steps, walkDay) values ("
 					+ "'" + id + "',"

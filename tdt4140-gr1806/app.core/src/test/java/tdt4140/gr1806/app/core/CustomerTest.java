@@ -11,6 +11,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 
+import org.junit.Test;
+
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+
 /**
  * This is a class for ONLY testing Customer's methods,
  * so we use mock objects for this purpose.
@@ -19,14 +31,29 @@ import org.junit.Rule;
  *
  */
 public class CustomerTest {
+	
+	@Test
+	public void testGetCustomer() {
+		Customer cus = Customer.getCustomer("Berit");
+		Assert.assertEquals("Berit", cus.getName());
+		Customer cus2 = Customer.getCustomer("12345");
+		Assert.assertNull(cus2);
+	}
+
 	Customer customer1, customer2;
 	
+	/**
+	 * @author Aasmund
+	 */
 	@Before
 	public void makeCustomer() {
 		customer1 = new Customer(1, "Hans");
-		customer2 = new Customer(2, "K�re");
+		customer2 = new Customer(2, "Kaare");
 	}
 	
+	/**
+	 * @author Aasmund
+	 */
 	@Test
 	public void testConstructor() {
 		Assert.assertTrue(customer1 instanceof Customer);
@@ -34,9 +61,12 @@ public class CustomerTest {
 		Assert.assertEquals(1, customer1.getId());
 		Assert.assertEquals(2, customer2.getId());
 		Assert.assertEquals("Hans", customer1.getName());
-		Assert.assertEquals("K�re", customer2.getName());
+		Assert.assertEquals("Kaare", customer2.getName());
 	}
 	
+	/**
+	 * @author Aasmund
+	 */
 	@Test
 	public void testGettersAndSetters() {
 		customer1.setBirthdate("1996-07-19");
@@ -98,4 +128,5 @@ public class CustomerTest {
 		return false;
 	}
 
+	}
 }
