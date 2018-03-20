@@ -93,38 +93,5 @@ public class CustomerTest {
 		
 	}
 	
-	
-	/**
-	 * @author Aasmund
-	 * 
-	 */
-	@Test
-	public void testAddingAndDeletingFromDB() {
-		int customerId = Customer.addCustomer(customer1.getName());
-		int nullCustomer = Customer.addCustomer(null);
-		
-		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
-		Assert.assertTrue(nullCustomer == -1);
-		
-		Customer.removeCustomer(customerId);
-		
-		Customer.removeCustomer(-20);
-		
-		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
-		
-		
-	}
-	
-	private boolean isCustomerInDatabase(String name) {
-		ArrayList<Customer> customerList = Trainer.getCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getName().equals(name)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
 
 }
