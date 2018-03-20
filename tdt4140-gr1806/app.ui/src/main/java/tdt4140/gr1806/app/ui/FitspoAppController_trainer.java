@@ -34,13 +34,13 @@ public class FitspoAppController_trainer {
 		// The reason a lot is commented out is because the Customer can be constructed without the fields
 		// resulting in errors here (.toString() for example). This should be solved in Customer and not here.
 		ArrayList<String[]> data = new ArrayList<>();
-//		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
-//		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate().toString()});
-//		data.add(new String[]{"Gender", selectedPerson.getGender().toString()});
-//		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
-//		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
+		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
+		data.add(new String[]{"Birthdate", selectedPerson.getBirthdate()});
+//		data.add(new String[]{"Gender", selectedPerson.getGender()});
+		data.add(new String[]{"Height", Integer.toString(selectedPerson.getHeight())});
+		data.add(new String[]{"Weight", Integer.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(selectedPerson.getSteps())});
-//		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate().toString()});
+		data.add(new String[]{"Registration Date", selectedPerson.getRegistrationDate()});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
