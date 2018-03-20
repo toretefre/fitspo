@@ -124,30 +124,6 @@ public class Customer {
 	public String getRegistrationDate() {
 		return registrationDate;
 	}
-/*
-	public String getRegistrationDate() {
-		ConnectionManager.connect();
-		
-		try {
-			System.out.println("UserID is " + this.id);
-			Statement stmt = ConnectionManager.conn.createStatement();
-			ResultSet rs = stmt.executeQuery(
-					"select dateRegistered " + 
-					"from Customer " + 
-					"where id = " + this.id);
-
-			while(rs.next()) {
-				Timestamp registrationDate = rs.getTimestamp("dateRegistered");
-				System.out.println(registrationDate.toString());
-				return new String(registrationDate.getTime());
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	*/
 	
 	
 	/**
