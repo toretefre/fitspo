@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 //import java.sql.Statement;
@@ -16,8 +17,7 @@ import java.time.LocalDate;
 public class Customer {
 	
 	private int steps, id, height, weight;
-	private String name, telephone;
-	private String birthdate, registrationDate;
+	private String name, telephone, birthdate, registrationDate;
 	private Gender gender;
 
 	/**
@@ -178,6 +178,7 @@ public class Customer {
 			e.printStackTrace();
 			return -1;
 		}	
+		
 	}
 	
 	
@@ -242,8 +243,7 @@ public class Customer {
 			e.printStackTrace();
 		}	
 	}
-
-
+	
 	// This method uses an inclusive range
 	public static int getTotalStepsInDateRange(int id, LocalDate startDate, LocalDate endDate) {
 
@@ -269,4 +269,30 @@ public class Customer {
 		}
 	}
 
+	
+	/**
+	 * Deletes specified customer and all associated data in database
+	 * @param id 
+	 * @exception 
+	 */
+
+	
+	public static void removeCustomer(int id) {
+		
+		try {
+			String sql = "delete from Customer where id=?";
+			Connection connection = ConnectionManager.connect();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Could not find customer id in database");
+			e.printStackTrace();
+		}
+	}
 }
+
+	
+
+

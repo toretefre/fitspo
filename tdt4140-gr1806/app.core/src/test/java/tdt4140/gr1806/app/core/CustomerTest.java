@@ -1,11 +1,15 @@
 package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 
 import org.junit.Test;
 
@@ -86,6 +90,41 @@ public class CustomerTest {
 		
 		customer1.setWeight(80);
 		Assert.assertEquals(80, customer1.getWeight());
-
+		
 	}
+	
+	
+	/**
+	 * @author Aasmund
+	 * 
+	 */
+	@Test
+	public void testAddingAndDeletingFromDB() {
+		int customerId = Customer.addCustomer(customer1.getName());
+		int nullCustomer = Customer.addCustomer(null);
+		
+		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
+		Assert.assertTrue(nullCustomer == -1);
+		
+		Customer.removeCustomer(customerId);
+		
+		Customer.removeCustomer(-20);
+		
+		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
+		
+		
+	}
+	
+	private boolean isCustomerInDatabase(String name) {
+		ArrayList<Customer> customerList = Trainer.getCustomers();
+		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
+		for (Customer customer : customerList) {
+			if (customer.getName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }
