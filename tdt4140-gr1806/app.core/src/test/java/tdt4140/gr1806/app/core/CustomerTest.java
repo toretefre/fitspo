@@ -1,11 +1,15 @@
 package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 
 /**
  * This is a class for ONLY testing Customer's methods,
@@ -20,7 +24,7 @@ public class CustomerTest {
 	@Before
 	public void makeCustomer() {
 		customer1 = new Customer(1, "Hans");
-		customer2 = new Customer(2, "Kåre");
+		customer2 = new Customer(2, "Kï¿½re");
 	}
 	
 	@Test
@@ -30,13 +34,13 @@ public class CustomerTest {
 		Assert.assertEquals(1, customer1.getId());
 		Assert.assertEquals(2, customer2.getId());
 		Assert.assertEquals("Hans", customer1.getName());
-		Assert.assertEquals("Kåre", customer2.getName());
+		Assert.assertEquals("Kï¿½re", customer2.getName());
 	}
 	
 	@Test
 	public void testGettersAndSetters() {
-		customer1.setBirthdate(Date.valueOf("1996-07-19"));
-		Assert.assertEquals( "1996-07-19", customer1.getBirthdate().toString());
+		customer1.setBirthdate("1996-07-19");
+		Assert.assertEquals( "1996-07-19", customer1.getBirthdate());
 		
 		customer1.setGender(Gender.M);
 		Assert.assertEquals(Gender.M, customer1.getGender());
@@ -51,13 +55,47 @@ public class CustomerTest {
 		customer1.setSteps(1337);
 		Assert.assertEquals(1337, customer1.getSteps());
 		
-		customer1.setTelephone(12345678);
-		Assert.assertEquals(12345678, customer1.getTelephone());
+		customer1.setTelephone("12345678");
+		Assert.assertEquals("12345678", customer1.getTelephone());
 		
 		customer1.setWeight(80);
 		Assert.assertEquals(80, customer1.getWeight());
 		
 		Assert.assertNotNull(customer1.getRegistrationDate());
+	}
+	
+	
+	/**
+	 * @author Aasmund
+	 * 
+	 */
+	@Test
+	public void testAddingAndDeletingFromDB() {
+		int customerId = Customer.addCustomer(customer1.getName());
+		int nullCustomer = Customer.addCustomer(null);
+		
+		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
+		Assert.assertTrue(nullCustomer == -1);
+		
+		Customer.removeCustomer(customerId);
+		
+		Customer.removeCustomer(-20);
+		
+		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
+		
+		
+	}
+	
+	private boolean isCustomerInDatabase(String name) {
+		ArrayList<Customer> customerList = Trainer.getCustomers();
+		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
+		for (Customer customer : customerList) {
+			if (customer.getName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

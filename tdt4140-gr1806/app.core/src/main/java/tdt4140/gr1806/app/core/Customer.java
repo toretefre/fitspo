@@ -13,9 +13,9 @@ import java.util.Calendar;
 
 public class Customer {
 	
-	private int steps, id, height, weight, telephone;
-	private String name;
-	private Date birthdate, registrationDate;
+	private int steps, id, height, weight;
+	private String name, telephone, birthdate;
+	private Date registrationDate;
 	private Gender gender;
 
 	/**
@@ -74,22 +74,22 @@ public class Customer {
 
 
 
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
 
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
 
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -160,6 +160,7 @@ public class Customer {
 			e.printStackTrace();
 			return -1;
 		}	
+		
 	}
 	
 	
