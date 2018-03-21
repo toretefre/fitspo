@@ -36,27 +36,13 @@ Open Eclipse and the project folder.
 Run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 
 ## Running the tests
+We're using Junit 4 as our unit testing framework. 
+
 ### Unit tests
 Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test".
 
 ### Integration tests 
 For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 1. Set up your database information in ConnectionManager in the core folder.
