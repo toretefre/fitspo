@@ -1,6 +1,13 @@
 # Fitspo
 
-An application for a personal trainer to follow up his/hers customers.
+An application for a personal trainer to follow up his/her customers. The idea is that the customer has an app on their phone which collects data
+from their regular lives, and sends it to our server daily.
+This data includes steps, heartrate, gps-data and more, but most likely we'll not be using any more than the step data.
+What we aim to do is to provide the personal trainer with more detailed information about the day to day activity of the person they're working on,
+as well as the progression.
+
+
+
 
 ## Getting Started
 
