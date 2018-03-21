@@ -7,8 +7,6 @@ What we aim to do is to provide the personal trainer with more detailed informat
 as well as the progression.
 
 
-
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -39,10 +37,10 @@ Run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 We're using Junit 4 as our unit testing framework. 
 
 ### Unit tests
-Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test".
+Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test". To run one specific unit test just right click it and choose "Run as JUnit test". 
 
 ### Integration tests 
-For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify.
+For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify. 
 
 ## Deployment
 1. Set up your database information in ConnectionManager in the core folder.
