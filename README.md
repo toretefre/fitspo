@@ -29,7 +29,11 @@ Open Eclipse and the project folder.
 Run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 
 ## Running the tests
-Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test"
+### Unit tests
+Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test".
+
+### Integration tests 
+For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify.
 
 ### Break down into end to end tests
 
