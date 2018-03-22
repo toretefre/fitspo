@@ -43,7 +43,7 @@ Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test". To 
 For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify. 
 
 ### Scenario tests
-See our [Wiki] (https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/wikis/Systemtesting)
+See our [Wiki] (https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/wikis/Systemtest)
 
 ## Deployment
 1. Set up your database information in ConnectionManager in the core folder.
