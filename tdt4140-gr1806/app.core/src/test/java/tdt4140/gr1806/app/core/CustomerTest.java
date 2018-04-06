@@ -19,9 +19,9 @@ public class CustomerTest {
 	
 	@Before
 	public void makeCustomer() {
-		customer1 = new Customer("Henriette", "F", "99352762", "", int height, double weight);
-		customer2 = new Customer(int id, String name, String gender, String dateRegistered, String telephone, String birthDate, int height, double weight);
-		customer3 = new Customer(customer1 = new Customer(String name, String gender, String telephone, String birthDate, int height, double weight);
+		customer1 = new Customer("Henriette Andersen", "F", "99352762", "1994-15-02", 172, 69.1);
+		customer2 = new Customer(1, "Testie", String gender, String dateRegistered, String telephone, String birthDate, int height, double weight);
+		//customer3 = new Customer(customer1 = new Customer(String name, String gender, String telephone, String birthDate, int height, double weight);
 	
 	@Test
 	public void testConstructor() {

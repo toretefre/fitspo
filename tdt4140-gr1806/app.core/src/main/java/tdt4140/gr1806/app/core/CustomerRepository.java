@@ -108,7 +108,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	
-	public void delete(Customer customer) {
+	public void deleteCustomer(Customer customer) {
 		try {
 			String delete = "delete from Customer where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(delete);
@@ -129,8 +129,9 @@ public class CustomerRepository extends ConnectionManager {
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customer.getId());
 			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			i = rs.getInt(1);
+			while (rs.next()) {
+				i = rs.getInt(1);
+			}
 		} catch (Exception e) {
 			System.out.println("db error during selection of customers");
     			System.err.print(e);
