@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.core.Customer;
-import tdt4140.gr1806.app.core.Trainer;
+import tdt4140.gr1806.app.core.CustomerRepository;
 
 public class CustomerViewController {
 	
@@ -23,9 +23,10 @@ public class CustomerViewController {
 	@FXML FitspoAppController_trainer oneCust;
 	@FXML ScrollPane customerlist;
 	@FXML VBox content;
+	private CustomerRepository customerRepository = new CustomerRepository();
 	
 	/**
-	 * uses the Trainer Class method getCustomer which returns a ArrayList<Customer> and puts it into
+	 * uses the CustomerRepository Class method findAllCustomers which returns a ArrayList<Customer> and puts it into
 	 * the ScrollPane from FitspoApp.fxml. Sets differents ID for styling purposes.
 	 * @param customers
 	 * @see tdt4140.gr1806.app.core.Trainer.java
@@ -55,7 +56,7 @@ public class CustomerViewController {
 			Label name = new Label(currentCust.getName());
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(Integer.toString(currentCust.getSteps()));
+			Label skritt = new Label(Integer.toString(this.customerRepository.getTotalSteps(currentCust)));
 			skritt.setId("personboxSkrittLabel");
 			
 			person.getChildren().addAll(name,skritt);
@@ -74,7 +75,7 @@ public class CustomerViewController {
 		this.fitspo = fitspoAppController;
 		//customerlist.setFitToHeight(true);
 		customerlist.setFitToWidth(true);
-		homeLanding(Trainer.getCustomers());
+		homeLanding(this.customerRepository.findAllCustomers());
 	}
 
 }

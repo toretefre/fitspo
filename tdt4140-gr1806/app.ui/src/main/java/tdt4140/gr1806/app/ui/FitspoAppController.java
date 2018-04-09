@@ -13,7 +13,7 @@ import tdt4140.gr1806.app.ui.FitspoAppController_trainer;
 
 
 /**
- * FitspoAppController Class use the Trainer Class to represent an updated list of customers and their total steps.
+ * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp.fxml
  * @author Magnus
  * @version 1.0

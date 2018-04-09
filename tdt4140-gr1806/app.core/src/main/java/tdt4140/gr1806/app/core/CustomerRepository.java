@@ -10,8 +10,6 @@ import java.util.ArrayList;
  */
 
 public class CustomerRepository extends ConnectionManager {
-	public static void main(String[] args) {
-	}
 	
 	public CustomerRepository() {
 		connect();
@@ -83,6 +81,7 @@ public class CustomerRepository extends ConnectionManager {
 		int height = rs.getInt("height");
 		double weight = rs.getInt("weight");
 		
+		
 		Customer customer = new Customer(id, name, gender, date, telephone, bDate, height, weight);
 		return customer;
 	}
@@ -100,8 +99,8 @@ public class CustomerRepository extends ConnectionManager {
 				customers.add(customer);
 			}
 			} catch (Exception e) {
-            	System.out.println("db error during selection of customers");
-            	System.err.print(e);
+				System.out.println("db error during selection of customers");
+				System.err.print(e);
             	}
 		return customers;
 	}
@@ -115,7 +114,7 @@ public class CustomerRepository extends ConnectionManager {
 			pstmt.setInt(1, customer.getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("db error during selection of customers");
+			System.out.println("db error during deletion of customer with id: " + customer.getId());
         		System.err.print(e);
 		}
 	}
@@ -133,7 +132,7 @@ public class CustomerRepository extends ConnectionManager {
 				i = rs.getInt(1);
 			}
 		} catch (Exception e) {
-			System.out.println("db error during selection of customers");
+			System.out.println("db error during selection of total steps from customer with id: " + customer.getId());
     			System.err.print(e);
 		}
 		return i;
