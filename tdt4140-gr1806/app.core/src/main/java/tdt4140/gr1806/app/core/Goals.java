@@ -108,11 +108,6 @@ public class Goals extends ConnectionManager {
 		return goal;
 	}
 	
-	
-	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "Goals [customerId=" + customerId + ", goal=" + goal + ", deadLineStart=" + deadLineStart
