@@ -81,11 +81,14 @@ public class CustomerRepository extends ConnectionManager {
 		String bDate = rs.getString("birthDate");
 		int height = rs.getInt("height");
 		double weight = rs.getInt("weight");
+
 		
-		
+
 		Customer customer = new Customer(id, name, gender, date, telephone, bDate, height, weight);
 		return customer;
 	}
+	
+
 		
 		
 	
