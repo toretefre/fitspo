@@ -1,4 +1,4 @@
-package tdt4140.gr1806.app.core;
+/*package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.Test;*/
 
 
 /**
@@ -30,6 +30,8 @@ import org.junit.Test;
  * @author henriette_andersen
  *
  */
+
+/*
 public class CustomerTest {
 	
 	@Test
@@ -45,15 +47,17 @@ public class CustomerTest {
 	/**
 	 * @author Aasmund
 	 */
-	@Before
+	/*@Before
 	public void makeCustomer() {
-		customer1 = new Customer(1, "Hans");
-		customer2 = new Customer(2, "Kaare");
+		customer1 = new Customer("Henriette Andersen", "F", "99352762", "1994-15-02", 172, 69.1);
+		customer2 = new Customer(1, "Testie", String gender, String dateRegistered, String telephone, String birthDate, int height, double weight);
+		//customer3 = new Customer(customer1 = new Customer(String name, String gender, String telephone, String birthDate, int height, double weight);
 	}
 	
 	/**
 	 * @author Aasmund
 	 */
+/*
 	@Test
 	public void testConstructor() {
 		Assert.assertTrue(customer1 instanceof Customer);
@@ -67,6 +71,7 @@ public class CustomerTest {
 	/**
 	 * @author Aasmund
 	 */
+/*
 	@Test
 	public void testGettersAndSetters() {
 		customer1.setBirthdate("1996-07-19");
@@ -93,5 +98,39 @@ public class CustomerTest {
 		
 	}
 	
+	
+	/**
+	 * @author Aasmund
+	 * 
+	 */
+/*
+	@Test
+	public void testAddingAndDeletingFromDB() {
+		int customerId = Customer.addCustomer(customer1.getName());
+		int nullCustomer = Customer.addCustomer(null);
+		
+		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
+		Assert.assertTrue(nullCustomer == -1);
+		
+		Customer.removeCustomer(customerId);
+		
+		Customer.removeCustomer(-20);
+		
+		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
+		
+		
+	}
+	
+	private boolean isCustomerInDatabase(String name) {
+		ArrayList<Customer> customerList = Trainer.getCustomers();
+		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
+		for (Customer customer : customerList) {
+			if (customer.getName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
-}
+} */

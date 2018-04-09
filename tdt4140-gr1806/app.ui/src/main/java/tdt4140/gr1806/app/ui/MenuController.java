@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import tdt4140.gr1806.app.ui.FitspoAppController;
 
 /**
- * OBS: Alle metoder og felt skal være merket med @FXML
+ * OBS: All methods and attributes must be marked with @FXML
  * @author Magnus
  *
  */

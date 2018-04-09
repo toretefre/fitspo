@@ -1,6 +1,11 @@
 # Fitspo
 
-An application for a personal trainer to follow up his/hers customers.
+An application for a personal trainer to follow up his/her customers. The idea is that the customer has an app on their phone which collects data
+from their regular lives, and sends it to our server daily.
+This data includes steps, heartrate, gps-data and more, but most likely we'll not be using any more than the step data.
+What we aim to do is to provide the personal trainer with more detailed information about the day to day activity of the person they're working on,
+as well as the progression.
+
 
 ## Getting Started
 
@@ -29,23 +34,16 @@ Open Eclipse and the project folder.
 Run tdt4140-gr1806.app.core.FitspoApp.Java and the application should start.
 
 ## Running the tests
-Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test"
+We're using Junit 4 as our unit testing framework. 
 
-### Break down into end to end tests
+### Unit tests
+Right-click on the tdt4140-gr1806.core folder and click "Run As Maven Test". To run one specific unit test just right click it and choose "Run as JUnit test". 
 
-Explain what these tests test and why
+### Integration tests 
+For this you'll need to use Maven in the terminal, navigate to the project folder tdt4140-gr1806 and run mvn verify. 
 
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+### Scenario tests
+See our [Wiki] (https://gitlab.stud.iie.ntnu.no/tdt4140-2018/06/wikis/Systemtest)
 
 ## Deployment
 1. Set up your database information in ConnectionManager in the core folder.
