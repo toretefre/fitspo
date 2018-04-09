@@ -1,4 +1,4 @@
-package tdt4140.gr1806.app.core;
+/*package tdt4140.gr1806.app.core;
 
 
 import org.junit.Assert;
@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 // Will transfer the method(s) from this class to CustomerPersistenceTest when that class is ready.
 public class CustomerTemporaryPersistenceTest {
-
+/*
     @Test
     public void getTotalStepsInDateRange() {
 
@@ -26,7 +26,7 @@ public class CustomerTemporaryPersistenceTest {
 
         LocalDate startDate = LocalDate.of(2018, 2, 2);
         LocalDate endDate = LocalDate.of(2018, 2, 7);
-
+        /*
         try {
             id = Customer.addCustomer("Per Johny Testersen");
             Customer.addSteps(id, 500, "2018-02-1");
@@ -40,11 +40,15 @@ public class CustomerTemporaryPersistenceTest {
             e.printStackTrace();
             Assert.fail("Could not add customer or steps to that customer");
         }
-
+		*/
+        
+        /*
         int stepsReturned = Customer.getTotalStepsInDateRange(id, startDate, endDate);
         assertTrue("Did not get expected steps in range", stepsExpected == stepsReturned);
+		*/
 
-
+        
+        /*
         // Now delete customer and steps
         try {
             String sqlDeleteCustomer = "delete from Customer where id=?";
@@ -61,7 +65,8 @@ public class CustomerTemporaryPersistenceTest {
             e.printStackTrace();
             Assert.fail("Could not delete customer and steps, please delete customer with id " + Integer.toString(id));
         }
-
+        */
+/*
     }
+}*/
 
-}
