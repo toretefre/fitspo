@@ -1,7 +1,6 @@
 package tdt4140.gr1806.app.core;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -17,11 +16,11 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
-	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
-		if (integer != 0) {
-			p.setInt(index, integer);
-		}
-	}
+//	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
+//		if (integer != 0) {
+//			p.setInt(index, integer);
+//		}
+//	}
 	
 	
 	public Customer saveCustomer(Customer customer) {
@@ -40,14 +39,21 @@ public class CustomerRepository extends ConnectionManager {
 			pstmt.setString(2, customer.getGender());
 			pstmt.setString(3, customer.getTelephone());
 			pstmt.setString(4, customer.getBirthDate());
-			this.setIfNotZero(pstmt, 5, customer.getHeight());
-			this.setIfNotZero(pstmt, 6, (int) customer.getWeight());
+			// This sets height if > 0 and sets as null if not
+			// Changed this because method kept failing and couldn't find where. 
+			pstmt.setInt(5, customer.getHeight() > 0 ? customer.getHeight() : null);
+			pstmt.setInt(6, customer.getWeight() > 0 ? customer.getHeight() : null); 
+//			this.setIfNotZero(pstmt, 5, customer.getHeight());
+//			this.setIfNotZero(pstmt, 6, (int) customer.getWeight());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
-			rs.next();
-			customer.setId(rs.getInt(1));
-			customer.setDateRegistered(rs.getString(4));
+			while (rs.next()) {
+				customer.setId(rs.getInt(1));
+				customer.setDateRegistered(new Date(System.currentTimeMillis()).toString());
+			}
+
 		} catch (Exception e) {
+			e.printStackTrace();
         	System.out.println("db error during inserting of new customer");
         	System.err.print(e);
         	}
@@ -55,6 +61,12 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
+	/**
+	 * Adds steps to the StepsOnDay table on the DB. 
+	 * @param customer Customer to add steps to
+	 * @param steps Number of steps on given date
+	 * @param date Date of steps
+	 */
 	public void addStepsToCustomer(Customer customer, int steps, String date) {
 		//TODO: String format check, not minus int check
 		try {
@@ -125,7 +137,7 @@ public class CustomerRepository extends ConnectionManager {
 	public int getTotalSteps(Customer customer) {
 		int i = -1;
 		try {
-			String query = "select sum(steps) from StepsOnDay where id=?";
+			String query = "select sum(steps) from StepsOnDay where customerId=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customer.getId());
 			ResultSet rs = pstmt.executeQuery();
@@ -141,18 +153,18 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	
-	public static int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
+	public int getTotalStepsInDateRange(Customer customer, Date startDate, Date endDate) {
 		int steps = -1;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
-				"where customerId=? and ?<=walkDay and walkDay<=? " +
+				"where customerId=? and (walkDay between ? and ?) " +
 				"group by customerId";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, customer.getId());
-			pstmt.setObject(2, startDate);
-			pstmt.setObject(3, endDate);
+			pstmt.setDate(2, startDate);
+			pstmt.setDate(3, endDate);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				steps = rs.getInt("SUM(steps)");

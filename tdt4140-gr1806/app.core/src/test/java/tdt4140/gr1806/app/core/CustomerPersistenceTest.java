@@ -1,8 +1,8 @@
 package tdt4140.gr1806.app.core;
 
 import static junit.framework.TestCase.assertTrue;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.junit.Assert;
@@ -17,14 +17,8 @@ import org.junit.Test;
 
 public class CustomerPersistenceTest {
 	private Customer customer1;
-	
-	/**
-	 * @author Aasmund
-	 */
-	@Before
-	public void makeCustomer() {
-		customer1 = new Customer(1, "Hans Persistence Test");
-	}
+	private CustomerRepository customerRepo = new CustomerRepository();
+
 	
 	
 	/**
@@ -33,14 +27,11 @@ public class CustomerPersistenceTest {
 	 */
 	@Test
 	public void testAddingAndDeletingFromDB() {
-		int customerId = Customer.addCustomer(customer1.getName());
-		int nullCustomer = Customer.addCustomer(null);
-		
+		customer1 = new Customer("Hans Persistence Test", "M", "82732132", "1982-03-21", 178, 73.2);
+		customerRepo.saveCustomer(customer1);
 		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
-		Assert.assertTrue(nullCustomer == -1);
-		
-		Customer.removeCustomer(customerId);
-		
+
+		customerRepo.deleteCustomer(customer1);
 		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
 		
 		
@@ -51,57 +42,42 @@ public class CustomerPersistenceTest {
 	 */
 	
 	@Test
-    public void getTotalStepsInDateRange() {
+    public void testGettingSteps() {
+		customer1 = new Customer("Hans DateRange Test", "M", "82732132", "1982-03-21", 178, 73.2);
+        // Add user with steps on 2 days, test different cases
+        int stepsExpected = 500+100;
+        
+        Date startDate = Date.valueOf("2018-01-02");
+        Date endDate = Date.valueOf("2018-02-07");
 
-        // Add user with steps on 5 days, test different cases
-
-        Connection conn = ConnectionManager.connect();
-
-        Integer id = null;
-        Integer stepsExpected = 100 + 1500 + 2000 + 10;
-
-        LocalDate startDate = LocalDate.of(2018, 2, 2);
-        LocalDate endDate = LocalDate.of(2018, 2, 7);
 
         try {
-            id = Customer.addCustomer("Per Johny Testersen");
-            Customer.addSteps(id, 500, "2018-02-1");
-            Customer.addSteps(id, 100, "2018-02-2");
-            Customer.addSteps(id, 1500, "2018-02-4");
-            Customer.addSteps(id, 2000, "2018-02-6");
-            Customer.addSteps(id, 10, "2018-02-7");
-            Customer.addSteps(id, 3000, "2018-02-8");
+        	customerRepo.saveCustomer(customer1);
+            customerRepo.addStepsToCustomer(customer1, 500, "2018-02-01");
+            customerRepo.addStepsToCustomer(customer1, 100, "2018-02-02");
+            customerRepo.addStepsToCustomer(customer1, 1234, "2018-04-02");
         }
         catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Could not add customer or steps to that customer");
         }
 
-        int stepsReturned = Customer.getTotalStepsInDateRange(id, startDate, endDate);
-        assertTrue("Did not get expected steps in range", stepsExpected == stepsReturned);
+        int stepsDateRange = customerRepo.getTotalStepsInDateRange(customer1, startDate, endDate);
+        assertTrue("Did not get expected steps in range", stepsExpected == stepsDateRange);
+        
+        stepsExpected += 1234;
+        int stepsTotal = customerRepo.getTotalSteps(customer1);
+        Assert.assertEquals(stepsExpected, stepsTotal);
 
 
-        // Now delete customer and steps
-        try {
-            String sqlDeleteCustomer = "delete from Customer where id=?";
-            PreparedStatement pstmtDeleteCustomer = conn.prepareStatement(sqlDeleteCustomer);
-            pstmtDeleteCustomer.setInt(1, id);
-            pstmtDeleteCustomer.execute();
-
-            String sqlDeleteSteps = "delete from StepsOnDay where customerId=?";
-            PreparedStatement pstmtDeleteSteps = conn.prepareStatement(sqlDeleteSteps);
-            pstmtDeleteSteps.setInt(1, id);
-            pstmtDeleteSteps.execute();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail("Could not delete customer and steps, please delete customer with id " + Integer.toString(id));
-        }
+        customerRepo.deleteCustomer(customer1);
 
     }
 	
+	
+	
 	private boolean isCustomerInDatabase(String name) {
-		ArrayList<Customer> customerList = Trainer.getCustomers();
+		ArrayList<Customer> customerList = customerRepo.findAllCustomers();
 		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
 		for (Customer customer : customerList) {
 			if (customer.getName().equals(name)) {

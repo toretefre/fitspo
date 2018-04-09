@@ -1,4 +1,4 @@
-/*package tdt4140.gr1806.app.core;
+package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,120 +17,29 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;*/
 
 
 /**
- * This is a class for ONLY testing Customer's methods,
- * so we use mock objects for this purpose.
+ * This is a class for testing ONLY Customer's methods.
+ * Most of the customers methods are required by CustomerRepository and its tests are covering 
+ * Customer, but that doesn't mean we shouldn't write proper tests for just Customer.
  * 
- * @author henriette_andersen
+ * @author Aasmund
  *
  */
 
-/*
+
 public class CustomerTest {
 	
 	@Test
-	public void testGetCustomer() {
-		Customer cus = Customer.getCustomer("Berit");
-		Assert.assertEquals("Berit", cus.getName());
-		Customer cus2 = Customer.getCustomer("12345");
-		Assert.assertNull(cus2);
+	public void testToString() {
+		// This is pretty pointless to test as it's either only used internally or covered by scenario tests of the UI.
+		// But let's get that test coverage up.
+		Customer hanse = new Customer("Hans Test", null, null, null, 0, 0);
+		hanse.toString();
+		
 	}
 
-	Customer customer1, customer2;
-	
-	/**
-	 * @author Aasmund
-	 */
-	/*@Before
-	public void makeCustomer() {
-		customer1 = new Customer("Henriette Andersen", "F", "99352762", "1994-15-02", 172, 69.1);
-		customer2 = new Customer(1, "Testie", String gender, String dateRegistered, String telephone, String birthDate, int height, double weight);
-		//customer3 = new Customer(customer1 = new Customer(String name, String gender, String telephone, String birthDate, int height, double weight);
-	}
-	
-	/**
-	 * @author Aasmund
-	 */
-/*
-	@Test
-	public void testConstructor() {
-		Assert.assertTrue(customer1 instanceof Customer);
-		Assert.assertEquals(customer1.getClass(), customer2.getClass());
-		Assert.assertEquals(1, customer1.getId());
-		Assert.assertEquals(2, customer2.getId());
-		Assert.assertEquals("Hans", customer1.getName());
-		Assert.assertEquals("Kaare", customer2.getName());
-	}
-	
-	/**
-	 * @author Aasmund
-	 */
-/*
-	@Test
-	public void testGettersAndSetters() {
-		customer1.setBirthdate("1996-07-19");
-		Assert.assertEquals( "1996-07-19", customer1.getBirthdate());
-		
-		customer1.setGender(Gender.M);
-		Assert.assertEquals(Gender.M, customer1.getGender());
-		
-		customer1.setHeight(180);
-		Assert.assertEquals(180, customer1.getHeight());
-		
-		customer1.setName("Petter");
-		Assert.assertNotEquals("Hans", customer1.getName());
-		Assert.assertEquals("Petter", customer1.getName());
-		
-		customer1.setSteps(1337);
-		Assert.assertEquals(1337, customer1.getSteps());
-		
-		customer1.setTelephone("12345678");
-		Assert.assertEquals("12345678", customer1.getTelephone());
-		
-		customer1.setWeight(80);
-		Assert.assertEquals(80, customer1.getWeight());
-		
-	}
-	
-	
-	/**
-	 * @author Aasmund
-	 * 
-	 */
-/*
-	@Test
-	public void testAddingAndDeletingFromDB() {
-		int customerId = Customer.addCustomer(customer1.getName());
-		int nullCustomer = Customer.addCustomer(null);
-		
-		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
-		Assert.assertTrue(nullCustomer == -1);
-		
-		Customer.removeCustomer(customerId);
-		
-		Customer.removeCustomer(-20);
-		
-		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
-		
-		
-	}
-	
-	private boolean isCustomerInDatabase(String name) {
-		ArrayList<Customer> customerList = Trainer.getCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getName().equals(name)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-} */
+}
