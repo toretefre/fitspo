@@ -4,12 +4,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
 /**
@@ -28,8 +34,10 @@ public class FitspoAppController_trainer {
 	@FXML private VBox content;
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
+	private Customer cus;
 
 	private void loadCustomerData(Customer selectedPerson) {
+		cus = selectedPerson;
 		userName.setText(selectedPerson.getName());
 		
 		// The reason a lot is commented out is because the Customer can be constructed without the fields
@@ -61,9 +69,23 @@ public class FitspoAppController_trainer {
 
 	}
 	
+	@FXML
+	public void onDeleteCustomerClick(ActionEvent event) throws Exception {
+		Customer selected = this.cus;
+		
+		this.customerRepository.deleteCustomer(selected);
+		
+		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
+	}
+	
 	public void init(Customer target) {
 		System.out.println("Init called in fitspoappcontroller_trainer");
 		container.setFitToWidth(true);
 		loadCustomerData(target);
 	}
+	
+
 }
