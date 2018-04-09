@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
+import tdt4140.gr1806.app.core.Goals;
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -28,7 +29,7 @@ public class FitspoAppController_trainer {
 	@FXML private VBox content;
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
-
+	
 	private void loadCustomerData(Customer selectedPerson) {
 		userName.setText(selectedPerson.getName());
 		
@@ -42,6 +43,8 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
+		data.add(new String[]{"Goal steps", Integer.toString(selectedPerson.getGoal())});
+		data.add(new String[]{"Goal deadline", selectedPerson.getDeadlineEnd()}); 
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -62,7 +65,7 @@ public class FitspoAppController_trainer {
 	}
 	
 	public void init(Customer target) {
-		System.out.println("Init called in fitspoappcontroller_trainer");
+		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
 		loadCustomerData(target);
 	}
