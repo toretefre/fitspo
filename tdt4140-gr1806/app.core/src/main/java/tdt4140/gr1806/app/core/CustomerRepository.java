@@ -163,6 +163,46 @@ public class CustomerRepository extends ConnectionManager {
 		}
 	}
 	
+	public ArrayList<Message> getMessages(Customer customer) {
+		ArrayList<Message> messages = new ArrayList<>();
+		String sql= "select date, message, customerID from messages where customerID="+customer.getId();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				String message = rs.getString("message");
+				int customerID = rs.getInt("customerID");
+				messages.add(new Message(date, customerID, message));
+			}
+			return messages;
+		}
+		catch(Exception e) {
+			System.out.println("Error in getMessages");
+			e.printStackTrace();
+			return messages;
+		}
+	}
 	
+	/**
+	 * Tested and working
+	 * @param message
+	 * @throws SQLException
+	 */
+	
+	public void saveMessage(Message message) throws SQLException {
+		String update = "insert into Messages"
+				+ "(date, "
+				+ "customerID, "
+				+ "message) "
+				+ "values (?, ?, ?);";
+				
+		PreparedStatement pstmt = conn.prepareStatement(update);
+		pstmt.setDate(1, message.getDate());
+		pstmt.setInt(2, message.getCusID());
+		pstmt.setString(3, message.getMessage());
+		System.out.println(pstmt);
+		pstmt.executeUpdate();
+	}
 	
 }
