@@ -1,6 +1,7 @@
 package tdt4140.gr1806.app.core;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -136,6 +137,33 @@ public class CustomerRepository extends ConnectionManager {
     			System.err.print(e);
 		}
 		return i;
+	}
+	
+	
+	
+	public static int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
+		int steps = -1;
+		String sql = "select SUM(steps) " +
+				"from StepsOnDay " +
+				"where customerId=? and ?<=walkDay and walkDay<=? " +
+				"group by customerId";
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, customer.getId());
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				steps = rs.getInt("SUM(steps)");
+			}
+			return steps;
+		}
+		catch(Exception e) {
+			System.out.println("Error");
+			e.printStackTrace();
+			return steps;
+		}
 	}
 	
 	
