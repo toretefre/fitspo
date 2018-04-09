@@ -32,7 +32,14 @@ public class MenuController {
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
-
+	
+	@FXML public void messageStage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
+	}
+	
 	@FXML public void something(ActionEvent event) throws Exception {
 		System.out.println("Something cool happend here");
 	}
