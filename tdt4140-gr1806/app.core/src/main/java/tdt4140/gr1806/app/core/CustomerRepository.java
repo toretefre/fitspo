@@ -179,5 +179,26 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
+	/**
+	 * Makes a Customer-object from the id
+	 * @param id Customer ID, all the data is fetched from the user with this id
+	 * @return Customer if ID is found in database. Null if not.
+	 * @author Aasmund
+	 */
+	public Customer createCustomerFromId(int id) {
+		Customer customer = null;
+		try {
+			String query = "select * from Customer where id=?";
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				customer = this.createCustomerFromResultSet(resultSet);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return customer;
+	}
 	
 }
