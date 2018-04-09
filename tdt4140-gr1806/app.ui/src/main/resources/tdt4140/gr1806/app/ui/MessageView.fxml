@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainStage" prefHeight="600" prefWidth="700.0" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.MessageViewController">
+   <top>
+      <Label text="FitsPo" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial" size="50.0" />
+         </font></Label>
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      	<children>
+        		<fx:include fx:id="menuBar" source="Menu.fxml" />
+   		</children>
+      </VBox>
+   </left>
+   <center>
+      <VBox fx:id="messageContent" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ChoiceBox fx:id="customerChoiceBox" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ChoiceBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
