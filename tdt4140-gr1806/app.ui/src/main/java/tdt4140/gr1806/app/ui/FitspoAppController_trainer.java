@@ -30,8 +30,10 @@ public class FitspoAppController_trainer {
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
 	private Goals g = new Goals();
+
+	private int idForCustomer;
 	
-	private void loadCustomerData(Customer selectedPerson) {
+	private void loadCustomerData(Customer selectedPerson, Goals goal) {
 		userName.setText(selectedPerson.getName());
 		
 		// The reason a lot is commented out is because the Customer can be constructed without the fields
@@ -44,8 +46,11 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
-		data.add(new String[]{"Goal steps", Integer.toString(selectedPerson.get())});
-		data.add(new String[]{"Goal deadline", selectedPerson.getDeadlineEnd()}); 
+		
+		idForCustomer = selectedPerson.getId();
+
+		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal(idForCustomer))});
+		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd(idForCustomer)});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -65,9 +70,9 @@ public class FitspoAppController_trainer {
 
 	}
 	
-	public void init(Customer target) {
+	public void init(Customer target, Goals goal) {
 		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
-		loadCustomerData(target);
+		loadCustomerData(target, goal);
 	}
 }

@@ -33,7 +33,7 @@ public class Goals extends ConnectionManager {
 		this.goal = goal;
 	}
 	
-	public int getGoal() {
+	public int getGoal(int customerId) {
 		return goal;
 	}
 	
@@ -41,7 +41,7 @@ public class Goals extends ConnectionManager {
 		this.deadLineStart = deadLineStart;
 	}
 	
-	public String getDeadLineStart() {
+	public String getDeadLineStart(int customerId) {
 		return deadLineStart;
 	}
 	
@@ -49,7 +49,7 @@ public class Goals extends ConnectionManager {
 		this.deadLineEnd = deadLineEnd;
 	}
 	
-	public String getDeadLineEnd() {
+	public String getDeadLineEnd(int customerId) {
 		return deadLineEnd;
 	}
 	
