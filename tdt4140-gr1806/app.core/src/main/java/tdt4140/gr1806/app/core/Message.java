@@ -40,7 +40,7 @@ public class Message {
 		return cusID;
 	}
 
-	public void setCus(int cus) {
+	public void setCusID(int cus) {
 		this.cusID = cus;
 	}
 
