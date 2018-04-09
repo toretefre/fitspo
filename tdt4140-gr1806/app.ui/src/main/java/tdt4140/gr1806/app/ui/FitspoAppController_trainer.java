@@ -71,7 +71,6 @@ public class FitspoAppController_trainer {
 	
 	@FXML
 	public void onDeleteCustomerClick(ActionEvent event) throws Exception {
-		System.out.println("working");
 		Customer selected = this.cus;
 		
 		this.customerRepository.deleteCustomer(selected);
