@@ -29,6 +29,7 @@ public class FitspoAppController_trainer {
 	@FXML private VBox content;
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
+	private Goals g = new Goals();
 	
 	private void loadCustomerData(Customer selectedPerson) {
 		userName.setText(selectedPerson.getName());
@@ -43,7 +44,7 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
-		data.add(new String[]{"Goal steps", Integer.toString(selectedPerson.getGoal())});
+		data.add(new String[]{"Goal steps", Integer.toString(selectedPerson.get())});
 		data.add(new String[]{"Goal deadline", selectedPerson.getDeadlineEnd()}); 
 		
 		for (int i = 0; i < data.size(); i++) {
