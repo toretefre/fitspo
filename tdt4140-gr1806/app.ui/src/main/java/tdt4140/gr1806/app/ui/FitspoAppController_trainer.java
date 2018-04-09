@@ -29,7 +29,7 @@ public class FitspoAppController_trainer {
 	@FXML private VBox content;
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
-	private Goals g = new Goals();
+	//private Goals g = new Goals();
 
 	private int idForCustomer;
 	

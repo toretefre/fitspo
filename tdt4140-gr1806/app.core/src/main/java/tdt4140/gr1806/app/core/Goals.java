@@ -33,7 +33,7 @@ public class Goals extends ConnectionManager {
 		this.goal = goal;
 	}
 	
-	public int getGoal(int customerId) {
+	public int getGoal() {
 		return goal;
 	}
 	
@@ -41,7 +41,7 @@ public class Goals extends ConnectionManager {
 		this.deadLineStart = deadLineStart;
 	}
 	
-	public String getDeadLineStart(int customerId) {
+	public String getDeadLineStart() {
 		return deadLineStart;
 	}
 	
@@ -49,7 +49,7 @@ public class Goals extends ConnectionManager {
 		this.deadLineEnd = deadLineEnd;
 	}
 	
-	public String getDeadLineEnd(int customerId) {
+	public String getDeadLineEnd() {
 		return deadLineEnd;
 	}
 	
@@ -72,6 +72,8 @@ public class Goals extends ConnectionManager {
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.next();
+			
+			
 		} catch (SQLException e) {
 			System.err.println("Could not save to database. ");
 			e.printStackTrace();
@@ -79,11 +81,28 @@ public class Goals extends ConnectionManager {
 		return theGoal;
 	}
 	
-	private Goals createGoalFromResultSet(ResultSet rs) throws SQLException {
-		int customerId = rs.getInt("customerId");
-		int stepsGoal = rs.getInt("stepsGoal");
-		String goalDeadline = rs.getString("goalDeadline");
-		String goalStart = rs.getString("goalStart");
+	private Goals createGoalFromCustomerId(int customerId) throws SQLException {
+		
+		
+		Connection con = connect();
+		
+		String sql = "select * from CustomerGoal where customerId=?";
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		String goalDeadline = "";
+		String goalStart = "";
+		int stepsGoal = 0;
+		pstmt.setInt(1, customerId);
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			
+			stepsGoal = rs.getInt("stepsGoal");
+			goalDeadline = rs.getString("goalDeadline");
+			goalStart = rs.getString("goalStart");
+			
+		}
 		
 		Goals goal = new Goals(customerId, stepsGoal, goalDeadline, goalStart);
 		return goal;
@@ -101,9 +120,16 @@ public class Goals extends ConnectionManager {
 	}
 
 	public static void main(String[] args) {
-		Goals g = new Goals(1, 1200, "15.09.2018", "15.10.2018");
-		g.saveGoals(g);
+		Goals g = new Goals(4, 13200, "15.09.2018", "15.10.2018");
+		//g.saveGoals(g);
 		System.out.println(g.toString());
+		try {
+			System.out.println(g.createGoalFromCustomerId(1));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
 	
