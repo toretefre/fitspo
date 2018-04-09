@@ -10,6 +10,8 @@ public class Goals extends ConnectionManager {
 	private String deadLineStart;
 	private String deadLineEnd;
 	
+
+	
 	public Goals (int customerId, int goal, String deadLineStart, String deadLineEnd) {
 		connect();
 		this.setGoal(goal);
@@ -68,6 +70,8 @@ public class Goals extends ConnectionManager {
 			pstmt.setString(3, getDeadLineStart());
 			pstmt.setString(4,getDeadLineEnd());
 			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			rs.next();
 		} catch (SQLException e) {
 			System.err.println("Could not save to database. ");
 			e.printStackTrace();
@@ -75,16 +79,32 @@ public class Goals extends ConnectionManager {
 		return theGoal;
 	}
 	
+	private Goals createGoalFromResultSet(ResultSet rs) throws SQLException {
+		int customerId = rs.getInt("customerId");
+		int stepsGoal = rs.getInt("stepsGoal");
+		String goalDeadline = rs.getString("goalDeadline");
+		String goalStart = rs.getString("goalStart");
+		
+		Goals goal = new Goals(customerId, stepsGoal, goalDeadline, goalStart);
+		return goal;
+	}
+	
+	
+	
+	
 	
 	
 	@Override
 	public String toString() {
-		return "Your goal is: " + goal;
+		return "Goals [customerId=" + customerId + ", goal=" + goal + ", deadLineStart=" + deadLineStart
+				+ ", deadLineEnd=" + deadLineEnd + "]";
 	}
-	
+
 	public static void main(String[] args) {
-		Goals g = new Goals(1, 15000, "15.09.2018", "15.10.2018");
+		Goals g = new Goals(1, 1200, "15.09.2018", "15.10.2018");
 		g.saveGoals(g);
+		System.out.println(g.toString());
+		
 	}
 	
 	
