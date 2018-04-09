@@ -18,12 +18,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.Assert;
 import org.junit.Test;
 
+import tdt4140.gr1806.app.core.Customer;
+
 /**
  * Integration test for the web.server
  * @author Aasmund
  *
  */
-public class StepReceiverServerIT {
+public class FitspoServiceIT {
 	
 	/**
 	 * Tests the simplest type of request.
@@ -32,12 +34,13 @@ public class StepReceiverServerIT {
 	@Test
 	public void testGet() {
 		InputStream urlStream = null;
-		String result = null;
+		String helloTest = null;
 		try {
-			URL url = new URL("http://localhost:8888/data/hello?name=tester");
+			URL url = new URL("http://localhost:8888/fitspo/hello?name=tester");
 			urlStream = url.openStream();
-			result = ToStringHelper.InputStreamToString(urlStream);
+			helloTest = ToStringHelper.InputStreamToString(urlStream);
 			urlStream.close();
+
 		} catch (MalformedURLException e) {
 			System.err.println("Malformed URL");
 			e.printStackTrace();
@@ -45,8 +48,8 @@ public class StepReceiverServerIT {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Assert.assertEquals(result, "Hello, tester!");
+
+		Assert.assertEquals(helloTest, "Hello, tester!");
 		
 	}
 	
@@ -57,10 +60,10 @@ public class StepReceiverServerIT {
 	 */
 	@Test
 	public void testPost() throws ClientProtocolException, IOException {
-		String jsonString = "{\"steps\":524,\"date\":20180302,\"personID\":10}";
+		String jsonString = "{\"steps\":524,\"dateString\":\"2018-04-03\",\"personID\":10}";
 		
 		HttpClient client = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost("http://localhost:8888/data/automatic");
+		HttpPost httpPost = new HttpPost("http://localhost:8888/fitspo/automatic");
 
 		// Request parameters and other properties.
 		StringEntity entity = new StringEntity(jsonString);
@@ -73,7 +76,6 @@ public class StepReceiverServerIT {
 		
 		// Checking the response for data
 		HttpEntity responseEntity = response.getEntity();
-		System.out.println("Entity null? " + (responseEntity== null));
 
 		if (entity != null) {
 		    InputStream instream = responseEntity.getContent();

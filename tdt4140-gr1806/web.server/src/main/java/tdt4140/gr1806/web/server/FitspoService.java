@@ -4,17 +4,25 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import tdt4140.gr1806.app.core.ConnectionManager;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tdt4140.gr1806.app.core.*;
 
 /**
  * 
@@ -24,8 +32,9 @@ import tdt4140.gr1806.app.core.ConnectionManager;
  * @author Aasmund
  * 
  */
-@Path("data")
-public class StepReciever {
+@Path("fitspo")
+public class FitspoService {
+	private CustomerRepository customerRepo;
 	
 	
 	/**
@@ -64,9 +73,8 @@ public class StepReciever {
 		try {
 			int id = data.getPersonID();
 			int steps = data.getSteps();
-			Date date = data.getDate();
-			
-			// TODO: Actually do something with the incoming data
+			Date date = Date.valueOf(data.getDateString());
+
 			//saveSteps(id, steps, date);
 			
 			return Response.status(201).entity("Received:\nID: "+id+"\nSteps: "+steps+"\nDate: "+date.toString()).build();
@@ -91,26 +99,61 @@ public class StepReciever {
 		return "Hello, " + name + "!";
 	}
 	
+//	
+//	/**
+//	 * @author Aasmund
+//	 * @return All customers in the database.
+//	 */
+//	@GET
+//	@Path("customers")
+//	@Produces(MediaType.APPLICATION_JSON) 
+//	public Collection<Customer> getCustomers(){
+//		System.out.println("/fitspo/customers is showing up in console");
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			String jsonString = mapper.writeValueAsString(customerRepo.findAllCustomers().get(0));
+//			System.out.println(jsonString);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+////		Collection<Customer> cusCollection = customerRepo.findAllCustomers().stream()
+////				.map(customer -> customer)
+////				.collect(Collectors.toList())
+//				
+//		
+//		return null;
+//	}
+//	
+//	
+//	/**
+//	 * 
+//	 * @author Aasmund
+//	 * @return JSON-file with all customer data found on the id.
+//	 */
+//	@GET
+//	@Path("customers/{id}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Customer getCustomer(@PathParam("id") String id) {
+//		System.out.println("/fitspo/customers/"+id+" is showing up in console");
+//		return null;
+//		//return customerRepo.createCustomerFromId(Integer.valueOf(id));
+//	}
+//	
+//	
+//	
+//	
+//	
+	
 	/**
 	 * Helpermethod used to save steps to the database
 	 */
 	private void saveSteps(int id, int steps, Date date) {
-		Connection DBConnection = ConnectionManager.connect();
-		
-		String sql = "insert into Customer values ("
-				+ id + ","
-				+ steps + ","
-				+ date
-				+ ")";
-		
-		try {
-			PreparedStatement pstmt = DBConnection.prepareStatement(sql);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		Customer customer = customerRepo.createCustomerFromId(id);
+		customerRepo.addStepsToCustomer(customer, steps, date.toString());
 	}
+	
+	
 	
 }
