@@ -1,87 +1,93 @@
-/*
-
 package tdt4140.gr1806.app.core;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 
 /**
- * This is a CI test that tests Customer, ConnectionManager and the DB working together.
- * We check if data is correctly saved and loaded.
- * @author henriette_andersen
+ * @author Aasmund
  *
- *
+ */
 
 public class CustomerPersistenceTest {
-	
-	private int id1;
-	private int id2;
-	
-	Connection connection = ConnectionManager.connect();
-	
-	private static String getName(int id){
-		String name = null;
-		try {
-			String sql = "select name from Customer where id='" + id + "'";
-			Statement stmt;
-			stmt = ConnectionManager.conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			name = rs.getString(1);
-		} catch (SQLException e) {
-			System.err.println("Could not get name from DB.");
-			e.printStackTrace();
-		}
-		return name;
-	}
-	
+	private Customer customer1;
+	private CustomerRepository customerRepo = new CustomerRepository();
 
-	@Before
-	public void setUp() {
+	
+	
+	/**
+	 * @author Aasmund
+	 * 
+	 */
+	@Test
+	public void testAddingAndDeletingFromDB() {
+		customer1 = new Customer("Hans Persistence Test", "M", "82732132", "1982-03-21", 178, 73.2);
+		customerRepo.saveCustomer(customer1);
+		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
+
+		customerRepo.deleteCustomer(customer1);
+		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
+		
+		
 	}
+	
+	/**
+	 * @author Henriette?
+	 */
 	
 	@Test
+    public void testGettingSteps() {
+		customer1 = new Customer("Hans DateRange Test", "M", "82732132", "1982-03-21", 178, 73.2);
+        // Add user with steps on 2 days, test different cases
+        int stepsExpected = 500+100;
+        
+        Date startDate = Date.valueOf("2018-01-02");
+        Date endDate = Date.valueOf("2018-02-07");
+
+
+        try {
+        	customerRepo.saveCustomer(customer1);
+            customerRepo.addStepsToCustomer(customer1, 500, "2018-02-01");
+            customerRepo.addStepsToCustomer(customer1, 100, "2018-02-02");
+            customerRepo.addStepsToCustomer(customer1, 1234, "2018-04-02");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail("Could not add customer or steps to that customer");
+        }
+
+        int stepsDateRange = customerRepo.getTotalStepsInDateRange(customer1, startDate, endDate);
+        assertTrue("Did not get expected steps in range", stepsExpected == stepsDateRange);
+        
+        stepsExpected += 1234;
+        int stepsTotal = customerRepo.getTotalSteps(customer1);
+        Assert.assertEquals(stepsExpected, stepsTotal);
+
+
+        customerRepo.deleteCustomer(customer1);
+
+    }
 	
-	public void testAddCustomer() {
-		String p1 = "Henriette";
-		String p2 = "Ingrid";
-		int id1 = Customer.addCustomer(p1);
-		int id2 = Customer.addCustomer(p2);
-		String name1 = CustomerPersistenceTest.getName(id1);
-		String name2 = CustomerPersistenceTest.getName(id2);
+	
+	
+	private boolean isCustomerInDatabase(String name) {
+		ArrayList<Customer> customerList = customerRepo.findAllCustomers();
+		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
+		for (Customer customer : customerList) {
+			if (customer.getName().equals(name)) {
+				return true;
+			}
+		}
 		
-		assertEquals(p1, name1);
-		assertEquals(p2, name2);
-		
-		this.id1 = id1;
-		this.id2 = id2;
-		
+		return false;
 	}
-	
-	public void testAddStepsToday() {
-		 Customer.addStepsToday(id1, 800);
-		 
-		
-	}
-	
-	public void testAddSteps() {
-		
-	}
-	
 	
 	
 }
 
-*/
