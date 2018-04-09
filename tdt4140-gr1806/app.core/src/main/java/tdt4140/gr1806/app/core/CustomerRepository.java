@@ -15,15 +15,11 @@ public class CustomerRepository extends ConnectionManager {
 	public CustomerRepository() {
 		connect();
 	}
-	
-	
 	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
 		if (integer != 0) {
 			p.setInt(index, integer);
 		}
 	}
-	
-	
 	public Customer saveCustomer(Customer customer) {
 		try {
 			String update = "insert into Customer "
@@ -142,7 +138,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	public static int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
-		int steps = -1;
+		int steps = 0;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
 				"where customerId=? and ?<=walkDay and walkDay<=? " +
@@ -162,7 +158,8 @@ public class CustomerRepository extends ConnectionManager {
 		catch(Exception e) {
 			System.out.println("Error");
 			e.printStackTrace();
-			return steps;
+			System.out.println(steps);
+			return -1;
 		}
 	}
 	
