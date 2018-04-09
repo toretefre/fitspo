@@ -15,15 +15,11 @@ public class CustomerRepository extends ConnectionManager {
 	public CustomerRepository() {
 		connect();
 	}
-	
-	
 	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
 		if (integer != 0) {
 			p.setInt(index, integer);
 		}
 	}
-	
-	
 	public Customer saveCustomer(Customer customer) {
 		try {
 			String update = "insert into Customer "
@@ -166,7 +162,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	public static int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
-		int steps = -1;
+		int steps = 0;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
 				"where customerId=? and ?<=walkDay and walkDay<=? " +
@@ -186,10 +182,51 @@ public class CustomerRepository extends ConnectionManager {
 		catch(Exception e) {
 			System.out.println("Error");
 			e.printStackTrace();
-			return steps;
+			System.out.println(steps);
+			return -1;
 		}
 	}
 	
+	public ArrayList<Message> getMessages(Customer customer) {
+		ArrayList<Message> messages = new ArrayList<>();
+		String sql= "select date, message, customerID from messages where customerID="+customer.getId();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				String message = rs.getString("message");
+				int customerID = rs.getInt("customerID");
+				messages.add(new Message(date, customerID, message));
+			}
+			return messages;
+		}
+		catch(Exception e) {
+			System.out.println("Error in getMessages");
+			e.printStackTrace();
+			return messages;
+		}
+	}
 	
+	/**
+	 * Tested and working
+	 * @param message
+	 * @throws SQLException
+	 */
+	
+	public void saveMessage(Message message) throws SQLException {
+		String update = "insert into Messages"
+				+ "(date, "
+				+ "customerID, "
+				+ "message) "
+				+ "values (?, ?, ?);";
+				
+		PreparedStatement pstmt = conn.prepareStatement(update);
+		pstmt.setDate(1, message.getDate());
+		pstmt.setInt(2, message.getCusID());
+		pstmt.setString(3, message.getMessage());
+		System.out.println(pstmt);
+		pstmt.executeUpdate();
+	}
 	
 }
