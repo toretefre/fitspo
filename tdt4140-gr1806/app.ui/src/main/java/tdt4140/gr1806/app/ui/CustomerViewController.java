@@ -43,8 +43,7 @@ public class CustomerViewController {
 			person.setOnMouseClicked((event) -> {
 				Parent root;
 				try {
-					// new Goal(0, 100000, "", "2018-06-01");
-					// TODO THE OBJECT BELOW MUST BE DYNAMIC!
+					// Essential line for getting goal into personview:
 					Goal goal = customerRepository.createGoalFromCustomerId(currentCust.getId());
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
 					root = loader.load();
@@ -54,10 +53,8 @@ public class CustomerViewController {
 					stage.setScene(new Scene(root));
 					stage.show();	
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
