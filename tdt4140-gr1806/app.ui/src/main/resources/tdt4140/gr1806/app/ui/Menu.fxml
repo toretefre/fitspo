@@ -9,8 +9,8 @@
       <VBox prefHeight="400.0" prefWidth="133.0">
          <children>
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
-            <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages" />
-            <Button fx:id="goalsBtn" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals" />
+            <Button fx:id="somethingButton" mnemonicParsing="false" onAction="#something" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages" />
+            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals" />
             <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Sprint3" />
          </children>
       </VBox>
