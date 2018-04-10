@@ -38,8 +38,6 @@ public class MenuController {
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(new Scene(root));
 		stage.show();
-		MessageViewController controller = new MessageViewController();
-		controller.init(fitspo);
 	}
 	
 	@FXML public void something(ActionEvent event) throws Exception {
