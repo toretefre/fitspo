@@ -1,4 +1,8 @@
 package tdt4140.gr1806.app.core;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Instances of this class will represent a customer
  */
@@ -15,7 +19,6 @@ public class Customer{
 	private String birthDate;
 	private int height;
 	private double weight;
-	
 	
 	public Customer(String name, String gender, String telephone, String birthDate, int height, double weight) {
 		this.setName(name);
@@ -121,5 +124,5 @@ public class Customer{
         		"\nTelephone: " + this.telephone + "\nGender: " + this.gender + "\nDate Registered: " + this.dateRegistered + 
         		"\nHeight: "+ this.height + "\nWeight: "+ this.weight;
     }
-	
+
 }

@@ -4,6 +4,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Implements methods for use to add customer.
  * @author henriette_andersen
@@ -87,6 +90,24 @@ public class CustomerRepository extends ConnectionManager {
 	
 	public ArrayList<Customer> findAllCustomers() {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
+		try {
+			String query = "select * from Customer";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Customer customer = this.createCustomerFromResultSet(rs);
+				customers.add(customer);
+			}
+			} catch (Exception e) {
+				System.out.println("db error during selection of customers");
+				System.err.print(e);
+            	}
+		return customers;
+	}
+
+	//Slettes mulig
+	public ObservableList<Customer> findAllCustomerObsList() {
+		ObservableList<Customer> customers = FXCollections.observableArrayList();
 		try {
 			String query = "select * from Customer";
 			PreparedStatement pstmt = conn.prepareStatement(query);

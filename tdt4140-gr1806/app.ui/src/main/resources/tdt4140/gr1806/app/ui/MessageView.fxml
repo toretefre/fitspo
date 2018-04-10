@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,11 +27,15 @@
    <center>
       <VBox fx:id="messageContent" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ChoiceBox fx:id="customerChoiceBox" prefWidth="150.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ChoiceBox>
+            <ComboBox fx:id="customerComboBox" onAction="" prefHeight="27.0" prefWidth="186.0" promptText="Choose Customer" />
+            <ScrollPane fx:id="messageBox" prefHeight="248.0" prefWidth="567.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <TextField fx:id="messageTextField" prefHeight="134.0" prefWidth="567.0" />
+            <Button fx:id="sendMessageBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="56.0" text="Send" />
+            <Button fx:id="clearMessageBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="226.0" text="Clear" />
          </children>
       </VBox>
    </center>
