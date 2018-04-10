@@ -45,21 +45,20 @@ public class FitspoService {
 	 * have to implement). 
 	 */
 	@Path("manual")
-	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String handleFormPost(@QueryParam("id") int id, @QueryParam("steps") int steps, @QueryParam("date") Date date) {
-		System.out.println(id + steps + date.toString());
-		try {			
-			//saveSteps(id, steps, date);
+	public String handleForm(@QueryParam("id") int id, @QueryParam("steps") int steps, @QueryParam("date") Date date) {
+		try {		
+			checkConnection();
+			saveSteps(id, steps, date);
 		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
-			System.err.println(e);
+			e.printStackTrace();
 			
 			return "<h2> Beklager! Her skjedde det en feil med lagringen! </h2>";
 		}
 		
-		return "<h2> Takk! Vi har nå registrert " + steps + " skritt på deg </h2>";
+		return "<h2> Takk! Vi har nå registrert " + steps + " skritt på id " + id + " </h2>";
 	}
 	
 
