@@ -12,7 +12,7 @@ public abstract class ConnectionManager {
     * Connects to the database.
     */
     public static Connection connect(){
-        try {
+    		try {
             String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/matiasre_FitsPo";
             conn = DriverManager.getConnection(url, "matiasre_gruppe6", "123safari");
 
@@ -20,7 +20,7 @@ public abstract class ConnectionManager {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
         }
-        return conn;
+	return conn;
     }
     
 }
