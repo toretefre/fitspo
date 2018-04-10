@@ -25,7 +25,7 @@ import tdt4140.gr1806.app.core.Message;
 public class MessageViewController {
 	FitspoAppController fitspo;
 	CustomerRepository cr = new CustomerRepository();
-	Customer customer;
+	Customer selectedCustomer = null;
 	@FXML private ComboBox<Customer> customerComboBox;
 	@FXML private Button sendMessageBtn;
 	@FXML private Button clearMessageBtn;
@@ -41,15 +41,9 @@ public class MessageViewController {
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
-	
-	
-	public void updateDropDown() {
-		customerComboBox.setItems(cr.findAllCustomerObsList());
-	}
 
-	@FXML public void updateMessageField(Customer customer) {
-		this.customer = customer;
-		ArrayList<Message> messages = cr.getMessages(customer);
+	@FXML public void updateMessageField() {
+		ArrayList<Message> messages = cr.getMessages(this.selectedCustomer);
 		
 		for(Message m : messages) {
 			TextArea text = new TextArea();
@@ -60,10 +54,10 @@ public class MessageViewController {
 	
 	@FXML public void sendMessage(ActionEvent event) throws SQLException {
 		String message = messageTextField.getText();
-		Date sqlDate = new Date(new java.util.Date().getTime());
-		Message m = new Message(sqlDate, customer.getId(), message);
+		Date sqlDate = new Date(System.currentTimeMillis());
+		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
 		cr.saveMessage(m);
-		updateMessageField(customer);
+		updateMessageField();
 	}
 	
 	@FXML public void clearMessage(ActionEvent event) {
@@ -71,10 +65,12 @@ public class MessageViewController {
 	}
 	
 	public void initialize() {
-		System.out.println("hallo");
-		updateDropDown();
+		// Updates the dropdown (customerComboBox)
+		customerComboBox.setItems(cr.findAllCustomerObsList());
+		
+		// This fires when a field in the dropdown menu is clicked
 		customerComboBox.setOnAction(e -> {
-			System.out.println(customerComboBox.getValue().getName());
+			this.selectedCustomer = customerComboBox.getValue();
 		});
 	}
 
