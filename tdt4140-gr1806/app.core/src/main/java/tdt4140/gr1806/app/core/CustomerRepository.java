@@ -188,7 +188,7 @@ public class CustomerRepository extends ConnectionManager {
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.err.println("Could not save to database. ");
+			System.err.println("Could not save goal to database. ");
 			e.printStackTrace();
 		}
 		return goal;
@@ -207,20 +207,29 @@ public class CustomerRepository extends ConnectionManager {
 		ResultSet rs = pstmt.executeQuery();
 			
 		while (rs.next()) {
-				
 			stepsGoal = rs.getInt("stepsGoal");
 			goalDeadline = rs.getString("goalDeadline");
-			goalStart = rs.getString("goalStart");
-				
+			goalStart = rs.getString("goalStart");		
 		}
-			
+
 		Goal goal = new Goal(customerId, stepsGoal, goalDeadline, goalStart);
 		return goal;
 		}
 	
+	
 	public static void main(String[] args) {
-		CustomerRepository customerRepo = new CustomerRepository();
-		Goal goal123 = new Goal(1, 69000, "2018-02-02", "2018-03-03");
-		customerRepo.saveGoal(goal123);
+		// CustomerRepository customerRepo = new CustomerRepository();
+		// TEST SAVE GOAL:
+		// Goal goal123 = new Goal(1, 69000, "2018-02-02", "2018-03-03");
+		// customerRepo.saveGoal(goal123);
+		
+		// TEST LOAD GOAL:
+		// Goal testgoal;
+		// try {
+		//	testgoal = customerRepo.createGoalFromCustomerId(3);
+		//	System.out.println(testgoal);
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
 	}
 	}
