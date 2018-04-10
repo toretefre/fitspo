@@ -213,6 +213,7 @@ public class CustomerRepository extends ConnectionManager {
 		}
 
 		Goal goal = new Goal(customerId, stepsGoal, goalDeadline, goalStart);
+		
 		return goal;
 		}
 	

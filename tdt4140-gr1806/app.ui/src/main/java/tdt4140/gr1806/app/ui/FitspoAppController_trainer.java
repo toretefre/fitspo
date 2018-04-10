@@ -31,8 +31,6 @@ public class FitspoAppController_trainer {
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
 	// private Goals g = createCustomer
-
-	private int idForCustomer;
 	
 	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		userName.setText(selectedPerson.getName());
@@ -48,10 +46,8 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
 		
-		idForCustomer = selectedPerson.getId();
-
-		data.add(new String[]{"Goal steps", Integer.toString(CustomerRepository(idForCustomer))});
-		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd(idForCustomer)});
+		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
+		// data.add(new String[]{"Goal deadline", goal.getDeadLineEnd(idForCustomer)});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
