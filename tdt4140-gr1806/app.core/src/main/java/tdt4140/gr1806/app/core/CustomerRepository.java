@@ -16,14 +16,8 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
-//	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
-//		if (integer != 0) {
-//			p.setInt(index, integer);
-//		}
-//	}
-	
-	
 	public Customer saveCustomer(Customer customer) {
+		Customer nullCus = null;
 		try {
 			String update = "insert into Customer "
 					+ "(name, "
@@ -39,25 +33,30 @@ public class CustomerRepository extends ConnectionManager {
 			pstmt.setString(2, customer.getGender());
 			pstmt.setString(3, customer.getTelephone());
 			pstmt.setString(4, customer.getBirthDate());
-			// This sets height if > 0 and sets as null if not
-			// Changed this because method kept failing and couldn't find where. 
-			pstmt.setInt(5, customer.getHeight() > 0 ? customer.getHeight() : null);
-			pstmt.setInt(6, customer.getWeight() > 0 ? customer.getHeight() : null); 
-//			this.setIfNotZero(pstmt, 5, customer.getHeight());
-//			this.setIfNotZero(pstmt, 6, (int) customer.getWeight());
+			pstmt.setInt(5, customer.getHeight());
+			pstmt.setDouble(6, customer.getWeight());
 			pstmt.executeUpdate();
+			
+			// Get generated id and set to Customer:
 			ResultSet rs = pstmt.getGeneratedKeys();
-			while (rs.next()) {
-				customer.setId(rs.getInt(1));
-				customer.setDateRegistered(new Date(System.currentTimeMillis()).toString());
-			}
-
+			rs.next();
+			customer.setId(rs.getInt(1));
+			
+			// Get the generated datetime and set to Customer:
+			String query = "select dateRegistered from Customer"
+					+ " where id = ?";
+			PreparedStatement pstmt2 = conn.prepareStatement(query);
+			pstmt2.setInt(1, customer.getId());
+			ResultSet rs2 = pstmt2.executeQuery();
+			rs2.next();
+			customer.setDateRegistered(rs2.getString("dateRegistered"));
+			return customer;
 		} catch (Exception e) {
 			e.printStackTrace();
         	System.out.println("db error during inserting of new customer");
         	System.err.print(e);
+        	return nullCus;
         	}
-		return customer;
 	}
 	
 	

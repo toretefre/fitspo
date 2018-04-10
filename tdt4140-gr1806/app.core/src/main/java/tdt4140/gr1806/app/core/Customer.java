@@ -38,10 +38,6 @@ public class Customer{
 		this.setWeight(weight);
 	}
 	
-	public Customer() {
-		
-	}
-	
 	
 	
 	public int getId() {
