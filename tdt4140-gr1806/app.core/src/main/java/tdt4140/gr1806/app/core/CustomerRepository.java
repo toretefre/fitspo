@@ -12,13 +12,20 @@ import java.util.ArrayList;
 public class CustomerRepository extends ConnectionManager {
 	
 	public CustomerRepository() {
-		connect();
 	}
 	
+
+	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
+		if (integer != 0) {
+			p.setInt(index, integer);
+		}
+	}
+
 	
 	public Customer saveCustomer(Customer customer) {
-		Customer nullCus = null;
+		Customer returnCustomer = null;
 		try {
+			connect();
 			String update = "insert into Customer "
 					+ "(name, "
 					+ "gender, "
@@ -41,7 +48,7 @@ public class CustomerRepository extends ConnectionManager {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.next();
 			customer.setId(rs.getInt(1));
-			
+
 			// Get the generated datetime and set to Customer:
 			String query = "select dateRegistered from Customer"
 					+ " where id = ?";
@@ -50,13 +57,22 @@ public class CustomerRepository extends ConnectionManager {
 			ResultSet rs2 = pstmt2.executeQuery();
 			rs2.next();
 			customer.setDateRegistered(rs2.getString("dateRegistered"));
-			return customer;
+			returnCustomer = customer;
 		} catch (Exception e) {
 			e.printStackTrace();
         	System.out.println("db error during inserting of new customer");
         	System.err.print(e);
-        	return nullCus;
+        	} finally {
+        		try {
+        			if (conn!=null) {
+        				conn.close();
+        			}
+        		} catch (Exception e) {
+    				System.out.println("db error during closing of connection");
+    				System.err.print(e);
+        		}
         	}
+		return returnCustomer;
 	}
 	
 	
@@ -69,6 +85,7 @@ public class CustomerRepository extends ConnectionManager {
 	public void addStepsToCustomer(Customer customer, int steps, String date) {
 		//TODO: String format check, not minus int check
 		try {
+			connect();
 			String insert = "insert into StepsOnDay (customerId, steps, walkDay) values (?, ?, ?);";
 			PreparedStatement pstmt = conn.prepareStatement(insert);
 			pstmt.setInt(1, customer.getId());
@@ -78,7 +95,16 @@ public class CustomerRepository extends ConnectionManager {
 		} catch (SQLException e) {
 			System.err.println("Could not save to database.");
 			e.printStackTrace();
-		}	
+		} finally {
+    			try {
+    				if (conn!=null) {
+    					conn.close();
+    					}
+    			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+    			}
+		}
 	}
 	
 	
@@ -103,6 +129,7 @@ public class CustomerRepository extends ConnectionManager {
 	public ArrayList<Customer> findAllCustomers() {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		try {
+			connect();
 			String query = "select * from Customer";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -113,7 +140,16 @@ public class CustomerRepository extends ConnectionManager {
 			} catch (Exception e) {
 				System.out.println("db error during selection of customers");
 				System.err.print(e);
-            	}
+			} finally {
+    				try {
+    					if (conn!=null) {
+    						conn.close();
+    						}
+    				} catch (Exception e) {
+    					System.out.println("db error during closing of connection");
+    					System.err.print(e);
+    				}
+			}
 		return customers;
 	}
 	
@@ -121,6 +157,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	public void deleteCustomer(Customer customer) {
 		try {
+			connect();
 			String delete = "delete from Customer where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(delete);
 			pstmt.setInt(1, customer.getId());
@@ -128,6 +165,15 @@ public class CustomerRepository extends ConnectionManager {
 		} catch (Exception e) {
 			System.out.println("db error during deletion of customer with id: " + customer.getId());
         		System.err.print(e);
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
 	}
 	
@@ -136,6 +182,7 @@ public class CustomerRepository extends ConnectionManager {
 	public int getTotalSteps(Customer customer) {
 		int i = -1;
 		try {
+			connect();
 			String query = "select sum(steps) from StepsOnDay where customerId=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customer.getId());
@@ -146,6 +193,15 @@ public class CustomerRepository extends ConnectionManager {
 		} catch (Exception e) {
 			System.out.println("db error during selection of total steps from customer with id: " + customer.getId());
     			System.err.print(e);
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
 		return i;
 	}
@@ -160,6 +216,7 @@ public class CustomerRepository extends ConnectionManager {
 				"group by customerId";
 
 		try {
+			connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, customer.getId());
 			pstmt.setDate(2, startDate);
@@ -168,13 +225,22 @@ public class CustomerRepository extends ConnectionManager {
 			while (rs.next()) {
 				steps = rs.getInt("SUM(steps)");
 			}
-			return steps;
 		}
 		catch(Exception e) {
 			System.out.println("Error");
 			e.printStackTrace();
-			return steps;
+			System.out.println(steps);
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
+		return steps;
 	}
 	
 	
@@ -187,6 +253,7 @@ public class CustomerRepository extends ConnectionManager {
 	public Customer createCustomerFromId(int id) {
 		Customer customer = null;
 		try {
+			connect();
 			String query = "select * from Customer where id=?";
 			PreparedStatement preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setInt(1, id);
@@ -196,8 +263,83 @@ public class CustomerRepository extends ConnectionManager {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
 		return customer;
+	}
+	
+
+	public ArrayList<Message> getMessages(Customer customer) {
+		ArrayList<Message> messages = new ArrayList<>();
+		String sql= "select date, message, customerID from messages where customerID="+customer.getId();
+		try {
+			connect();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				String message = rs.getString("message");
+				int customerID = rs.getInt("customerID");
+				messages.add(new Message(date, customerID, message));
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error in getMessages");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
+		}
+		return messages;
+	}
+	
+	/**
+	 * Tested and working
+	 * @param message
+	 * @throws SQLException
+	 */
+	
+	public void saveMessage(Message message) throws SQLException {
+		String update = "insert into Messages"
+				+ "(date, "
+				+ "customerID, "
+				+ "message) "
+				+ "values (?, ?, ?);";
+		try {
+			connect();
+			PreparedStatement pstmt = conn.prepareStatement(update);
+			pstmt.setDate(1, message.getDate());
+			pstmt.setInt(2, message.getCusID());
+			pstmt.setString(3, message.getMessage());
+			System.out.println(pstmt);
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			System.out.println("Error in saveMessages");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
+		}
 	}
 	
 }

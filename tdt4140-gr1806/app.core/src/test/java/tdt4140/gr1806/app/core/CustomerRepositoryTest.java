@@ -188,7 +188,7 @@ public class CustomerRepositoryTest {
         Assert.assertEquals(stepsExpected, stepsTotal);
 
 
-        cr.deleteCustomer(cus);
+        //cr.deleteCustomer(cus);
 	}
 	
 	
