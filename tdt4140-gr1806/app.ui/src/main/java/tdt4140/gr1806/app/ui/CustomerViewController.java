@@ -44,7 +44,7 @@ public class CustomerViewController {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
 					root = loader.load();
 					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
-					//controller.init(currentCust);
+					// controller.init(currentCust);
 					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					stage.setScene(new Scene(root));
 					stage.show();	

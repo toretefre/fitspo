@@ -46,8 +46,9 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
 		
+		// Showing goals in list:
 		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
-		// data.add(new String[]{"Goal deadline", goal.getDeadLineEnd(idForCustomer)});
+		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
