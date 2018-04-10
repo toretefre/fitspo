@@ -42,8 +42,8 @@ public class CustomerViewController {
 			person.setOnMouseClicked((event) -> {
 				Parent root;
 				try {
-					// TODO THE OBJECT BELOW MUST BE DYNAMIC!!!!!!!!!!!!!!!!!
-					Goal goal = new Goal(0, 69, "", "");
+					// TODO THE OBJECT BELOW MUST BE DYNAMIC!
+					Goal goal = new Goal(0, 100000, "", "2018-06-01");
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
 					root = loader.load();
 					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
