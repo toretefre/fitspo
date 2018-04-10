@@ -186,7 +186,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	public ArrayList<Message> getMessages(Customer customer) {
 		ArrayList<Message> messages = new ArrayList<>();
-		String sql= "select date, message, customerID from messages where customerID="+customer.getId();
+		String sql= "select date, message, customerID from messages where customerID="+customer.getId()+" sort by date asc";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();

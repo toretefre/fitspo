@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,13 +28,13 @@
          <children>
             <ComboBox fx:id="customerComboBox" prefHeight="27.0" prefWidth="186.0" promptText="Choose Customer" />
             <ScrollPane fx:id="messageBox" prefHeight="248.0" prefWidth="567.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <VBox fx:id="content" prefHeight="243.0" prefWidth="555.0" />
+               </content>
             </ScrollPane>
-            <TextField fx:id="messageTextField" prefHeight="134.0" prefWidth="567.0" />
-            <Button fx:id="sendMessageBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="56.0" text="Send" />
-            <Button fx:id="clearMessageBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="226.0" text="Clear" />
+            <TextField fx:id="messageTextField" alignment="TOP_LEFT" prefHeight="134.0" prefWidth="567.0" promptText="Write here..." />
+            <Button fx:id="sendMessageBtn" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" prefWidth="56.0" text="Send" />
+            <Button fx:id="clearMessageBtn" mnemonicParsing="false" onAction="#clearMessage" prefHeight="27.0" prefWidth="71.0" text="Clear" />
          </children>
       </VBox>
    </center>
