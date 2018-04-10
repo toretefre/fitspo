@@ -12,7 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
-import tdt4140.gr1806.app.core.Goals;
+import tdt4140.gr1806.app.core.Goal;
+
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -29,11 +30,11 @@ public class FitspoAppController_trainer {
 	@FXML private VBox content;
 	@FXML private Label userName;
 	private CustomerRepository customerRepository = new CustomerRepository();
-	//private Goals g = new Goals();
+	// private Goals g = createCustomer
 
 	private int idForCustomer;
 	
-	private void loadCustomerData(Customer selectedPerson, Goals goal) {
+	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		userName.setText(selectedPerson.getName());
 		
 		// The reason a lot is commented out is because the Customer can be constructed without the fields
@@ -49,7 +50,7 @@ public class FitspoAppController_trainer {
 		
 		idForCustomer = selectedPerson.getId();
 
-		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal(idForCustomer))});
+		data.add(new String[]{"Goal steps", Integer.toString(CustomerRepository(idForCustomer))});
 		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd(idForCustomer)});
 		
 		for (int i = 0; i < data.size(); i++) {
@@ -70,7 +71,7 @@ public class FitspoAppController_trainer {
 
 	}
 	
-	public void init(Customer target, Goals goal) {
+	public void init(Customer target, Goal goal) {
 		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
 		loadCustomerData(target, goal);

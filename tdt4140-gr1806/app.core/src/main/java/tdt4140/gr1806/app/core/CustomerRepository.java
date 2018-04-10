@@ -170,5 +170,57 @@ public class CustomerRepository extends ConnectionManager {
 	}
 	
 	
+	public Goal saveGoal(Goal goal) {
+		try {
+			String sql = "UPDATE CustomerGoal SET "
+					+ "customerId = ?, "
+					+ "stepsGoal = ?, "
+					+ "goalDeadline = ?, "
+					+ "goalStart = ? "
+					+ "WHERE customerId = ?;";
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, goal.getCustomerId());
+			pstmt.setInt(2, goal.getGoal());
+			pstmt.setString(3, goal.getDeadLineStart());
+			pstmt.setString(4, goal.getDeadLineEnd());
+			pstmt.setInt(5, goal.getCustomerId());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Could not save to database. ");
+			e.printStackTrace();
+		}
+		return goal;
+	}
 	
-}
+	
+	public Goal createGoalFromCustomerId(int customerId) throws SQLException {
+		String sql = "select * from CustomerGoal where customerId=?";
+			
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		String goalDeadline = "";
+		String goalStart = "";
+		int stepsGoal = 0;
+		pstmt.setInt(1, customerId);
+			
+		ResultSet rs = pstmt.executeQuery();
+			
+		while (rs.next()) {
+				
+			stepsGoal = rs.getInt("stepsGoal");
+			goalDeadline = rs.getString("goalDeadline");
+			goalStart = rs.getString("goalStart");
+				
+		}
+			
+		Goal goal = new Goal(customerId, stepsGoal, goalDeadline, goalStart);
+		return goal;
+		}
+	
+	public static void main(String[] args) {
+		CustomerRepository customerRepo = new CustomerRepository();
+		Goal goal123 = new Goal(1, 69000, "2018-02-02", "2018-03-03");
+		customerRepo.saveGoal(goal123);
+	}
+	}
