@@ -18,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
 import tdt4140.gr1806.app.core.Message;
@@ -44,7 +45,6 @@ public class MessageViewController {
 
 	@FXML public void updateMessageField() {
 		ArrayList<Message> messages = cr.getMessages(this.selectedCustomer);
-		
 		for(Message m : messages) {
 			TextArea text = new TextArea();
 			text.setText(m.getMessage());
@@ -58,11 +58,13 @@ public class MessageViewController {
 		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
 		cr.saveMessage(m);
 		updateMessageField();
+		messageTextField.clear();
 	}
 	
 	@FXML public void clearMessage(ActionEvent event) {
 		messageTextField.clear();
 	}
+	
 	
 	public void initialize() {
 		// Updates the dropdown (customerComboBox)
@@ -72,6 +74,19 @@ public class MessageViewController {
 		customerComboBox.setOnAction(e -> {
 			this.selectedCustomer = customerComboBox.getValue();
 		});
+		
+		// Using a StringConverter to show only Customer names in the dropdown list, and not all the other fields.
+		customerComboBox.setConverter(new StringConverter<Customer>() {
+			@Override
+			public String toString(Customer customer) {
+				return customer.getName();
+			}
+			@Override
+			public Customer fromString(String strin) {
+				return null;
+			}
+		});
+
 	}
 
 }
