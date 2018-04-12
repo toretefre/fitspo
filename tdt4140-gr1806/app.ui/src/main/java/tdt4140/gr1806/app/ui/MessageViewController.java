@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -43,13 +44,20 @@ public class MessageViewController {
 		stage.show();
 	}
 
-	@FXML public void updateMessageField() {
+	@FXML public void updateMessageField(ActionEvent event) {
+		//Clearing the content first - dont want duplicate messages when using the application.
+		content.getChildren().clear();
+		
 		ArrayList<Message> messages = cr.getMessages(this.selectedCustomer);
 		for(Message m : messages) {
 			TextArea text = new TextArea();
-			text.setText(m.getMessage());
+			text.setId("messageText");
+			text.wrapTextProperty();
+			text.setText(m.getDate().toString() + ": \n" +
+					m.getMessage());
 			content.getChildren().add(text);
 		}
+		messageBox.setFitToWidth(true);
 	}
 	
 	@FXML public void sendMessage(ActionEvent event) throws SQLException {
@@ -57,7 +65,7 @@ public class MessageViewController {
 		Date sqlDate = new Date(System.currentTimeMillis());
 		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
 		cr.saveMessage(m);
-		updateMessageField();
+		updateMessageField(event);
 		messageTextField.clear();
 	}
 	
@@ -73,6 +81,7 @@ public class MessageViewController {
 		// This fires when a field in the dropdown menu is clicked
 		customerComboBox.setOnAction(e -> {
 			this.selectedCustomer = customerComboBox.getValue();
+			updateMessageField(e);
 		});
 		
 		// Using a StringConverter to show only Customer names in the dropdown list, and not all the other fields.

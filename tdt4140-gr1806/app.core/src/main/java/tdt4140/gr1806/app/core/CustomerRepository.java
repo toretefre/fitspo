@@ -186,7 +186,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	public ArrayList<Message> getMessages(Customer customer) {
 		ArrayList<Message> messages = new ArrayList<>();
-		String sql= "select date, message, customerID from messages where customerID="+customer.getId()+" sort by date asc";
+		String sql= "select date, message, customerID from Messages where customerID="+customer.getId()+" order by date asc";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -222,7 +222,6 @@ public class CustomerRepository extends ConnectionManager {
 		pstmt.setDate(1, message.getDate());
 		pstmt.setInt(2, message.getCusID());
 		pstmt.setString(3, message.getMessage());
-		System.out.println(pstmt);
 		pstmt.executeUpdate();
 	}
 	
