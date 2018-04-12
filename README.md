@@ -1,5 +1,9 @@
 # Fitspo
 
+Fitspo was developed as a group project during Spring 2018 for the subject TDT 4140 (Programvareutvikling) at the Norwegian University of Science and Technology (NTNU).
+
+## Description
+
 An application for a personal trainer to follow up his/her customers. The idea is that the customer has an app on their phone which collects data
 from their regular lives, and sends it to our server daily.
 This data includes steps, heartrate, gps-data and more, but most likely we'll not be using any more than the step data.
@@ -78,7 +82,7 @@ Go to you branch in gitlab. Click on "merge request", choose your target and wri
 ### List of contributors
 - Adrian Hofseth
 - Åsmund Staldvik
-- Tore Tefre
+- Tore Stensaker Tefre
 - Matias Ravnå Eidem
 - Henriette Andersen
 - Ingrid Domben
