@@ -136,25 +136,6 @@ public class CustomerRepository extends ConnectionManager {
 			}
 		return customers;
 	}
-
-	//Slettes mulig
-	public ObservableList<Customer> findAllCustomerObsList() {
-		ObservableList<Customer> customers = FXCollections.observableArrayList();
-		try {
-			String query = "select * from Customer";
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Customer customer = this.createCustomerFromResultSet(rs);
-				customers.add(customer);
-			}
-			} catch (Exception e) {
-				System.out.println("db error during selection of customers");
-				System.err.print(e);
-            	}
-		return customers;
-	}
-	
 	
 	
 	public void deleteCustomer(Customer customer) {

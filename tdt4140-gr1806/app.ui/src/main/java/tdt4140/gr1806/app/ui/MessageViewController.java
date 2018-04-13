@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,8 +77,11 @@ public class MessageViewController {
 	
 	
 	public void initialize() {
-		// Updates the dropdown (customerComboBox)
-		customerComboBox.setItems(cr.findAllCustomerObsList());
+		// Fetches the Customers from the DB and places them in a observable list
+		ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(cr.findAllCustomers());
+		
+		// Updates the dropdown (customerComboBox) with the Customers
+		customerComboBox.setItems(observableCustomerList);
 		
 		// This fires when a field in the dropdown menu is clicked
 		customerComboBox.setOnAction(e -> {
