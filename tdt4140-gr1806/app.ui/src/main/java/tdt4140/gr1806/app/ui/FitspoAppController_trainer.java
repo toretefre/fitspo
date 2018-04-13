@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Button;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
@@ -41,6 +43,7 @@ public class FitspoAppController_trainer {
 	@FXML private Label userName;
 	@FXML private DatePicker from;
 	@FXML private DatePicker to;
+	@FXML private Button deleteButton;
 	ArrayList<String[]> data = new ArrayList<>();
 	private CustomerRepository customerRepository = new CustomerRepository();
 	private Customer cus;
@@ -67,10 +70,10 @@ public class FitspoAppController_trainer {
 			Label name = new Label(data.get(i)[0]);
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(data.get(i)[1]);
-			skritt.setId("personboxSkrittLabel");
+			Label steps = new Label(data.get(i)[1]);
+			steps.setId("personboxSkrittLabel");
 			
-			dataRow.getChildren().addAll(name,skritt);
+			dataRow.getChildren().addAll(name,steps);
 			content.getChildren().add(dataRow);
 		}
 	}
@@ -109,17 +112,25 @@ public class FitspoAppController_trainer {
 		System.out.println("Something cool happend here");
 	}
 	
+	/**
+	 * method for handling the event of click on delete button. Opens a popup window.
+	 * @param event 
+	 * @throws Exception
+	 */
+	
 	@FXML
-	public void onDeleteCustomerClick(ActionEvent event) throws Exception {
-		Customer selected = this.cus;
+	public void onButtonClick(ActionEvent event) throws Exception {
 		
-		this.customerRepository.deleteCustomer(selected);
+		PopupWindow popup = new PopupWindow();
+		boolean answer = popup.display();
 		
-		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(new Scene(root));
-		stage.show();
+		if (answer == true) {
+			
+		}
+		
 	}
+	
+	
 	
 	public void init(Customer target) {
 		System.out.println("Init called in fitspoappcontroller_trainer");
@@ -127,5 +138,4 @@ public class FitspoAppController_trainer {
 		loadCustomerData(target);
 	}
 	
-
 }
