@@ -67,4 +67,10 @@ public class GoalTest {
 		Assert.assertEquals("2018-02-02", g1.getDeadLineEnd());
 	}
 	
+	@Test
+	public void testToString() {
+		String expected = "Goals [customerId=1, goal=500, deadLineStart=2018-02-02, deadLineEnd=2018-04-04]";
+		Assert.assertEquals(expected, g1.toString());
+	}
+	
 }
