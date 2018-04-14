@@ -48,13 +48,10 @@ public class FitspoAppController_trainer {
 	@FXML private Button deleteButton;
 	ArrayList<String[]> data = new ArrayList<>();
 	private CustomerRepository customerRepository = new CustomerRepository();
-	// private Goals g = createCustomer()
-	
-	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 
 	private Customer cus;
 
-	private void loadCustomerData(Customer selectedPerson) {
+	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		cus = selectedPerson;
 
 		userName.setText(selectedPerson.getName());
@@ -99,7 +96,7 @@ public class FitspoAppController_trainer {
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
 		System.out.println("Working");
-		String[] update = new String[] {"Steps", "44"};
+		// String[] update = new String[] {"Steps", "44"};
 		LocalDate fromDate = from.getValue();
 		LocalDate toDate = to.getValue();
 		
