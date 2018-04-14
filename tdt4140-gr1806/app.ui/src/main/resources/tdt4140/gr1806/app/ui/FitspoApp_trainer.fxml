@@ -51,7 +51,7 @@
    </center>
    <bottom>
    	<HBox>
-   		<Button onAction="#onDeleteCustomerClick" style="-fx-padding: 5px 5px;" text="Delete" />
+   		<Button fx:id = "deleteButton" onAction="#onButtonClick" style="-fx-padding: 5px 5px;" text="Delete" />
    	</HBox>
    </bottom>
    <left>
