@@ -5,10 +5,11 @@ import java.sql.Date;
 /**
  * 
  * @author Magnus
- * Class for handling messages
+ * Class for creating messages
  */
 
 public class Message {
+	
 	private int id;
 	private Date date;
 	private int cusID;

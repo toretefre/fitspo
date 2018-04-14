@@ -10,8 +10,8 @@
    <children>
       <HBox layoutX="-1.0" layoutY="-1.0" prefHeight="50.0" prefWidth="444.0" styleClass="hbox">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="232.0" text="Navn" />
-            <Label alignment="CENTER" prefHeight="94.0" prefWidth="214.0" text="Skritt" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="232.0" text="Name" />
+            <Label alignment="CENTER" prefHeight="94.0" prefWidth="214.0" text="Steps" />
          </children>
       </HBox>
       <ScrollPane fx:id="customerlist" layoutX="48.0" layoutY="85.0" maxHeight="300.0" maxWidth="432.0" prefHeight="300.0" prefWidth="432.0">

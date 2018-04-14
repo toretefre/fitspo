@@ -27,6 +27,7 @@ import tdt4140.gr1806.app.core.CustomerRepository;
 import tdt4140.gr1806.app.core.Message;
 
 public class MessageViewController {
+	
 	FitspoAppController fitspo;
 	CustomerRepository cr = new CustomerRepository();
 	Customer selectedCustomer = null;
@@ -46,7 +47,8 @@ public class MessageViewController {
 		stage.show();
 	}
 
-	@FXML public void updateMessageField(ActionEvent event) {
+	@FXML 
+	public void updateMessageField(ActionEvent event) {
 		//Clearing the content first - dont want duplicate messages when using the application.
 		content.getChildren().clear();
 		
@@ -62,7 +64,8 @@ public class MessageViewController {
 		messageBox.setFitToWidth(true);
 	}
 	
-	@FXML public void sendMessage(ActionEvent event) throws SQLException {
+	@FXML 
+	public void sendMessage(ActionEvent event) throws SQLException {
 		String message = messageTextField.getText();
 		Date sqlDate = new Date(System.currentTimeMillis());
 		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
@@ -71,11 +74,14 @@ public class MessageViewController {
 		messageTextField.clear();
 	}
 	
-	@FXML public void clearMessage(ActionEvent event) {
+	@FXML 
+	public void clearMessage(ActionEvent event) {
 		messageTextField.clear();
 	}
 	
-	
+	/**
+	 * documentation here. Remove as much as possible of the comments in method.
+	 */
 	public void initialize() {
 		// Fetches the Customers from the DB and places them in a observable list
 		ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(cr.findAllCustomers());
@@ -100,7 +106,5 @@ public class MessageViewController {
 				return null;
 			}
 		});
-
 	}
-
 }

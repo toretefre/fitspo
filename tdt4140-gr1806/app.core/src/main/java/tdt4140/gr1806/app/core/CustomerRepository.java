@@ -15,14 +15,14 @@ import javafx.collections.ObservableList;
 
 public class CustomerRepository extends ConnectionManager {
 	
-	public CustomerRepository() {
-	}
 	
 	private void setIfNotZero(PreparedStatement p, int index, int integer) throws SQLException {
 		if (integer != 0) {
 			p.setInt(index, integer);
 		}
 	}
+	
+	
 	public Customer saveCustomer(Customer customer) {
 		Customer returnCustomer = null;
 		try {
@@ -49,6 +49,7 @@ public class CustomerRepository extends ConnectionManager {
 			customer.setId(rs.getInt(1));
 			customer.setDateRegistered(rs.getString(4));
 			returnCustomer = customer;
+			
 		} catch (Exception e) {
         	System.out.println("db error during inserting of new customer");
         	System.err.print(e);
@@ -94,6 +95,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	private Customer createCustomerFromResultSet(ResultSet rs) throws SQLException {
+		
 		int id = rs.getInt("id");
 		String name = rs.getString("name");
 		String gender = rs.getString("gender");
@@ -112,9 +114,9 @@ public class CustomerRepository extends ConnectionManager {
 
 		
 		
-	
 	public ArrayList<Customer> findAllCustomers() {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
+		
 		try {
 			connect();
 			String query = "select * from Customer";
@@ -122,12 +124,13 @@ public class CustomerRepository extends ConnectionManager {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Customer customer = this.createCustomerFromResultSet(rs);
-				customers.add(customer);
-			}
+				customers.add(customer);}
+			
 			} catch (Exception e) {
 				System.out.println("db error during selection of customers");
-				System.err.print(e);
-			} finally {
+				System.err.print(e);} 
+		
+		finally {
     				try {
     					if (conn!=null) {
     						conn.close();
@@ -142,6 +145,7 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	public void deleteCustomer(Customer customer) {
+		
 		try {
 			connect();
 			String delete = "delete from Customer where id=?";
@@ -167,6 +171,7 @@ public class CustomerRepository extends ConnectionManager {
 	// Or throw something, so we do not return -1 if it doesn't work...
 	public int getTotalSteps(Customer customer) {
 		int i = -1;
+		
 		try {
 			connect();
 			String query = "select sum(steps) from StepsOnDay where id=?";
@@ -191,7 +196,6 @@ public class CustomerRepository extends ConnectionManager {
 		}
 		return i;
 	}
-	
 	
 	
 	public static int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
