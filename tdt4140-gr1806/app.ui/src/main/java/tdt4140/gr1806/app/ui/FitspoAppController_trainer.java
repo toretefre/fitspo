@@ -125,7 +125,11 @@ public class FitspoAppController_trainer {
 		boolean answer = popup.display();
 		
 		if (answer == true) {
-			
+			customerRepository.deleteCustomer(cus);
+			Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.show();
 		}
 		
 	}
