@@ -12,15 +12,11 @@ import javafx.stage.Stage;
  * Controller class for handling events in popup window
  */
 
-
 public class PopupController {
 	
 	boolean answer;
 	@FXML Button yesButton;
 	@FXML Button noButton;
-	
-	public PopupController() {
-	}
 	
 	@FXML
 	public void yesButtonClick(ActionEvent event) {

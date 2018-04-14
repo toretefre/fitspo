@@ -1,31 +1,26 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Button;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
+
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -86,8 +81,6 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		System.out.println("Working");
-		String[] update = new String[] {"Steps", "44"};
 		LocalDate fromDate = from.getValue();
 		LocalDate toDate = to.getValue();
 		
@@ -104,23 +97,18 @@ public class FitspoAppController_trainer {
 			dataRow.getChildren().addAll(name, step);
 			content.getChildren().set(5, dataRow);
 		}
-		
-		
-	}
-	
-	@FXML public void something(ActionEvent event) throws Exception {
-		System.out.println("Something cool happend here");
 	}
 	
 	/**
-	 * method for handling the event of click on delete button. Opens a popup window.
+	 * method for handling the event of click on delete button. Opens a popup window and deletes customer if yes button is clicked. 
+	 * Returns to main view.
+	 *
 	 * @param event 
 	 * @throws Exception
 	 */
 	
 	@FXML
 	public void onButtonClick(ActionEvent event) throws Exception {
-		
 		PopupWindow popup = new PopupWindow();
 		boolean answer = popup.display();
 		
@@ -131,15 +119,11 @@ public class FitspoAppController_trainer {
 			stage.setScene(new Scene(root));
 			stage.show();
 		}
-		
 	}
-	
-	
 	
 	public void init(Customer target) {
 		System.out.println("Init called in fitspoappcontroller_trainer");
 		container.setFitToWidth(true);
 		loadCustomerData(target);
 	}
-	
 }
