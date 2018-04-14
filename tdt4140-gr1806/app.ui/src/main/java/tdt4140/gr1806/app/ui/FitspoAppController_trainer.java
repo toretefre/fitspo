@@ -26,6 +26,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
+import tdt4140.gr1806.app.core.Goal;
+
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -46,10 +48,12 @@ public class FitspoAppController_trainer {
 	@FXML private Button deleteButton;
 	ArrayList<String[]> data = new ArrayList<>();
 	private CustomerRepository customerRepository = new CustomerRepository();
+
 	private Customer cus;
 
-	private void loadCustomerData(Customer selectedPerson) {
+	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		cus = selectedPerson;
+
 		userName.setText(selectedPerson.getName());
 		
 		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
@@ -59,6 +63,11 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
+		
+		// Showing goals in list:
+		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
+		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
+		data.add(new String[]{"Steps left", String.valueOf((goal.getGoal()) - this.customerRepository.getTotalSteps(selectedPerson))});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -87,7 +96,7 @@ public class FitspoAppController_trainer {
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
 		System.out.println("Working");
-		String[] update = new String[] {"Steps", "44"};
+		// String[] update = new String[] {"Steps", "44"};
 		LocalDate fromDate = from.getValue();
 		LocalDate toDate = to.getValue();
 		
@@ -133,13 +142,12 @@ public class FitspoAppController_trainer {
 		}
 		
 	}
-	
-	
-	
-	public void init(Customer target) {
-		System.out.println("Init called in fitspoappcontroller_trainer");
+
+
+	public void init(Customer target, Goal goal) {
+		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
-		loadCustomerData(target);
+		loadCustomerData(target, goal);
 	}
 	
 }
