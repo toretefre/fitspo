@@ -40,8 +40,13 @@ public class MenuController {
 		stage.show();
 	}
 	
-	@FXML public void something(ActionEvent event) throws Exception {
-		System.out.println("Goals called");
+	@FXML public void goalStage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("GoalView.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
+		
+		// System.out.println("Goals called");
 	}
 	
 	public void init(FitspoAppController fitspoAppController) {
