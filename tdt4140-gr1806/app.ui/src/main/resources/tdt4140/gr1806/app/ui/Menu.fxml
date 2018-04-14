@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="133.0" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.MenuController">
+<AnchorPane prefHeight="400.0" prefWidth="133.0" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.MenuController">
    <children>
       <VBox prefHeight="400.0" prefWidth="133.0">
          <children>
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
             <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages" />
-            <Button fx:id="somethingElseButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Sprint3" />
+            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals" />
             <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Sprint3" />
          </children>
       </VBox>

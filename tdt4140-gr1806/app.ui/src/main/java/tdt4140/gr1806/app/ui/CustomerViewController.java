@@ -1,6 +1,7 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
+import tdt4140.gr1806.app.core.Goal;
 
 public class CustomerViewController {
 	
@@ -43,15 +45,18 @@ public class CustomerViewController {
 				Parent root;
 				
 				try {
+					// Essential line for getting goal into personview:
+					Goal goal = customerRepository.createGoalFromCustomerId(currentCust.getId());
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
 					root = loader.load();
 					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
-					controller.init(currentCust);
+					controller.init(currentCust, goal);
 					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					stage.setScene(new Scene(root));
 					stage.show();	
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			});

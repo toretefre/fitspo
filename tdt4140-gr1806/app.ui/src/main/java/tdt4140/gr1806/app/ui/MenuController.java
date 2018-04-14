@@ -24,7 +24,7 @@ public class MenuController {
 	private FitspoAppController fitspo;
 	
 	@FXML Button homeButton;
-	@FXML Button somethingButton;
+	@FXML Button goalsButton;
 	FXMLLoader loader;
 	
 	@FXML 
@@ -43,9 +43,8 @@ public class MenuController {
 		stage.show();
 	}
 	
-	@FXML 
-	public void something(ActionEvent event) throws Exception {
-		System.out.println("Something cool happend here");
+	@FXML public void something(ActionEvent event) throws Exception {
+		System.out.println("Goals called");
 	}
 	
 	public void init(FitspoAppController fitspoAppController) {
