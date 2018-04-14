@@ -39,10 +39,7 @@ public class Customer{
 		this.setBirthDate(birthDate);
 		this.setHeight(height);
 		this.setWeight(weight);
-	}
-	
-	
-	
+	}	
 	
 	public int getId() {
 		return this.id;
