@@ -323,25 +323,41 @@ public class CustomerRepository extends ConnectionManager {
 	
 	public Goal createGoalFromCustomerId(int customerId) throws SQLException {
 		String sql = "select * from CustomerGoal where customerId=?";
-			
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		String goalDeadline = "";
-		String goalStart = "";
-		int stepsGoal = 0;
-		pstmt.setInt(1, customerId);
-			
-		ResultSet rs = pstmt.executeQuery();
-			
-		while (rs.next()) {
-			stepsGoal = rs.getInt("stepsGoal");
-			goalDeadline = rs.getString("goalDeadline");
-			goalStart = rs.getString("goalStart");		
-		}
-
-		Goal goal = new Goal(customerId, stepsGoal, goalDeadline, goalStart);
 		
-		return goal;
+		try {
+			connect();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			String goalDeadline = "";
+			String goalStart = "";
+			int stepsGoal = 0;
+			pstmt.setInt(1, customerId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				stepsGoal = rs.getInt("stepsGoal");
+				goalDeadline = rs.getString("goalDeadline");
+				goalStart = rs.getString("goalStart");		
+			}
+
+			Goal goal = new Goal(customerId, stepsGoal, goalDeadline, goalStart);
+			
+			return goal;
+		} catch (Exception e) {
+			System.out.println("Error in createGoalFromCustomerId");
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
+	}
 	
 	
 	public static void main(String[] args) {
