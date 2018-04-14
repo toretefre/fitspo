@@ -29,6 +29,7 @@ public class FitspoAppController implements Initializable {
 	@FXML private CustomerViewController customerViewController;
 	@FXML private MenuController menuBarController; 
 	@FXML private FitspoAppController_trainer fitspoAppController_trainer;
+	@FXML private MessageViewController messageViewController;
 	
 
 	@Override
