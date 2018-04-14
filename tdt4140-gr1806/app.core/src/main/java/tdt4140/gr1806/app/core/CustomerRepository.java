@@ -4,9 +4,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Implements methods for use to add customer.
  * @author henriette_andersen
