@@ -108,14 +108,25 @@ public class CustomerRepositoryTest {
 	}
 	
 	
+	/**
+	 * Checks if two goal objects has equal data.
+	 */
+	protected void checkGoalData(final Goal origGoal, final Goal dbGoal) {
+		Assert.assertNotNull(dbGoal);
+		Assert.assertEquals(origGoal.getCustomerId(), dbGoal.getCustomerId());
+		Assert.assertEquals(origGoal.getGoal(), dbGoal.getGoal());
+		Assert.assertEquals(origGoal.getDeadLineStart(), dbGoal.getDeadLineStart());
+		Assert.assertEquals(origGoal.getDeadLineEnd(), dbGoal.getDeadLineEnd());
+	}
+	
 	//------------------------
 	
 	
 	/**
 	 * Tests that customers are correctly saved and fetched from database.
 	 * Does this with both a customer with all fields set, and a customer
-	 * with only the name (bc the database requires it) set as a non-default
-	 * value.
+	 * with only the name (because the database requires it) set as 
+	 * a non-default value.
 	 */
 	@Test
 	public void testSaveCustomerCreateCustomerFromId() {
@@ -156,13 +167,24 @@ public class CustomerRepositoryTest {
 		// Delete the objects from the database:
 		cr.deleteCustomer(cusG);
 		cr.deleteCustomer(nullCusG);
+		
+		
+		// Now test that we get a null-object if we try to get a customer
+		// with an not legal id:
+		Customer nullobject = cr.createCustomerFromId(-10);
+		Assert.assertNull(nullobject);
+		
+		// Test that we get a null-object if we try to save a null-object:
+		Customer c = cr.saveCustomer(null);
+		Assert.assertNull(c);
+		
 	}
 	
 	
 	
 	/**
 	 * @author Matias
-	 * Altered a bit by @author henriette_andersen
+	 * Altered by @author henriette_andersen
 	 */
 	@Test
 	public void testAddStepsToCustomerGetTotalStepsInDateRangeGetTotalSteps() {
@@ -187,9 +209,33 @@ public class CustomerRepositoryTest {
         int stepsTotal = cr.getTotalSteps(cus);
         Assert.assertEquals(stepsExpected, stepsTotal);
 
-
-        //cr.deleteCustomer(cus);
+        
+        // Test that we get 0 when illegal date range:
+        int steps = cr.getTotalStepsInDateRange(cus, endDate, startDate);
+        Assert.assertEquals(0, steps);
+        
+        // Delete customer from database.
+        cr.deleteCustomer(cus);
+        
+        // Now test that we get -1 if we try to get the totalSteps
+        // from a customer with non-legal id:
+        Customer notLegal = new Customer(-10, "Hans DateRange Test", "M", "2018-03-04", "82732132", "1982-03-21", 178, 73.2);
+        int steps1 = cr.getTotalSteps(notLegal);
+        Assert.assertEquals(-1, steps1);
+        
+        // Test that we get -1 for an illegal customer in
+        // getTotalStepsInDateRange:
+        int steps2 = cr.getTotalStepsInDateRange(notLegal, startDate, endDate);
+        Assert.assertEquals(-1, steps2);
+        
+        // Check that we get -1 with exception, so we set a null-object as input:
+        int steps3 = cr.getTotalSteps(null);
+        int steps4 = cr.getTotalStepsInDateRange(null, startDate, endDate);
+        Assert.assertEquals(-1, steps3);
+        Assert.assertEquals(-1, steps4);
+        
 	}
+
 	
 	
 	
@@ -243,6 +289,7 @@ public class CustomerRepositoryTest {
 		
 	}
 	
+	
 	/**
 	 * Test that the id that the added customer got is no longer there after
 	 * it was deleted.
@@ -257,6 +304,108 @@ public class CustomerRepositoryTest {
 		cr.deleteCustomer(cus);
 		Assert.assertFalse(this.isCustomerInDatabase(cus)); // Tests that the id is no longer there.
 	}
+	
+	
+	
+	
+	/**
+	 * Tests that goals are correctly saved, fetched, and updated
+	 * when it comes to the database.
+	 */
+	@Test
+	public void testSaveGoalCreateGoalFromCustomerIDUpDateGoal() {
+		Customer cus = new Customer("Henry", "F", "99352762", "1994-02-15", 172, 68.00);
+		cus = cr.saveCustomer(cus);
+		Goal g1 = new Goal(cus.getId(), 10000, "2018-01-02", "2018-02-02" );
+		
+		// Check that you cannot call update goal when no goal is saved:
+		Goal g1Updated = cr.updateGoal(g1);
+		Assert.assertNull(g1Updated);
+		Goal g1Loaded = cr.createGoalFromCustomerId(cus.getId());
+		Assert.assertNull(g1Loaded);
+		
+		// Save and check that the same object is returned:
+		Goal g1Saved = cr.saveGoal(g1);
+		Assert.assertSame(g1, g1Saved);
+		
+		// Load and check that the objects contain the same data:
+		g1Loaded = cr.createGoalFromCustomerId(cus.getId());
+		System.out.println(g1);
+		System.out.println(g1Loaded);
+		this.checkGoalData(g1, g1Loaded);
+		
+		// Check that a null object is returned when we try to save
+		// on the same id:
+		Goal g2 = new Goal(cus.getId(), 30, "2018-01-02", "2018-02-02");
+		Goal g2Saved = cr.saveGoal(g2);
+		Assert.assertNull(g2Saved);
+		
+		// Update goal, and check that it worked:
+		Goal g3 = new Goal(cus.getId(), 500, "2018-01-02", "2018-02-02");
+		Goal g3Updated = cr.updateGoal(g3);
+		Assert.assertSame(g3, g3Updated);
+		Goal g3Loaded = cr.createGoalFromCustomerId(cus.getId());
+		this.checkGoalData(g3, g3Loaded);
+		
+		// Check that when goal is negative, a null object is returned.;
+		g3.setGoal(-7);
+		Goal g3Saved = cr.updateGoal(g3);
+		Assert.assertNull(g3Saved);
+	
+		
+		// deleting the customer (and goals):
+		cr.deleteCustomer(cus);
+	
+		
+		// Check that trying to save a null-goal will return
+		// a null object:
+		Goal g = cr.saveGoal(null);
+		Assert.assertNull(g);
+		
+		// Check that trying to save null-values will return
+		// a null object:
+		g = new Goal(cus.getId(), -5, null, null);
+		g = cr.saveGoal(null);
+		Assert.assertNull(g);
+		
+		// Check that trying to save a goal with an illegal customerId
+		// will return in a null-object:
+		g = cr.saveGoal(new Goal(-10, 0, "2018-01-02", "2018-02-02"));
+		Assert.assertNull(g);
+		
+		// Check that trying to crate a goal with an illegal id
+		// will return a null object:
+		g = cr.createGoalFromCustomerId(-10);
+		Assert.assertNull(g);
+		
+	}
+	
+	
+	/**
+	 * Test that the id that the goal was added with is no longer there
+	 * after deletion.
+	 */
+	@Test
+	public void testDeleteGoal() {
+		Customer cus = new Customer("Mr. Cool", "O", "12332188", "1980-07-18", 180, 90.3);
+		cus = cr.saveCustomer(cus);
+		Goal goal = new Goal(cus.getId(), 10000, "2018-01-02", "2018-02-02" );
+		
+		// Save and check that the goal is there:
+		cr.saveGoal(goal);
+		Goal loadedGoal = cr.createGoalFromCustomerId(goal.getCustomerId());
+		Assert.assertNotNull(loadedGoal);
+		
+		// Delete and check that the goal is no longer there:
+		cr.deleteGoal(goal);
+		loadedGoal = cr.createGoalFromCustomerId(cus.getId());
+		Assert.assertNull(loadedGoal);
+		
+		// Delete customer:
+		cr.deleteCustomer(cus);
+		
+	}
+	
 	
 	
 	

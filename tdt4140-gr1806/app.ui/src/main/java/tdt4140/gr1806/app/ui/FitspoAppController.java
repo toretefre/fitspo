@@ -3,11 +3,8 @@ package tdt4140.gr1806.app.ui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.annotation.Resources;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.ui.MenuController;
 import tdt4140.gr1806.app.ui.FitspoAppController_trainer;
 
@@ -21,7 +18,6 @@ import tdt4140.gr1806.app.ui.FitspoAppController_trainer;
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
  */
 
-
 public class FitspoAppController implements Initializable {
 	ResourceBundle resources;
 	
@@ -29,8 +25,8 @@ public class FitspoAppController implements Initializable {
 	@FXML private CustomerViewController customerViewController;
 	@FXML private MenuController menuBarController; 
 	@FXML private FitspoAppController_trainer fitspoAppController_trainer;
+	@FXML private MessageViewController messageViewController;
 	
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.resources = resources;
