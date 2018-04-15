@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -33,10 +34,10 @@ public class GoalViewController {
 	@FXML private Button clearMessageBtn;
 	@FXML private TextField stepsField;
 	@FXML private TextField dateField;
-	@FXML private TextField messageTextField;
 	@FXML private ScrollPane messageBox;
 	@FXML private VBox messageContent;
 	@FXML private VBox content;
+	@FXML private Label statusLabel;
 
 	
 	public void changeCenterContent(ActionEvent event) throws IOException {
@@ -51,24 +52,19 @@ public class GoalViewController {
 		// content.getChildren().clear();
 		
 		Goal g = cr.createGoalFromCustomerId(this.selectedCustomer.getId());
-		TextArea text = new TextArea();
-		text.setId("goalText");
-		text.wrapTextProperty();
-		text.setText(Integer.toString(g.getGoal()));
-		messageBox.setFitToWidth(true);
+		String status = new String("The selected customer has a goal of " + Integer.toString(g.getGoal()) + " steps, " + System.lineSeparator() + "with the deadline set to " + g.getDeadLineEnd());
+		statusLabel.setText(status);
+		
 	}
 	
-	@FXML public void updateGoal(ActionEvent event) {
+	@FXML public void updateGoal(ActionEvent event) throws SQLException {
 		String steps = stepsField.getText();
 		String deadLine = dateField.getText();
 		Goal goal = new Goal(this.selectedCustomer.getId(), Integer.parseInt(steps), "1970-01-01", deadLine);
 		cr.saveGoal(goal);
 		stepsField.clear();
 		dateField.clear();
-	}
-	
-	@FXML public void clearMessage(ActionEvent event) {
-		messageTextField.clear();
+		updateMessageField(event);
 	}
 	
 	

@@ -67,7 +67,6 @@ public class CustomerRepository extends ConnectionManager {
 	
 	
 	public void addStepsToCustomer(Customer customer, int steps, String date) {
-		//TODO: String format check, not minus int check
 		try {
 			connect();
 			String insert = "insert into StepsOnDay (customerId, steps, walkDay) values (?, ?, ?);";
