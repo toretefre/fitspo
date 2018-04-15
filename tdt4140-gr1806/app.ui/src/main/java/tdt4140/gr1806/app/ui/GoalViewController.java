@@ -25,6 +25,12 @@ import tdt4140.gr1806.app.core.CustomerRepository;
 import tdt4140.gr1806.app.core.Goal;
 import tdt4140.gr1806.app.core.Message;
 
+/**
+ * Controls the GoalView
+ * @author toretefre
+ * Some of the ideas are from the MessageViewController
+ */
+
 public class GoalViewController {
 	FitspoAppController fitspo;
 	CustomerRepository cr = new CustomerRepository();
