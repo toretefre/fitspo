@@ -20,20 +20,23 @@ import tdt4140.gr1806.app.ui.FitspoAppController;
 
 public class MenuController {
 	
+	//this attribute is never used. remove?
 	private FitspoAppController fitspo;
 	
 	@FXML Button homeButton;
 	@FXML Button goalsButton;
 	FXMLLoader loader;
 	
-	@FXML public void homeStage(ActionEvent event) throws IOException {
+	@FXML 
+	public void homeStage(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
 	
-	@FXML public void messageStage(ActionEvent event) throws IOException {
+	@FXML 
+	public void messageStage(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("MessageView.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(new Scene(root));
@@ -46,11 +49,16 @@ public class MenuController {
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
+
+	@FXML public void graphStage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("StepsGraph.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
+	}
 	
 	public void init(FitspoAppController fitspoAppController) {
 		fitspo = fitspoAppController;
 	};
-	
-	
 }
 
