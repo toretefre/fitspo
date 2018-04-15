@@ -232,6 +232,7 @@ public class CustomerRepository extends ConnectionManager {
 	// TODO: This must be implemented in view
 	public Goal saveGoal(Goal goal) {
 		try {
+			connect();
 			String sql = "UPDATE CustomerGoal SET "
 					+ "customerId = ?, "
 					+ "stepsGoal = ?, "
@@ -250,6 +251,15 @@ public class CustomerRepository extends ConnectionManager {
 		} catch (SQLException e) {
 			System.err.println("Could not save goal to database. ");
 			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) {
+					conn.close();
+					}
+			} catch (Exception e) {
+				System.out.println("db error during closing of connection");
+				System.err.print(e);
+			}
 		}
 		return goal;
 	}
@@ -367,7 +377,7 @@ public class CustomerRepository extends ConnectionManager {
 			goals.add(createGoalFromCustomerId(customerId));
 		}
 		catch (Exception e) {
-			System.out.println("Error in getMessages");
+			System.out.println("Error in getGoals");
 			e.printStackTrace();
 		} finally {
 			try {

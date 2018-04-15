@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainStage" prefHeight="600" prefWidth="700.0" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.MessageViewController">
+<BorderPane fx:id="mainStage" prefHeight="600" prefWidth="700.0" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.GoalViewController">
    <top>
       <Label text="FitsPo" BorderPane.alignment="CENTER">
          <font>
@@ -26,15 +26,23 @@
    <center>
       <VBox fx:id="messageContent" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="customerComboBox" prefHeight="27.0" prefWidth="186.0" promptText="Choose Customer" />
-            <ScrollPane fx:id="messageBox" prefHeight="248.0" prefWidth="567.0">
-               <content>
-                  <VBox fx:id="content" prefHeight="243.0" prefWidth="555.0" />
-               </content>
-            </ScrollPane>
-            <TextField fx:id="messageTextField" alignment="TOP_LEFT" prefHeight="134.0" prefWidth="567.0" promptText="  Enter new goal here ..." />
-            <Button fx:id="sendMessageBtn" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" prefWidth="192.0" text="Update goal" />
-            <Button fx:id="clearMessageBtn" mnemonicParsing="false" onAction="#clearMessage" prefHeight="27.0" prefWidth="191.0" text="Clear" />
+            <ComboBox fx:id="customerComboBox" prefHeight="27.0" prefWidth="567.0" promptText=" Choose Customer" />
+            <ScrollPane fx:id="messageBox" prefHeight="171.0" prefWidth="567.0" />
+            <VBox prefHeight="23.0" prefWidth="567.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="217.0" text="Please enter the new step goal:" />
+               </children>
+            </VBox>
+            <TextField fx:id="stepsField" alignment="CENTER" prefHeight="43.0" prefWidth="567.0" promptText="0" />
+            <VBox prefHeight="25.0" prefWidth="567.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="313.0" text="Please enter the deadline date: (YYYY-MM-DD)" />
+               </children>
+            </VBox>
+            <TextField fx:id="dateField" alignment="CENTER" prefHeight="43.0" prefWidth="567.0" promptText="YYYY-MM-DD" />
+            <Button fx:id="updateGoalBtn" mnemonicParsing="false" onAction="#updateGoal" prefHeight="27.0" prefWidth="567.0" text="Update goal" />
+            <VBox prefHeight="13.0" prefWidth="567.0" />
+            <Button fx:id="clearMessageBtn" mnemonicParsing="false" onAction="#clearMessage" prefHeight="27.0" prefWidth="567.0" text="Clear fields" />
          </children>
       </VBox>
    </center>

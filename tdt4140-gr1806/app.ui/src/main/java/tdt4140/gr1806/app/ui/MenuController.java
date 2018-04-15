@@ -45,8 +45,6 @@ public class MenuController {
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(new Scene(root));
 		stage.show();
-		
-		// System.out.println("Goals called");
 	}
 	
 	public void init(FitspoAppController fitspoAppController) {

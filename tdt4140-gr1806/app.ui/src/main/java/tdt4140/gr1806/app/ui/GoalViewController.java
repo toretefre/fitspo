@@ -3,7 +3,6 @@ package tdt4140.gr1806.app.ui;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +31,8 @@ public class GoalViewController {
 	@FXML private ComboBox<Customer> customerComboBox;
 	@FXML private Button sendMessageBtn;
 	@FXML private Button clearMessageBtn;
+	@FXML private TextField stepsField;
+	@FXML private TextField dateField;
 	@FXML private TextField messageTextField;
 	@FXML private ScrollPane messageBox;
 	@FXML private VBox messageContent;
@@ -46,8 +47,8 @@ public class GoalViewController {
 	}
 
 	@FXML public void updateMessageField(ActionEvent event) throws SQLException {
-		//Clearing the content first - dont want duplicate messages when using the application.
-		content.getChildren().clear();
+		// Clearing the content first - dont want duplicate messages when using the application.
+		// content.getChildren().clear();
 		
 		Goal g = cr.createGoalFromCustomerId(this.selectedCustomer.getId());
 		TextArea text = new TextArea();
@@ -57,13 +58,13 @@ public class GoalViewController {
 		messageBox.setFitToWidth(true);
 	}
 	
-	@FXML public void sendMessage(ActionEvent event) throws SQLException {
-		String message = messageTextField.getText();
-		Date sqlDate = new Date(System.currentTimeMillis());
-		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
-		cr.saveMessage(m);
-		updateMessageField(event);
-		messageTextField.clear();
+	@FXML public void updateGoal(ActionEvent event) {
+		String steps = stepsField.getText();
+		String deadLine = dateField.getText();
+		Goal goal = new Goal(this.selectedCustomer.getId(), Integer.parseInt(steps), "1970-01-01", deadLine);
+		cr.saveGoal(goal);
+		stepsField.clear();
+		dateField.clear();
 	}
 	
 	@FXML public void clearMessage(ActionEvent event) {

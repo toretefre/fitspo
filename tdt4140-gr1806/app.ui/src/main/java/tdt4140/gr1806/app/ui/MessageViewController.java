@@ -59,6 +59,8 @@ public class MessageViewController {
 					m.getMessage());
 			content.getChildren().add(text);
 		}
+		TextArea text1 = new TextArea();
+		text1.setText("Data");
 		messageBox.setFitToWidth(true);
 	}
 	
