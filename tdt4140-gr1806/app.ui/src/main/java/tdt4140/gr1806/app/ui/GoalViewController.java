@@ -1,7 +1,6 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -23,7 +21,6 @@ import javafx.util.StringConverter;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
 import tdt4140.gr1806.app.core.Goal;
-import tdt4140.gr1806.app.core.Message;
 
 /**
  * Controls the GoalView
@@ -45,7 +42,7 @@ public class GoalViewController {
 	@FXML private VBox content;
 	@FXML private Label statusLabel;
 
-	
+	// Switches to the Goal view
 	public void changeCenterContent(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("GoalView.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -53,16 +50,14 @@ public class GoalViewController {
 		stage.show();
 	}
 
+	// Displays the goal and the deadline
 	@FXML public void updateMessageField(ActionEvent event) throws SQLException {
-		// Clearing the content first - dont want duplicate messages when using the application.
-		// content.getChildren().clear();
-		
 		Goal g = cr.createGoalFromCustomerId(this.selectedCustomer.getId());
 		String status = new String("The selected customer has a goal of " + Integer.toString(g.getGoal()) + " steps, " + System.lineSeparator() + "with the deadline set to " + g.getDeadLineEnd());
-		statusLabel.setText(status);
-		
+		statusLabel.setText(status);	
 	}
 	
+	// Saves the input to a goal object and calls for SaveGoal method in CustomerRepository
 	@FXML public void updateGoal(ActionEvent event) throws SQLException {
 		String steps = stepsField.getText();
 		String deadLine = dateField.getText();
