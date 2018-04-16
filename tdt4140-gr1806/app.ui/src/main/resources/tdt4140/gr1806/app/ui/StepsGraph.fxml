@@ -3,11 +3,9 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -29,37 +27,36 @@
         </VBox>
     </left>
     <center>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" translateX="-8.0" translateY="-50.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 
             <children>
-                <HBox prefHeight="31.0" prefWidth="600.0">
+                <HBox>
                     <children>
                         <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="Choose customer" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fra:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From:" translateY="3.0" />
                         <DatePicker fx:id="fromDatePicker" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Til:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To:" translateY="3.0" />
                         <DatePicker fx:id="toDatePicker" />
-                        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdate" text="Update" />
                     </children>
                 </HBox>
-                <HBox prefHeight="24.0" prefWidth="600.0">
+                <HBox>
                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Steps walked: " />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="totalSteps" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
                     </children>
                 </HBox>
-                <ScrollPane fx:id="scrollPane" prefHeight="439.0" prefWidth="600.0">
-                    <content>
+                <VBox fx:id="chartContainer">
+                    <children>
                         <BarChart fx:id="barChart">
                             <xAxis>
-                                <CategoryAxis fx:id="xAxis" label="Days" side="BOTTOM" />
+                                <CategoryAxis label="Days" side="BOTTOM" fx:id="xAxis" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxis" label="Steps" side="LEFT" />
                             </yAxis>
                         </BarChart>
-                    </content>
-                </ScrollPane>
+                    </children>
+                </VBox>
             </children>
         </VBox>
     </center>

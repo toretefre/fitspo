@@ -4,13 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
@@ -32,12 +29,10 @@ public class StepsGraphController {
     @FXML ComboBox<Customer> customerComboBox;
     @FXML DatePicker fromDatePicker;
     @FXML DatePicker toDatePicker;
-    @FXML Button updateButton;
-    @FXML ScrollPane scrollPane;
+    @FXML VBox chartContainer;
+    @FXML Text totalSteps;
+    @FXML BarChart barChart;
 
-    public void handleUpdate() {
-
-    }
 
     @FXML
     public void initialize() {
@@ -46,13 +41,12 @@ public class StepsGraphController {
 
         fromDatePicker.setOnAction(e -> {
             LocalDate fromLocalDate = fromDatePicker.getValue();
-            toDate = Date.valueOf(fromLocalDate);
+            fromDate = Date.valueOf(fromLocalDate);
+            updateChart();
         });
         toDatePicker.setOnAction(e -> {
             LocalDate toLocalDate = toDatePicker.getValue();
             toDate = Date.valueOf(toLocalDate);
-        });
-        updateButton.setOnAction(e -> {
             updateChart();
         });
 
@@ -60,11 +54,21 @@ public class StepsGraphController {
 
     private void updateChart() {
 
-        ArrayList<DayWithStepsData> daysWithSteps = cr.getStepsDataOfCustomer(selectedCustomer, fromDate, toDate);
+        if (selectedCustomer != null) {
 
-        BarChart<String, Integer> bc = StepsBarChartCreator.getBarChart(daysWithSteps);
+            ArrayList<DayWithStepsData> daysWithSteps = cr.getStepsDataOfCustomer(selectedCustomer, fromDate, toDate);
 
-        scrollPane.setContent(bc);
+            chartContainer.getChildren().remove(barChart);
+
+            barChart = StepsBarChartCreator.getBarChart(daysWithSteps);
+
+            int totalStepsInt = cr.getTotalStepsInDateRange(
+                    selectedCustomer, fromDate.toLocalDate(), toDate.toLocalDate());
+
+            totalSteps.setText(Integer.toString(totalStepsInt));
+
+            chartContainer.getChildren().add(barChart);
+        }
 
     }
 

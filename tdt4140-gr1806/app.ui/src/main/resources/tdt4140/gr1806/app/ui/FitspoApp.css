@@ -51,3 +51,6 @@ ScrollPane HBox {
 	-fx-wrap-text: true;
 }
 
+#barChart {
+	width: 100%;
+}
