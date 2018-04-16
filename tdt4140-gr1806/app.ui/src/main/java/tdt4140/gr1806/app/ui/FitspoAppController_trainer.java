@@ -1,7 +1,9 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -96,11 +98,13 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		LocalDate fromDate = from.getValue();
-		LocalDate toDate = to.getValue();
+		LocalDate fDate = from.getValue();
+		LocalDate tDate = to.getValue();
+		Date fromDate = (Date) Date.from(fDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date toDate = (Date) Date.from(tDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		
 		if(fromDate != null && toDate != null) {
-			int steps = CustomerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
+			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
 			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
 			HBox dataRow = new HBox();
 			dataRow.setId("1");
