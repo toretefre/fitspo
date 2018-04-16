@@ -1,1 +1,1 @@
-# Resources used by the core Java code
+  # Resources used by the core Java code

@@ -1,8 +1,7 @@
 package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
-
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * Tests of Goal class

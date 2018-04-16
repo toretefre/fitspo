@@ -1,12 +1,8 @@
 package tdt4140.gr1806.app.core;
 
 import java.sql.Date;
-import java.sql.SQLException;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * Test class for MessageClass. 
@@ -17,15 +13,8 @@ public class MessageTest {
 	CustomerRepository cr = new CustomerRepository();
 	
 	//Adding new Messages for testing
-	Message test1 = test1 = new Message(Date.valueOf("2018-02-02"), 6, "This is a test message");
-	
+	Message test1 = new Message(Date.valueOf("2018-02-02"), 6, "This is a test message");
 	Message test2 = new Message(Date.valueOf("2018-02-03"), 3, "This is an another test message");
-	
-	
-	@BeforeClass
-	public static void addMessagesForTest() throws SQLException {
-		
-	}
 
 	//Testing getters
 	@Test
