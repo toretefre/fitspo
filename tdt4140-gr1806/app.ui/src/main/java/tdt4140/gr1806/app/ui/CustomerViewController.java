@@ -22,7 +22,7 @@ import tdt4140.gr1806.app.core.Goal;
 public class CustomerViewController {
 	
 	FitspoAppController fitspo;
-	@FXML FitspoAppController_trainer oneCust;
+	@FXML IndividualCustomerViewController oneCust;
 	@FXML ScrollPane customerlist;
 	@FXML VBox content;
 	private CustomerRepository customerRepository = new CustomerRepository();
@@ -49,7 +49,7 @@ public class CustomerViewController {
 					Goal goal = customerRepository.createGoalFromCustomerId(currentCust.getId());
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
 					root = loader.load();
-					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
+					IndividualCustomerViewController controller = (IndividualCustomerViewController)loader.getController();
 					controller.init(currentCust, goal);
 					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					stage.setScene(new Scene(root));
