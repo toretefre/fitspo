@@ -311,6 +311,7 @@ public class CustomerRepository {
 			if (!this.isCustomerInDatabase(new Customer(goal.getCustomerId(), null, null, null, null, null, 0, 0))) {
 				throw new IllegalArgumentException("The customer is not in the database");
 			}
+			deleteGoal(goal);
 			String sql = "insert into CustomerGoal "
 					+ "(customerId, "
 					+ "stepsGoal, "
@@ -332,10 +333,7 @@ public class CustomerRepository {
 		}
 		return goal;
 	}
-	
-	
-	
-	
+
 	
 	public Goal createGoalFromCustomerId(int customerId) {
 		Goal goal = null;

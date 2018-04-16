@@ -53,7 +53,10 @@ public class GoalViewController {
 	// Displays the goal and the deadline
 	@FXML public void updateMessageField(ActionEvent event) throws SQLException {
 		Goal g = cr.createGoalFromCustomerId(this.selectedCustomer.getId());
-		String status = new String("The selected customer has a goal of " + Integer.toString(g.getGoal()) + " steps, " + System.lineSeparator() + "with the deadline set to " + g.getDeadLineEnd());
+		String status = new String("The selected customer needs a new goal, please set one below.");
+		if (g != null) {
+			status = new String("The selected customer has a goal of " + Integer.toString(g.getGoal()) + " steps, " + System.lineSeparator() + "with the deadline set to " + g.getDeadLineEnd());
+		}
 		statusLabel.setText(status);	
 	}
 	

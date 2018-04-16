@@ -333,6 +333,7 @@ public class CustomerRepositoryTest {
 		Goal g3Loaded = cr.createGoalFromCustomerId(cus.getId());
 		this.checkGoalData(g3, g3Loaded);
 		
+		
 		// Check that when goal is negative, a null object is returned.
 		cr.deleteGoal(g3);
 		g3.setGoal(-7);
