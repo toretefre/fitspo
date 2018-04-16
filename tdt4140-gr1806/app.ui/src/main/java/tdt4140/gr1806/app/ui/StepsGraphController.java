@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class StepsGraphController {
 
     private CustomerRepository cr = new CustomerRepository();
-    private Customer selectedCustomer;
+    private Customer selectedCustomer = null;
     private Date fromDate = stringToDate("10000101");
     private Date toDate = stringToDate("99991231");
 
@@ -34,6 +35,7 @@ public class StepsGraphController {
     @FXML DatePicker toDatePicker;
     @FXML Button updateButton;
     @FXML ScrollPane scrollPane;
+    @FXML Text totalSteps;
 
     public void handleUpdate() {
 
@@ -60,11 +62,20 @@ public class StepsGraphController {
 
     private void updateChart() {
 
-        ArrayList<DayWithStepsData> daysWithSteps = cr.getStepsDataOfCustomer(selectedCustomer, fromDate, toDate);
 
-        BarChart<String, Integer> bc = StepsBarChartCreator.getBarChart(daysWithSteps);
+        if (selectedCustomer != null) {
 
-        scrollPane.setContent(bc);
+            ArrayList<DayWithStepsData> daysWithSteps = cr.getStepsDataOfCustomer(selectedCustomer, fromDate, toDate);
+            BarChart<String, Integer> bc = StepsBarChartCreator.getBarChart(daysWithSteps);
+
+            int totalStepsInt = cr.getTotalStepsInDateRange(
+                    selectedCustomer, fromDate.toLocalDate(), toDate.toLocalDate());
+
+            totalSteps.setText(Integer.toString(totalStepsInt));
+
+            scrollPane.setContent(bc);
+        }
+
 
     }
 

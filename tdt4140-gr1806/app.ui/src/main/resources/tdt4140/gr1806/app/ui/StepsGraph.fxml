@@ -44,8 +44,8 @@
                 </HBox>
                 <HBox prefHeight="24.0" prefWidth="600.0">
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Steps walked: " />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total steps walked in period: " />
+                        <Text fx:id="totalSteps" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
                     </children>
                 </HBox>
                 <ScrollPane fx:id="scrollPane" prefHeight="439.0" prefWidth="600.0">
