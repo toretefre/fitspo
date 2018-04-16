@@ -18,15 +18,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.Assert;
 import org.junit.Test;
 
-import tdt4140.gr1806.app.core.Customer;
-import tdt4140.gr1806.app.core.CustomerRepository;
-
 /**
  * Integration test for the web.server
  * @author Aasmund
  *
  */
-public class FitspoServiceIT {
+public class StepReceiverServerIT {
 	
 	/**
 	 * Tests the simplest type of request.
@@ -35,22 +32,23 @@ public class FitspoServiceIT {
 	@Test
 	public void testGet() {
 		InputStream urlStream = null;
-		String helloTest = null;
+		String result = null;
 		try {
-			URL url = new URL("http://localhost:8888/fitspo/hello?name=tester");
+			URL url = new URL("http://localhost:8888/data/hello?name=tester");
 			urlStream = url.openStream();
-			helloTest = ToStringHelper.InputStreamToString(urlStream);
+			result = ToStringHelper.InputStreamToString(urlStream);
 			urlStream.close();
-
 		} catch (MalformedURLException e) {
 			System.err.println("Malformed URL");
 			e.printStackTrace();
+			Assert.fail();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("IOException in testGet");
 			e.printStackTrace();
+			Assert.fail();
 		}
-
-		Assert.assertEquals(helloTest, "Hello, tester!");
+		
+		Assert.assertEquals(result, "Hello, tester!");
 		
 	}
 	
@@ -61,16 +59,10 @@ public class FitspoServiceIT {
 	 */
 	@Test
 	public void testPost() throws ClientProtocolException, IOException {
-		CustomerRepository customerRepository = new CustomerRepository();
-		
-		Customer testPerson = new Customer("Hans WebServer Test", "O", "91765567", "1996-02-02", 170, 70);
-		// saveCustomer() returns Customer object with the ID given by DB
-		testPerson = customerRepository.saveCustomer(testPerson);
-		
-		String jsonString = "{\"steps\":1330,\"dateString\":\"2000-01-01\",\"personID\":"+testPerson.getId()+"}";
+		String jsonString = "{\"steps\":524,\"date\":20180302,\"personID\":10}";
 		
 		HttpClient client = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost("http://localhost:8888/fitspo/automatic");
+		HttpPost httpPost = new HttpPost("http://localhost:8888/data/automatic");
 
 		// Request parameters and other properties.
 		StringEntity entity = new StringEntity(jsonString);
@@ -84,21 +76,16 @@ public class FitspoServiceIT {
 		// Checking the response for data
 		HttpEntity responseEntity = response.getEntity();
 
-		if (responseEntity != null) {
+		if (entity != null) {
 		    InputStream instream = responseEntity.getContent();
 		    try {
 		    	System.out.println(ToStringHelper.InputStreamToString(instream));
 		    } catch (Exception e) {
+		    	System.err.println("Failed printing response");
 		    	e.printStackTrace();
 		    } finally {
 		        instream.close();
 		    }
 		}
-		
-		// Check if the steps actually has been added
-		Assert.assertEquals(1330, customerRepository.getTotalSteps(testPerson));
-		
-		// Clean up
-		customerRepository.deleteCustomer(testPerson);
 	}
 }

@@ -62,8 +62,8 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.err.println("Error occured while inserting new customer into database");
 			System.err.println("CustomerRepository: " + e.getMessage());
-    		customer = null;
-    		e.printStackTrace();
+    			customer = null;
+    			e.printStackTrace();
         }
 		return customer;
 	}
@@ -76,12 +76,9 @@ public class CustomerRepository {
 	 */
 	protected boolean isCustomerInDatabase(Customer cus) {
 		int id = cus.getId();
-		ArrayList<Customer> customerList = this.findAllCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getId()==id) {
-				return true;
-			}
+		Customer tryCustomer = this.createCustomerFromId(id);
+		if (null != tryCustomer) {
+			return true;
 		}
 		return false;
 	}
@@ -382,34 +379,11 @@ public class CustomerRepository {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println("db error during deletion of goal");
-    		System.err.print(e);
+    			System.err.print(e);
 		}
 	}
 	
 	
-	public ArrayList<Message> getMessages(Customer customer) {
-		ArrayList<Message> messages = new ArrayList<>();
-		String sql= "select date, message, customerID from Messages where customerID="+customer.getId()+" order by date asc";
-		try (Connection conn = ConnectionManager.connect()) {
-			if (!this.isCustomerInDatabase(customer)) {
-				throw new IllegalArgumentException("The customer is not in the database");
-			}
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Date date = rs.getDate("date");
-				String message = rs.getString("message");
-				int customerID = rs.getInt("customerID");
-				messages.add(new Message(date, customerID, message));
-			}
-		}
-		catch(Exception e) {
-			System.err.println("Error while retrieving messages from DB");
-			e.printStackTrace();
-		}finally {
-		}
-		return messages;
-	}
 	
 	/**
 	 * Saves message to DB
@@ -441,4 +415,36 @@ public class CustomerRepository {
 		}
 		return message;
 	}
+	
+
+	
+	
+	public ArrayList<Message> getMessages(Customer customer) {
+		ArrayList<Message> messages = new ArrayList<>();
+		String sql= "select id, date, message, customerID from Messages where customerID="+customer.getId()+" order by date asc";
+		try (Connection conn = ConnectionManager.connect()) {
+			if (!this.isCustomerInDatabase(customer)) {
+				throw new IllegalArgumentException("The customer is not in the database");
+			}
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				String message = rs.getString("message");
+				int customerID = rs.getInt("customerID");
+				Message m = new Message(date, customerID, message);
+				int id = rs.getInt("id");
+				m.setId(id);
+				messages.add(m);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error in getMessages");
+			e.printStackTrace();
+		}
+		return messages;
+	}
+	
+	
+	
 }

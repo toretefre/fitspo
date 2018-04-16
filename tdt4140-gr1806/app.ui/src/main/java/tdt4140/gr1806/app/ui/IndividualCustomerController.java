@@ -24,9 +24,9 @@ import tdt4140.gr1806.app.core.Goal;
 
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
- * Controlling the IndividualCustomer.fxml
+ * Controlling the FitspoApp_trainer.fxml
  * @author Magnus
- * Modified by Tore and Aasmund
+ * Modified by Tore
  * @version 1.0
  * @see tdt4140.gr1806.app.core.Trainer.java
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
@@ -59,7 +59,7 @@ public class IndividualCustomerController {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
-
+		
 		// Showing goals in list:
 		if (stepsLeft <= 0) {
 			data.add(new String[]{"Customer needs a new goal", ""});
@@ -68,6 +68,7 @@ public class IndividualCustomerController {
 			data.add(new String[]{"Steps left to reach goal", String.valueOf(stepsLeft)});
 			data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
 		}
+		
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -80,7 +81,7 @@ public class IndividualCustomerController {
 			name.setId("personboxLabel");
 			
 			Label steps = new Label(data.get(i)[1]);
-			steps.setId("personboxStepsLabel");
+			steps.setId("personboxSkrittLabel");
 			
 			dataRow.getChildren().addAll(name,steps);
 			content.getChildren().add(dataRow);
@@ -100,13 +101,14 @@ public class IndividualCustomerController {
 		
 		if(fromDate != null && toDate != null) {
 			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
+			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
 			HBox dataRow = new HBox();
 			dataRow.setId("1");
 			dataRow.setPrefWidth(container.getPrefWidth());
 			Label name = new Label("Steps");
 			name.setId("personboxLabel");
 			Label step = new Label(Integer.toString(steps));
-			step.setId("personboxStepsLabel");
+			step.setId("personboxSkrittLabel");
 			dataRow.getChildren().addAll(name, step);
 			content.getChildren().set(5, dataRow);
 		}
@@ -123,9 +125,9 @@ public class IndividualCustomerController {
 	@FXML
 	public void onButtonClick(ActionEvent event) throws Exception {
 		PopupWindow popup = new PopupWindow();
-		boolean confirm = popup.display();
+		boolean answer = popup.display();
 		
-		if (confirm) {
+		if (answer == true) {
 			customerRepository.deleteCustomer(cus);
 			Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -136,6 +138,7 @@ public class IndividualCustomerController {
 
 
 	public void init(Customer target, Goal goal) {
+		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
 		loadCustomerData(target, goal);
 	}
