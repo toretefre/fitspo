@@ -1,15 +1,10 @@
 package tdt4140.gr1806.app.core;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Instances of this class will represent a customer
  */
 
-
 public class Customer{
-	
 	
 	private int id;
 	private String name;
@@ -50,10 +45,12 @@ public class Customer{
 		this.id = id;
 	}
 	
-
+	
 	public String getName() {
 		return this.name;
 	}
+	
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -62,14 +59,17 @@ public class Customer{
 	public int getHeight() {
 		return height;
 	}
+	
+	
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
-
+	
 	public double getWeight() {
 		return weight;
 	}
+	
 
 	public void setWeight(double weight) {
 		this.weight = weight;
@@ -111,12 +111,11 @@ public class Customer{
 		this.gender = gender;
 	}
 
-
 	@Override
 	public String toString() {
         return "ID: " + this.id + "\nName: " + this.name + "\nBirth Date: " + this.birthDate + 
-        		"\nTelephone: " + this.telephone + "\nGender: " + this.gender + "\nDate Registered: " + this.dateRegistered + 
-        		"\nHeight: "+ this.height + "\nWeight: "+ this.weight;
+        		"\nTelephone: " + this.telephone + "\nGender: " + this.gender + "\nDate Registered: " 
+        		+ this.dateRegistered + "\nHeight: "+ this.height + "\nWeight: "+ this.weight;
     }
 
 }
