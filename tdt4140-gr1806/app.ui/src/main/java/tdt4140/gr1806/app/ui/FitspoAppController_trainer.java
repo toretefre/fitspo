@@ -89,11 +89,11 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		LocalDate fromDate = from.getValue();
-		LocalDate toDate = to.getValue();
+		String fromDate = from.getValue().toString();
+		String toDate = to.getValue().toString();
 		
 		if(fromDate != null && toDate != null) {
-			int steps = CustomerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
+			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
 			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
 			HBox dataRow = new HBox();
 			dataRow.setId("1");

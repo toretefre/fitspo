@@ -161,24 +161,6 @@ public class CustomerRepository {
 	}
 	
 
-
-	public ResultSet getStepsDataOfCustomer(Customer customer) throws SQLException {
-		String sql = "select steps, walkDay from StepsOnDay where id=?";
-		ResultSet rs = null;
-
-		try (Connection conn = ConnectionManager.connect()){
-
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, customer.getId());
-			rs = pstmt.executeQuery();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rs;
-	}
-		
-		
 		
 	/**
 	 * Finding all the customers saved in the database.
@@ -265,7 +247,7 @@ public class CustomerRepository {
 	  * @return steps, integer representing the amount of steps registered to the customer the given time span,
 	  * or -1 if there is an exception or the customer does not exist.
 	  */
-	public int getTotalStepsInDateRange(Customer customer, Date startDate, Date endDate) {
+	public int getTotalStepsInDateRange(Customer customer, String startDate, String endDate) {
 		int steps = 0;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
@@ -278,8 +260,8 @@ public class CustomerRepository {
 			}
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, customer.getId());
-			pstmt.setDate(2, startDate);
-			pstmt.setDate(3, endDate);
+			pstmt.setString(2, startDate);
+			pstmt.setString(3, endDate);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				steps = rs.getInt("SUM(steps)");

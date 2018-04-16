@@ -192,8 +192,8 @@ public class CustomerRepositoryTest {
         // Add user with steps on 2 days, test different cases
         int stepsExpected = 500+100;
         
-        Date startDate = Date.valueOf("2018-01-02");
-        Date endDate = Date.valueOf("2018-02-02");
+        String startDate = Date.valueOf("2018-01-02").toString();
+        String endDate = Date.valueOf("2018-02-02").toString();
 
 
         	cr.saveCustomer(cus);
