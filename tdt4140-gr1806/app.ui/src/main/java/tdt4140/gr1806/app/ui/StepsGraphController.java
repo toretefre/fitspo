@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class StepsGraphController {
 
     private CustomerRepository cr = new CustomerRepository();
-    private Customer selectedCustomer;
+    private Customer selectedCustomer = null;
     private Date fromDate = stringToDate("10000101");
     private Date toDate = stringToDate("99991231");
 

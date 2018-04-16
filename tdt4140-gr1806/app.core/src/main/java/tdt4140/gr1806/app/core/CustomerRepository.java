@@ -160,8 +160,7 @@ public class CustomerRepository {
 
 		Customer customer = new Customer(id, name, gender, date, telephone, bDate, height, weight);
 		return customer;
-	}
-	
+	}	
 
 	public ArrayList<DayWithStepsData> getStepsDataOfCustomer(Customer customer, Date fromDate, Date toDate) {
 		String sql = "select steps, walkDay from StepsOnDay where customerId=? and (walkDay between ? and ?)";
