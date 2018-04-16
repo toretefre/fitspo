@@ -28,6 +28,10 @@ public class MessageTest {
 	}
 
 	//Testing getters
+	@Test
+	public void testGetDate() {
+		Assert.assertEquals(Date.valueOf("2018-02-02"), test1.getDate());
+	}
 	
 	@Test
 	public void testCustomerID() {
@@ -43,7 +47,7 @@ public class MessageTest {
 
 	//Testing setters
 	@Test
-	public void testSetCusID() {
+	public void testSetID() {
 		test1.setId(4);
 		Assert.assertTrue(4 == test1.getId());
 	}
@@ -54,6 +58,12 @@ public class MessageTest {
 		Assert.assertEquals("New messagetext", test1.getMessage());
 	}
 	
+	@Test
+	public void testSetCusId() {
+		test1.setCusID(2);
+		Assert.assertEquals(2, test1.getCusID());
+	}
+
 	
 	
 }

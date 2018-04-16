@@ -24,7 +24,7 @@
       </VBox>
    </left>
    <center>
-      <VBox fx:id="messageContent" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="messageContent" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <ComboBox fx:id="customerComboBox" prefHeight="27.0" prefWidth="186.0" promptText="Choose Customer" />
             <ScrollPane fx:id="messageBox" prefHeight="248.0" prefWidth="567.0">
@@ -32,9 +32,12 @@
                   <VBox fx:id="content" prefHeight="243.0" prefWidth="555.0" />
                </content>
             </ScrollPane>
-            <TextField fx:id="messageTextField" alignment="TOP_LEFT" prefHeight="134.0" prefWidth="567.0" promptText="Write here..." />
-            <Button fx:id="sendMessageBtn" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" prefWidth="56.0" text="Send" />
-            <Button fx:id="clearMessageBtn" mnemonicParsing="false" onAction="#clearMessage" prefHeight="27.0" prefWidth="71.0" text="Clear" />
+            <TextField fx:id="messageTextField" alignment="TOP_LEFT" prefHeight="134.0" prefWidth="567.0" promptText="Write here..." snapToPixel="false">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <Button fx:id="sendMessageBtn" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" prefWidth="56.0" text="Send" translateX="170.0" translateY="20.0" />
+            <Button fx:id="clearMessageBtn" mnemonicParsing="false" onAction="#clearMessage" prefHeight="27.0" prefWidth="71.0" text="Clear" translateX="270.0" translateY="-9.0" />
          </children>
       </VBox>
    </center>
