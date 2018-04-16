@@ -54,11 +54,9 @@ public class CustomerViewController {
 					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					stage.setScene(new Scene(root));
 					stage.show();	
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				} 
 			});
 			Label name = new Label(currentCust.getName());
 			name.setId("personboxLabel");

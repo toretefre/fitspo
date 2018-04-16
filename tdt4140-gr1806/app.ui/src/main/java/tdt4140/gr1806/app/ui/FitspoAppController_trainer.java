@@ -1,7 +1,9 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -47,7 +49,9 @@ public class FitspoAppController_trainer {
 
 	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		cus = selectedPerson;
-
+		
+		int stepsLeft = goal.getGoal() - this.customerRepository.getTotalSteps(selectedPerson);
+		
 		userName.setText(selectedPerson.getName());
 		
 		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
@@ -59,9 +63,14 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
 		
 		// Showing goals in list:
-		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
-		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
-		data.add(new String[]{"Steps left", String.valueOf((goal.getGoal()) - this.customerRepository.getTotalSteps(selectedPerson))});
+		if (stepsLeft <= 0) {
+			data.add(new String[]{"Customer needs a new goal", ""});
+		} else {
+			data.add(new String[]{"Customer step goal", Integer.toString(goal.getGoal())});
+			data.add(new String[]{"Steps left to reach goal", String.valueOf(stepsLeft)});
+			data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
+		}
+		
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -89,11 +98,13 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		LocalDate fromDate = from.getValue();
-		LocalDate toDate = to.getValue();
+		LocalDate fDate = from.getValue();
+		LocalDate tDate = to.getValue();
+		Date fromDate = (Date) Date.from(fDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date toDate = (Date) Date.from(tDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		
 		if(fromDate != null && toDate != null) {
-			int steps = CustomerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
+			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
 			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
 			HBox dataRow = new HBox();
 			dataRow.setId("1");
