@@ -120,6 +120,7 @@ public class CustomerRepository {
 	 * @param date Date of steps
 	 */
 	public void addStepsToCustomer(Customer customer, int steps, String date) {
+
 		try(Connection conn = ConnectionManager.connect()) {
 			if (!this.isCustomerInDatabase(customer)) {
 				throw new IllegalArgumentException("The customer is not in the database");
@@ -282,9 +283,8 @@ public class CustomerRepository {
 		}
 		return steps;
 	}
-	
 
-	
+
 	/**
 	 * 
 	 * @param goal
