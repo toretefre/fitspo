@@ -59,11 +59,10 @@ public class CustomerRepository {
 			customer.setDateRegistered(rs2.getString("dateRegistered"));
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("db error during inserting of new customer");
-        		System.err.print(e);
-        		customer = null;
-        	}
+			System.err.println("Error occured while inserting new customer into database");
+			System.err.println("CustomerRepository: " + e.getMessage());
+    		customer = null;
+        }
 		return customer;
 	}
 	
@@ -77,6 +76,7 @@ public class CustomerRepository {
 		int id = cus.getId();
 		ArrayList<Customer> customerList = this.findAllCustomers();
 		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
+		customerList.contains(cus);
 		for (Customer customer : customerList) {
 			if (customer.getId()==id) {
 				return true;
@@ -386,7 +386,7 @@ public class CustomerRepository {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("Error in createGoalFromCustomerId");
+			System.err.println("Error in createGoalFromCustomerId");
 			e.printStackTrace();
 			goal = null;
 		}
@@ -409,15 +409,11 @@ public class CustomerRepository {
 			pstmt.setInt(1, goal.getCustomerId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("db error during deletion of customer");
-        		System.err.print(e);
+			System.err.println("db error during deletion of goal");
+    		System.err.print(e);
 		}
 	}
 	
-	
-	
-	
-
 	
 	public ArrayList<Message> getMessages(Customer customer) {
 		ArrayList<Message> messages = new ArrayList<>();
@@ -436,7 +432,7 @@ public class CustomerRepository {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("Error in getMessages");
+			System.err.println("Error while retrieving messages from DB");
 			e.printStackTrace();
 		}
 		return messages;
@@ -444,7 +440,7 @@ public class CustomerRepository {
 	
 	
 	/**
-	 * Tested and working
+	 * Saves message to DB
 	 * @param message
 	 */
 	
@@ -464,29 +460,10 @@ public class CustomerRepository {
 			pstmt.setString(3, message.getMessage());
 			pstmt.executeUpdate();
 		} catch(Exception e) {
-			System.out.println("Error in saveMessages");
+			System.err.println("Error while saving message to DB");
 			e.printStackTrace();
 			message = null;
 		}
 		return message;
 	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		// CustomerRepository customerRepo = new CustomerRepository();
-		// TEST SAVE GOAL:
-		// Goal goal123 = new Goal(1, 69000, "2018-02-02", "2018-03-03");
-		// customerRepo.saveGoal(goal123);
-		
-		// TEST LOAD GOAL:
-		// Goal testgoal;
-		// try {
-		//	testgoal = customerRepo.createGoalFromCustomerId(3);
-		//	System.out.println(testgoal);
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
-	}
-	}
+}

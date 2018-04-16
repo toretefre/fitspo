@@ -12,12 +12,13 @@ public class ConnectionManager {
     * Connects to the database.
     */
     public static Connection connect(){
-    		try {
+    	try {
             String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/matiasre_FitsPo?autoReconnect=true&useSSL=false";
             conn = DriverManager.getConnection(url, "matiasre_gruppe6", "123safari");
-    		} catch (Exception e) {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
+
+        } catch (Exception e) {
+            System.err.println("Connecting to the database failed");
+            System.err.println("ConnectionManager: " + e.getMessage());
         }
 	return conn;
     }

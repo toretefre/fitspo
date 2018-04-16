@@ -1,7 +1,8 @@
 package tdt4140.gr1806.app.core;
 
 /**
- * Instances of this class will represent a customer
+ * Instances of this class will represent a customer.
+ * See CustomerRepository for fetching and saving from DB. 
  */
 
 public class Customer{
@@ -24,7 +25,6 @@ public class Customer{
 		this.setWeight(weight);
 	}
 
-	
 	public Customer(int id, String name, String gender, String dateRegistered, String telephone, String birthDate, int height, double weight) {
 		this.setId(id);
 		this.setName(name);
@@ -42,7 +42,10 @@ public class Customer{
 		return this.id;
 	}
 	
-	// Should only be called via CustomerRepository
+	/**
+	 *  Should only be called via CustomerRepository
+	 * @param id ID to give this Customer-object 
+	 */
 	protected void setId(int id) {
 		this.id = id;
 	}
@@ -86,21 +89,35 @@ public class Customer{
 		this.telephone = telephone;
 	}
 
-
+	/**
+	 * 
+	 * @return Birthdate as String on the form "YYYY-MM-DD"
+	 */
 	public String getBirthDate() {
 		return birthDate;
 	}
 	
+	/**
+	 * 
+	 * @param birthDate String on the from "YYYY-MM-DD"
+	 */
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	
 	
+	/**
+	 * 
+	 * @return "YYYY-MM-DD"
+	 */
 	public String getDateRegistered() {
 		return dateRegistered;
 	}
 	
-	// Should only be called via CustomerReposit
+	/**
+	 * Should only be called via CustomerReposit
+	 * @param date "YYYY-MM-DD"
+	 */
 	protected void setDateRegistered(String date) {
 		this.dateRegistered = date;
 	}
@@ -109,6 +126,7 @@ public class Customer{
 	public String getGender() {
 		return gender;
 	}
+	
 	public void setGender(String gender) {
 		this.gender = gender;
 	}

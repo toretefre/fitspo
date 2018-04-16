@@ -41,9 +41,11 @@ public class StepReceiverServerIT {
 		} catch (MalformedURLException e) {
 			System.err.println("Malformed URL");
 			e.printStackTrace();
+			Assert.fail();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("IOException in testGet");
 			e.printStackTrace();
+			Assert.fail();
 		}
 		
 		Assert.assertEquals(result, "Hello, tester!");
@@ -73,13 +75,13 @@ public class StepReceiverServerIT {
 		
 		// Checking the response for data
 		HttpEntity responseEntity = response.getEntity();
-		System.out.println("Entity null? " + (responseEntity== null));
 
 		if (entity != null) {
 		    InputStream instream = responseEntity.getContent();
 		    try {
 		    	System.out.println(ToStringHelper.InputStreamToString(instream));
 		    } catch (Exception e) {
+		    	System.err.println("Failed printing response");
 		    	e.printStackTrace();
 		    } finally {
 		        instream.close();
