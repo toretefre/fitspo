@@ -31,7 +31,7 @@ import tdt4140.gr1806.app.core.Goal;
  * @see tdt4140.gr1806.app.core.Trainer.java
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
  */
-public class IndividualCustomerViewController {
+public class FitspoAppController_trainer {
 	FitspoAppController mainController;
 	
 	@FXML private ScrollPane container;
