@@ -313,6 +313,7 @@ public class CustomerRepository {
 			if (!this.isCustomerInDatabase(new Customer(goal.getCustomerId(), null, null, null, null, null, 0, 0))) {
 				throw new IllegalArgumentException("The customer is not in the database");
 			}
+			deleteGoal(goal);
 			String sql = "insert into CustomerGoal "
 					+ "(customerId, "
 					+ "stepsGoal, "
@@ -334,45 +335,7 @@ public class CustomerRepository {
 		}
 		return goal;
 	}
-	
-	
-	/**
-	 * Updates a goal for a customer.
-	 * @author henriette_andersen
-	 * @param goal, goal with a customerId that there already is saved a goal.
-	 * @return goal, the newly updated goal, or null if it did not work.
-	 */
-	public Goal updateGoal(Goal goal) {
-		try (Connection conn = ConnectionManager.connect()) {
-			if (!this.isCustomerInDatabase(new Customer(goal.getCustomerId(), null, null, null, null, null, 0, 0))) {
-				throw new IllegalArgumentException("The customer is not in the database");
-			}
-			String sql = "update CustomerGoal "
-					+ "set "
-					+ "stepsGoal = ?, "
-					+ "goalDeadline = ?, "
-					+ "goalStart = ? "
-					+ "where customerId = ?;";
 
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, goal.getGoal());
-			pstmt.setString(2, goal.getDeadLineStart());
-			pstmt.setString(3, goal.getDeadLineEnd());
-			pstmt.setInt(4, goal.getCustomerId());
-			pstmt.executeUpdate();
-			if (null == this.createGoalFromCustomerId(goal.getCustomerId())) {
-				throw new IllegalArgumentException("Cannot update when nothing is already saved.");
-			}
-			
-		} catch (Exception e) {
-			System.err.println("Could not update goal.");
-			e.printStackTrace();
-			goal = null;
-		}
-		return goal;
-	}
-	
-	
 	
 	public Goal createGoalFromCustomerId(int customerId) {
 		Goal goal = null;
