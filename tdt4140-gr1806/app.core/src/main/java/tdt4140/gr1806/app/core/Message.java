@@ -5,10 +5,11 @@ import java.sql.Date;
 /**
  * 
  * @author Magnus
- * Class for handling messages
+ * Class for creating messages
  */
 
 public class Message {
+	
 	private int id;
 	private Date date;
 	private int cusID;
@@ -31,11 +32,11 @@ public class Message {
 	public Date getDate() {
 		return date;
 	}
-
+/*
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+*/
 	public int getCusID() {
 		return cusID;
 	}

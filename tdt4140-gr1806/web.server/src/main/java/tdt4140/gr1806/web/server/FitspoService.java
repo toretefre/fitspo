@@ -169,9 +169,4 @@ public class FitspoService {
 			customerRepo.connect();
 		}
 	}
-	
-	public static void main(String[] args) {
-		FitspoService fs = new FitspoService();
-		System.out.println(fs.getCustomer("5"));
-	}
 }

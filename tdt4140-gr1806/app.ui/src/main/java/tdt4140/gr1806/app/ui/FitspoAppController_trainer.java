@@ -1,29 +1,29 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
-import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import tdt4140.gr1806.app.core.Customer;
 import tdt4140.gr1806.app.core.CustomerRepository;
+import tdt4140.gr1806.app.core.Goal;
+
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
  * Controlling the FitspoApp_trainer.fxml
@@ -41,12 +41,15 @@ public class FitspoAppController_trainer {
 	@FXML private Label userName;
 	@FXML private DatePicker from;
 	@FXML private DatePicker to;
+	@FXML private Button deleteButton;
 	ArrayList<String[]> data = new ArrayList<>();
 	private CustomerRepository customerRepository = new CustomerRepository();
+
 	private Customer cus;
 
-	private void loadCustomerData(Customer selectedPerson) {
+	private void loadCustomerData(Customer selectedPerson, Goal goal) {
 		cus = selectedPerson;
+
 		userName.setText(selectedPerson.getName());
 		
 		data.add(new String[]{"Telephone", selectedPerson.getTelephone()});
@@ -56,6 +59,11 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Weight", Double.toString(selectedPerson.getWeight())});
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
+		
+		// Showing goals in list:
+		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
+		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
+		data.add(new String[]{"Steps left", String.valueOf((goal.getGoal()) - this.customerRepository.getTotalSteps(selectedPerson))});
 		
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
@@ -67,10 +75,10 @@ public class FitspoAppController_trainer {
 			Label name = new Label(data.get(i)[0]);
 			name.setId("personboxLabel");
 			
-			Label skritt = new Label(data.get(i)[1]);
-			skritt.setId("personboxSkrittLabel");
+			Label steps = new Label(data.get(i)[1]);
+			steps.setId("personboxSkrittLabel");
 			
-			dataRow.getChildren().addAll(name,skritt);
+			dataRow.getChildren().addAll(name,steps);
 			content.getChildren().add(dataRow);
 		}
 	}
@@ -83,13 +91,13 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		System.out.println("Working");
-		String[] update = new String[] {"Steps", "44"};
-		LocalDate fromDate = from.getValue();
-		LocalDate toDate = to.getValue();
+		LocalDate fDate = from.getValue();
+		LocalDate tDate = to.getValue();
+		Date fromDate = (Date) Date.from(fDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date toDate = (Date) Date.from(tDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		
 		if(fromDate != null && toDate != null) {
-			int steps = CustomerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
+			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
 			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
 			HBox dataRow = new HBox();
 			dataRow.setId("1");
@@ -101,31 +109,34 @@ public class FitspoAppController_trainer {
 			dataRow.getChildren().addAll(name, step);
 			content.getChildren().set(5, dataRow);
 		}
-		
-		
 	}
 	
-	@FXML public void something(ActionEvent event) throws Exception {
-		System.out.println("Something cool happend here");
-	}
+	/**
+	 * method for handling the event of click on delete button. Opens a popup window and deletes customer if yes button is clicked. 
+	 * Returns to main view.
+	 *
+	 * @param event 
+	 * @throws Exception
+	 */
 	
 	@FXML
-	public void onDeleteCustomerClick(ActionEvent event) throws Exception {
-		Customer selected = this.cus;
+	public void onButtonClick(ActionEvent event) throws Exception {
+		PopupWindow popup = new PopupWindow();
+		boolean answer = popup.display();
 		
-		this.customerRepository.deleteCustomer(selected);
-		
-		Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(new Scene(root));
-		stage.show();
+		if (answer == true) {
+			customerRepository.deleteCustomer(cus);
+			Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.show();
+		}
 	}
-	
-	public void init(Customer target) {
-		System.out.println("Init called in fitspoappcontroller_trainer");
-		container.setFitToWidth(true);
-		loadCustomerData(target);
-	}
-	
 
+
+	public void init(Customer target, Goal goal) {
+		System.out.println("Fitspoappcontroller_trainer initialized");
+		container.setFitToWidth(true);
+		loadCustomerData(target, goal);
+	}
 }

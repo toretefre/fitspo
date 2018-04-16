@@ -3,7 +3,7 @@ package tdt4140.gr1806.app.core;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public abstract class ConnectionManager {
+public class ConnectionManager {
 
     public static Connection conn;
 
@@ -12,15 +12,15 @@ public abstract class ConnectionManager {
     * Connects to the database.
     */
     public static Connection connect(){
-        try {
-            String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/matiasre_FitsPo";
+    		try {
+            String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/matiasre_FitsPo?autoReconnect=true&useSSL=false";
             conn = DriverManager.getConnection(url, "matiasre_gruppe6", "123safari");
-
-        } catch (Exception e) {
+    		} catch (Exception e) {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
         }
-        return conn;
+	return conn;
     }
+    
     
 }

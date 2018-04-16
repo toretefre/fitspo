@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import tdt4140.gr1806.app.core.Customer;
+import tdt4140.gr1806.app.core.CustomerRepository;
 
 /**
  * Integration test for the web.server
@@ -60,7 +61,13 @@ public class FitspoServiceIT {
 	 */
 	@Test
 	public void testPost() throws ClientProtocolException, IOException {
-		String jsonString = "{\"steps\":524,\"dateString\":\"2018-04-03\",\"personID\":10}";
+		CustomerRepository customerRepository = new CustomerRepository();
+		
+		Customer testPerson = new Customer("Hans WebServer Test", "O", "91765567", "1996-02-02", 170, 70);
+		// saveCustomer() returns Customer object with the ID given by DB
+		testPerson = customerRepository.saveCustomer(testPerson);
+		
+		String jsonString = "{\"steps\":1330,\"dateString\":\"2000-01-01\",\"personID\":"+testPerson.getId()+"}";
 		
 		HttpClient client = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost("http://localhost:8888/fitspo/automatic");
@@ -77,7 +84,7 @@ public class FitspoServiceIT {
 		// Checking the response for data
 		HttpEntity responseEntity = response.getEntity();
 
-		if (entity != null) {
+		if (responseEntity != null) {
 		    InputStream instream = responseEntity.getContent();
 		    try {
 		    	System.out.println(ToStringHelper.InputStreamToString(instream));
@@ -87,5 +94,11 @@ public class FitspoServiceIT {
 		        instream.close();
 		    }
 		}
+		
+		// Check if the steps actually has been added
+		Assert.assertEquals(1330, customerRepository.getTotalSteps(testPerson));
+		
+		// Clean up
+		customerRepository.deleteCustomer(testPerson);
 	}
 }
