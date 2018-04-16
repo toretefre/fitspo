@@ -11,7 +11,7 @@
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
             <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages" />
             <Button fx:id="menuButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals" />
-            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Sprint3" />
+            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#graphStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Steps graf" />
          </children>
       </VBox>
    </children>

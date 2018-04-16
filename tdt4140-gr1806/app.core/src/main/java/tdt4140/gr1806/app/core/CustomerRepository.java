@@ -161,6 +161,24 @@ public class CustomerRepository {
 	}
 	
 
+
+	public ResultSet getStepsDataOfCustomer(Customer customer) throws SQLException {
+		String sql = "select steps, walkDay from StepsOnDay where id=?";
+		ResultSet rs = null;
+
+		try (Connection conn = ConnectionManager.connect()){
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, customer.getId());
+			rs = pstmt.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+		
+		
 		
 	/**
 	 * Finding all the customers saved in the database.
