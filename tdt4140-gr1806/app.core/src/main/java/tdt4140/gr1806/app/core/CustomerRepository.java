@@ -62,6 +62,7 @@ public class CustomerRepository {
 			System.err.println("Error occured while inserting new customer into database");
 			System.err.println("CustomerRepository: " + e.getMessage());
     		customer = null;
+    		e.printStackTrace();
         }
 		return customer;
 	}
@@ -104,6 +105,7 @@ public class CustomerRepository {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
 		}
 		return customer;
 	}
@@ -131,6 +133,7 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.err.println("Could not save to database.");
 			e.printStackTrace();
+		}finally {
 		}
 	}
 	
@@ -161,24 +164,6 @@ public class CustomerRepository {
 	}
 	
 
-
-	public ResultSet getStepsDataOfCustomer(Customer customer) throws SQLException {
-		String sql = "select steps, walkDay from StepsOnDay where id=?";
-		ResultSet rs = null;
-
-		try (Connection conn = ConnectionManager.connect()){
-
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, customer.getId());
-			rs = pstmt.executeQuery();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rs;
-	}
-		
-		
 		
 	/**
 	 * Finding all the customers saved in the database.
@@ -200,6 +185,7 @@ public class CustomerRepository {
 				System.out.println("db error during selection of customers");
 				System.err.print(e);
 				customers = null;
+			}finally {
 			}
 		return customers;
 	}
@@ -224,6 +210,7 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.out.println("db error during deletion of customer");
         		System.err.print(e);
+		}finally {
 		}
 	}
 	
@@ -251,6 +238,7 @@ public class CustomerRepository {
 			System.out.println("db error during selection of total steps from customer");
     			System.err.print(e);
     			i = -1;
+		}finally {
 		}
 		return i;
 	}
@@ -290,6 +278,8 @@ public class CustomerRepository {
 			e.printStackTrace();
 			steps = -1;
 		}
+		finally {
+		}
 		return steps;
 	}
 	
@@ -323,6 +313,7 @@ public class CustomerRepository {
 			System.err.println("Could not save goal to database. ");
 			e.printStackTrace();
 			goal = null;
+		}finally {
 		}
 		return goal;
 	}
@@ -360,6 +351,7 @@ public class CustomerRepository {
 			System.err.println("Could not update goal.");
 			e.printStackTrace();
 			goal = null;
+		}finally {
 		}
 		return goal;
 	}
@@ -389,6 +381,7 @@ public class CustomerRepository {
 			System.err.println("Error in createGoalFromCustomerId");
 			e.printStackTrace();
 			goal = null;
+		}finally {
 		}
 		return goal;
 	}
@@ -434,6 +427,7 @@ public class CustomerRepository {
 		catch(Exception e) {
 			System.err.println("Error while retrieving messages from DB");
 			e.printStackTrace();
+		}finally {
 		}
 		return messages;
 	}
@@ -463,6 +457,7 @@ public class CustomerRepository {
 			System.err.println("Error while saving message to DB");
 			e.printStackTrace();
 			message = null;
+		}finally {
 		}
 		return message;
 	}
