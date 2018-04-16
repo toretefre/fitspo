@@ -26,7 +26,7 @@ public class StepsBarChartCreator {
             series.getData().add(data);
         }
 
-        series.setName("Skritt gått");
+        series.setName("Steps walked");
 
         barChart.getData().addAll(series);
 

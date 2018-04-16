@@ -93,3 +93,6 @@ VBox Button {
 	-fx-border-color:"black";
 }
 
+#barChart {
+	width: 100%;
+}
