@@ -70,22 +70,19 @@ public class CustomerRepository {
 	
 	
 	/**
-	 * If findAllCustomers() works, this will take in a customer
+	 * If createCustomerFromId(id) works, this will take in a customer
 	 * and return true if a customer with the same id exists in the
 	 * database, else false.
 	 */
-	private boolean isCustomerInDatabase(Customer cus) {
+	protected boolean isCustomerInDatabase(Customer cus) {
 		int id = cus.getId();
-		ArrayList<Customer> customerList = this.findAllCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getId()==id) {
-				return true;
-			}
+		Customer tryCustomer = this.createCustomerFromId(id);
+		if (null != tryCustomer) {
+			return true;
 		}
-		
 		return false;
 	}
+	
 	
 	/**
 	 * Makes a Customer-object from the id
@@ -105,6 +102,8 @@ public class CustomerRepository {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			customer = null;
+			
 		}
 		return customer;
 	}
@@ -160,8 +159,7 @@ public class CustomerRepository {
 
 		Customer customer = new Customer(id, name, gender, date, telephone, bDate, height, weight);
 		return customer;
-	}
-	
+	}	
 
 	public ArrayList<DayWithStepsData> getStepsDataOfCustomer(Customer customer, Date fromDate, Date toDate) {
 		String sql = "select steps, walkDay from StepsOnDay where customerId=? and (walkDay between ? and ?)";
@@ -387,33 +385,6 @@ public class CustomerRepository {
 	
 	
 	
-	
-
-	
-	public ArrayList<Message> getMessages(Customer customer) {
-		ArrayList<Message> messages = new ArrayList<>();
-		String sql= "select date, message, customerID from Messages where customerID="+customer.getId()+" order by date asc";
-		try (Connection conn = ConnectionManager.connect()) {
-			if (!this.isCustomerInDatabase(customer)) {
-				throw new IllegalArgumentException("The customer is not in the database");
-			}
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Date date = rs.getDate("date");
-				String message = rs.getString("message");
-				int customerID = rs.getInt("customerID");
-				messages.add(new Message(date, customerID, message));
-			}
-		}
-		catch(Exception e) {
-			System.out.println("Error in getMessages");
-			e.printStackTrace();
-		}
-		return messages;
-	}
-	
-	
 	/**
 	 * Tested and working
 	 * @param message
@@ -429,11 +400,14 @@ public class CustomerRepository {
 			if (!this.isCustomerInDatabase(new Customer(message.getCusID(), null, null, null, null, null, 0, 0))) {
 				throw new IllegalArgumentException("The customer is not in the database");
 			}
-			PreparedStatement pstmt = conn.prepareStatement(update);
+			PreparedStatement pstmt = conn.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1, message.getDate());
 			pstmt.setInt(2, message.getCusID());
 			pstmt.setString(3, message.getMessage());
 			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			rs.next();
+			message.setId(rs.getInt(1));
 		} catch(Exception e) {
 			System.out.println("Error in saveMessages");
 			e.printStackTrace();
@@ -442,22 +416,35 @@ public class CustomerRepository {
 		return message;
 	}
 	
+
 	
 	
-	
-	public static void main(String[] args) {
-		// CustomerRepository customerRepo = new CustomerRepository();
-		// TEST SAVE GOAL:
-		// Goal goal123 = new Goal(1, 69000, "2018-02-02", "2018-03-03");
-		// customerRepo.saveGoal(goal123);
-		
-		// TEST LOAD GOAL:
-		// Goal testgoal;
-		// try {
-		//	testgoal = customerRepo.createGoalFromCustomerId(3);
-		//	System.out.println(testgoal);
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
+	public ArrayList<Message> getMessages(Customer customer) {
+		ArrayList<Message> messages = new ArrayList<>();
+		String sql= "select id, date, message, customerID from Messages where customerID="+customer.getId()+" order by date asc";
+		try (Connection conn = ConnectionManager.connect()) {
+			if (!this.isCustomerInDatabase(customer)) {
+				throw new IllegalArgumentException("The customer is not in the database");
+			}
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				String message = rs.getString("message");
+				int customerID = rs.getInt("customerID");
+				Message m = new Message(date, customerID, message);
+				int id = rs.getInt("id");
+				m.setId(id);
+				messages.add(m);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error in getMessages");
+			e.printStackTrace();
+		}
+		return messages;
 	}
+	
+	
+	
 	}
