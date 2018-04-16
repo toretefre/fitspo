@@ -2,12 +2,8 @@ package tdt4140.gr1806.app.core;
 
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Statement;

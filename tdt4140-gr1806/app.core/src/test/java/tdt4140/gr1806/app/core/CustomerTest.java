@@ -1,48 +1,24 @@
 package tdt4140.gr1806.app.core;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 
-import org.junit.Test;
-
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
 
 
 /**
- * This is a class for ONLY testing Customer's methods,
- * so we use mock objects for this purpose.
+ * This is a class for testing ONLY Customer's methods.
+ * Most of the customers methods are required by CustomerRepository and its tests are covering 
+ * Customer, but that doesn't mean we shouldn't write proper tests for just Customer.
  * 
- * @author henriette_andersen
+ * @author Aasmund
  *
  */
 
 
 public class CustomerTest {
 	
-	/*
-	@Test
-	public void testGetCustomer() {
-		Customer cus = Customer.getCustomer("Hans");
-		Assert.assertEquals("Berit", cus.getName());
-		Customer cus2 = Customer.getCustomer("Henriette Andersen");
-		Assert.assertNull(cus2);
-	}*/
-
+	
 	Customer customer1, customer2;
 	
 	/**
@@ -121,41 +97,4 @@ public class CustomerTest {
 	}
 	
 	
-	
-	
-	
-	/**
-	 * @author Aasmund
-	 * 
-	 */
-/*
-	@Test
-	public void testAddingAndDeletingFromDB() {
-		int customerId = Customer.addCustomer(customer1.getName());
-		int nullCustomer = Customer.addCustomer(null);
-		
-		Assert.assertTrue(isCustomerInDatabase(customer1.getName()));
-		Assert.assertTrue(nullCustomer == -1);
-		
-		Customer.removeCustomer(customerId);
-		
-		Customer.removeCustomer(-20);
-		
-		Assert.assertFalse(isCustomerInDatabase(customer1.getName()));
-		
-		
-	}
-	
-	private boolean isCustomerInDatabase(String name) {
-		ArrayList<Customer> customerList = Trainer.getCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getName().equals(name)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-*/
 } 
