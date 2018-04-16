@@ -53,9 +53,11 @@ public class MessageViewController {
 		content.getChildren().clear();
 		
 		ArrayList<Message> messages = cr.getMessages(this.selectedCustomer);
+		int i=0;
 		for(Message m : messages) {
 			TextArea text = new TextArea();
-			text.setId("messageText");
+			text.setId("messageText"+ i % 2);
+			i++;
 			text.wrapTextProperty();
 			text.setText(m.getDate().toString() + ": \n" +
 					m.getMessage());

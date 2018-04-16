@@ -1,22 +1,26 @@
 BorderPane {
-	-fx-background-color: "white";
+	-fx-background-color: #e3ecfc;
+}
+
+BorderPane Label{
+	-fx-text-fill: "black";
 }
 
 ScrollPane {
-	-fx-border-radius: 10;
-	-fx-background: "white";
+	-fx-border-color: #e3ecfc;
+	-fx-background: #e3ecfc;
 }
 	
 #listHeader {
-	-fx-background-color: "grey";
+	-fx-background-color: #7887AB;
 }
 
 #personbox1, #datarow1 {
-	-fx-background-color: "white";
+	-fx-background-color: #ccd5ea;
 }
 
 #personbox0, #datarow0 {
-	-fx-background-color: "B7B5B3";
+	-fx-background-color: #afbbd6;
 }
 #personboxSkrittLabel {
 	-fx-alignment:"CENTER";
@@ -30,24 +34,62 @@ ScrollPane {
 
 Pane {
 	-fx-border-radius: 10;
-	-fx-border-color:"black";	
+	-fx-border-color:#e3ecfc;	
 	-fx-border-size:1;
-	-fx-background-color:"white";
+	-fx-background-color:#e3ecfc;
 }
 
 HBox Label {
 	-fx-font-size:18;
 	-fx-pref-height:50;
-	
+	-fx-text-fill: "black";	
 }
 ScrollPane HBox {
 	-fx-pref-height:50;
 }
 
 .menuButton {
-	-fx-background-color:"white";
+	-fx-background-color:#d0dbf4;
 	-fx-font-size: 15;
-	-fx-border-color:"black";
+	-fx-border-color:#061539;
 	-fx-wrap-text: true;
+	-fx-text-fill: "black";
+}
+
+.menuButton:hover {
+-fx-background-color:white;
+  -fx-text-fill:black;
+  -fx-font-weight:bold; 
+}
+
+ComboBox {
+	-fx-background-color:#ced2db;
+}
+
+TextField {
+	-fx-text-fill: "black";	
+	-fx-background-color:#ced2db;
+}
+
+
+
+#content #messageText1 {
+	-fx-background-color: #4F628E;
+}
+
+ScrollPane VBox TextArea {
+	-fx-background-color: "white";
+}
+
+#deleteButton {
+	-fx-background-color: #ced2db;
+	-fx-text-fill: "black";
+	-fx-border-color:"black";
+}
+
+VBox Button {
+	-fx-background-color: #ced2db;
+	-fx-text-fill: "black";
+	-fx-border-color:"black";
 }
 
