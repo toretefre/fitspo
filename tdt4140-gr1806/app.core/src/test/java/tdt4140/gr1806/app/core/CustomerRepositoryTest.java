@@ -315,15 +315,7 @@ public class CustomerRepositoryTest {
 		
 		// Load and check that the objects contain the same data:
 		Goal g1Loaded = cr.createGoalFromCustomerId(cus.getId());
-		System.out.println(g1);
-		System.out.println(g1Loaded);
 		this.checkGoalData(g1, g1Loaded);
-		
-		// Check that a null object is returned when we try to save
-		// on the same id:
-		Goal g2 = new Goal(cus.getId(), 30, "2018-01-02", "2018-02-02");
-		Goal g2Saved = cr.saveGoal(g2);
-		Assert.assertNull(g2Saved);
 		
 		// Delete and save a new goal, and check that it worked:
 		Goal g3 = new Goal(cus.getId(), 500, "2018-01-02", "2018-02-02");
