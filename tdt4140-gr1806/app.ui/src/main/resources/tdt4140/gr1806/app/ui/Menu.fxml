@@ -12,7 +12,8 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="133.0">
          <children>
-            <Button id="button" fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home">
+
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -26,7 +27,7 @@
                      </light>
                   </Lighting>
                </effect></Button>
-            <Button id="button" fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages">
+            <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -40,7 +41,7 @@
                      </light>
                   </Lighting>
                </effect></Button>
-            <Button id="button" fx:id="menuButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals">
+            <Button fx:id="goalBtn" mnemonicParsing="false" onAction="#goalStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -54,7 +55,7 @@
                      </light>
                   </Lighting>
                </effect></Button>
-            <Button id="button" fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Sprint3">
+            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#graphStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Steps graph">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

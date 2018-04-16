@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="400.0" maxWidth="500.0" prefHeight="400.0" prefWidth="500.0" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.CustomerViewController">
+<Pane maxHeight="402.0" maxWidth="510.0" prefHeight="402.0" prefWidth="510.0" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.CustomerViewController">
    <children>
-      <HBox layoutX="-1.0" layoutY="-1.0" prefHeight="50.0" prefWidth="444.0" styleClass="hbox">
+      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="-1.0" prefHeight="50.0" prefWidth="479.0" styleClass="hbox">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="232.0" text="Navn" />
-            <Label alignment="CENTER" prefHeight="94.0" prefWidth="214.0" text="Skritt" />
+            <Label contentDisplay="CENTER" prefHeight="92.0" prefWidth="310.0" text="Name" />
+            <Label prefHeight="94.0" prefWidth="268.0" text="Steps" />
          </children>
       </HBox>
-      <ScrollPane fx:id="customerlist" layoutX="48.0" layoutY="85.0" maxHeight="300.0" maxWidth="432.0" prefHeight="300.0" prefWidth="432.0">
+      <ScrollPane fx:id="customerlist" layoutX="14.0" layoutY="43.0" maxHeight="347.0" maxWidth="479.0" prefHeight="347.0" prefWidth="479.0">
          <content>
-            <VBox fx:id="content" prefHeight="290.0" prefWidth="420.0" />
+            <VBox fx:id="content" prefHeight="355.0" prefWidth="483.0" />
          </content>
       </ScrollPane>
    </children>

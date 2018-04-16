@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="mainStage" prefHeight="600" prefWidth="700.0" styleClass="borderpane" stylesheets="@FitspoApp.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1806.app.ui.StepsGraphController">
+    <top>
+        <Label text="FitsPo" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Arial" size="50.0" />
+            </font></Label>
+    </top>
+    <left>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <fx:include fx:id="menuBar" source="Menu.fxml" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+
+            <children>
+                <HBox prefHeight="31.0" prefWidth="600.0">
+                    <children>
+                        <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="Choose customer" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fra:" />
+                        <DatePicker fx:id="fromDatePicker" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Til:" />
+                        <DatePicker fx:id="toDatePicker" />
+                        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdate" text="Update" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="24.0" prefWidth="600.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Steps walked: " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane" prefHeight="439.0" prefWidth="600.0">
+                    <content>
+                        <BarChart fx:id="barChart">
+                            <xAxis>
+                                <CategoryAxis fx:id="xAxis" label="Days" side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" label="Steps" side="LEFT" />
+                            </yAxis>
+                        </BarChart>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
