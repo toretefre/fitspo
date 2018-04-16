@@ -2,7 +2,7 @@ package tdt4140.gr1806.app.core;
 
 import static junit.framework.TestCase.assertTrue;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -192,8 +192,8 @@ public class CustomerRepositoryTest {
         // Add user with steps on 2 days, test different cases
         int stepsExpected = 500+100;
         
-        Date startDate = Date.valueOf("2018-01-02");
-        Date endDate = Date.valueOf("2018-02-02");
+        LocalDate startDate = LocalDate.of(2018, 01, 01);
+        LocalDate endDate = LocalDate.of(2018, 02, 02);
 
 
         	cr.saveCustomer(cus);
