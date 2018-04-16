@@ -3,6 +3,7 @@ package tdt4140.gr1806.app.core;
 import static junit.framework.TestCase.assertTrue;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -44,8 +45,6 @@ public class CustomerRepositoryTest {
 	 */
 	protected void checkCustomerData(final Customer origCus, final Customer dbCus) {
 		Assert.assertNotNull(dbCus);
-		//Assert.assertEquals(origCus.getId(), dbCus.getId());
-		//Assert.assertEquals(origCus.getDateRegistered(), dbCus.getDateRegistered());
 		Assert.assertEquals(origCus.getName(), dbCus.getName());
 		Assert.assertEquals(origCus.getGender(), dbCus.getGender());
 		Assert.assertEquals(origCus.getTelephone(), dbCus.getTelephone());
@@ -64,25 +63,6 @@ public class CustomerRepositoryTest {
 		Assert.assertNull(cus.getBirthDate());
 		Assert.assertEquals(cus.getHeight(), 0);
 		Assert.assertEquals(cus.getWeight(), 0, 0);
-	}
-	
-	
-	/**
-	 * If findAllCustomers() works, this will take in a customer
-	 * and return true if a customer with the same id exists in the
-	 * database, else false.
-	 */
-	private boolean isCustomerInDatabase(Customer cus) {
-		int id = cus.getId();
-		ArrayList<Customer> customerList = cr.findAllCustomers();
-		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		for (Customer customer : customerList) {
-			if (customer.getId()==id) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 	
 	
@@ -117,6 +97,16 @@ public class CustomerRepositoryTest {
 		Assert.assertEquals(origGoal.getGoal(), dbGoal.getGoal());
 		Assert.assertEquals(origGoal.getDeadLineStart(), dbGoal.getDeadLineStart());
 		Assert.assertEquals(origGoal.getDeadLineEnd(), dbGoal.getDeadLineEnd());
+	}
+	
+	/**
+	 * Checks if two message objects has equal data (except id).
+	 */
+	protected void checkMessagelData(final Message origMessage, final Message dbMessage) {
+		Assert.assertNotNull(dbMessage);
+		Assert.assertEquals(origMessage.getCusID(), dbMessage.getCusID());
+		Assert.assertEquals(origMessage.getDate(), dbMessage.getDate());
+		Assert.assertEquals(origMessage.getMessage(), dbMessage.getMessage());
 	}
 	
 	//------------------------
@@ -192,8 +182,8 @@ public class CustomerRepositoryTest {
         // Add user with steps on 2 days, test different cases
         int stepsExpected = 500+100;
         
-        Date startDate = Date.valueOf("2018-01-02");
-        Date endDate = Date.valueOf("2018-02-02");
+        LocalDate startDate = LocalDate.of(2018, 01, 01);
+        LocalDate endDate = LocalDate.of(2018, 02, 02);
 
 
         	cr.saveCustomer(cus);
@@ -299,10 +289,10 @@ public class CustomerRepositoryTest {
 		Customer cus = new Customer("Mr. Cool", "O", "12332188", "1980-07-18", 180, 90.3);
 		
 		cus = cr.saveCustomer(cus);
-		Assert.assertTrue(this.isCustomerInDatabase(cus)); // Tests that the id exists in the database. 
+		Assert.assertTrue(cr.isCustomerInDatabase(cus)); // Tests that the id exists in the database. 
 		
 		cr.deleteCustomer(cus);
-		Assert.assertFalse(this.isCustomerInDatabase(cus)); // Tests that the id is no longer there.
+		Assert.assertFalse(cr.isCustomerInDatabase(cus)); // Tests that the id is no longer there.
 	}
 	
 	
@@ -313,43 +303,33 @@ public class CustomerRepositoryTest {
 	 * when it comes to the database.
 	 */
 	@Test
-	public void testSaveGoalCreateGoalFromCustomerIDUpDateGoal() {
+	public void testSaveGoalCreateGoalFromCustomerID() {
 		Customer cus = new Customer("Henry", "F", "99352762", "1994-02-15", 172, 68.00);
 		cus = cr.saveCustomer(cus);
 		Goal g1 = new Goal(cus.getId(), 10000, "2018-01-02", "2018-02-02" );
 		
-		// Check that you cannot call update goal when no goal is saved:
-		Goal g1Updated = cr.updateGoal(g1);
-		Assert.assertNull(g1Updated);
-		Goal g1Loaded = cr.createGoalFromCustomerId(cus.getId());
-		Assert.assertNull(g1Loaded);
 		
 		// Save and check that the same object is returned:
 		Goal g1Saved = cr.saveGoal(g1);
 		Assert.assertSame(g1, g1Saved);
 		
 		// Load and check that the objects contain the same data:
-		g1Loaded = cr.createGoalFromCustomerId(cus.getId());
-		System.out.println(g1);
-		System.out.println(g1Loaded);
+		Goal g1Loaded = cr.createGoalFromCustomerId(cus.getId());
 		this.checkGoalData(g1, g1Loaded);
 		
-		// Check that a null object is returned when we try to save
-		// on the same id:
-		Goal g2 = new Goal(cus.getId(), 30, "2018-01-02", "2018-02-02");
-		Goal g2Saved = cr.saveGoal(g2);
-		Assert.assertNull(g2Saved);
-		
-		// Update goal, and check that it worked:
+		// Delete and save a new goal, and check that it worked:
 		Goal g3 = new Goal(cus.getId(), 500, "2018-01-02", "2018-02-02");
-		Goal g3Updated = cr.updateGoal(g3);
-		Assert.assertSame(g3, g3Updated);
+		cr.deleteGoal(g1);
+		Goal g3Saved = cr.saveGoal(g3);
+		Assert.assertSame(g3, g3Saved);
 		Goal g3Loaded = cr.createGoalFromCustomerId(cus.getId());
 		this.checkGoalData(g3, g3Loaded);
 		
-		// Check that when goal is negative, a null object is returned.;
+		
+		// Check that when goal is negative, a null object is returned.
+		cr.deleteGoal(g3);
 		g3.setGoal(-7);
-		Goal g3Saved = cr.updateGoal(g3);
+		g3Saved = cr.saveGoal(g3);
 		Assert.assertNull(g3Saved);
 	
 		
@@ -406,6 +386,69 @@ public class CustomerRepositoryTest {
 		
 	}
 	
+	
+	@Test
+	public void testSaveMessageGetMessages() {
+		Customer cus = new Customer("Henry", "F", "99352762", "1994-02-15", 172, 68.00);
+		cus = cr.saveCustomer(cus); // To get customer id
+		
+		// Create some test messages to Henry:
+		Date d1 = Date.valueOf("2018-01-02");
+		String s1 = "Hei. Du må gå mer! Skjerpings!";
+		Message m1 = new Message(d1, cus.getId(), s1);
+		
+		Date d2 = Date.valueOf("2018-01-04");
+		String s2 = "Så du den forrige meldingen min?";
+		Message m2 = new Message(d2, cus.getId(), s2);
+		
+		// Save m1:
+		Message m1Saved = cr.saveMessage(m1);
+		Assert.assertSame(m1, m1Saved); // Checks that the same object (though modified internally), was returned.
+		Assert.assertNotEquals(0, m1Saved.getCusID()); //Checks that an id was generated and saved.
+		
+		// Get all messages to Henry and check that m1 is there:
+		ArrayList<Message> messages = cr.getMessages(cus);
+		Assert.assertEquals(1, messages.size());
+		Message m1Loaded = messages.get(0);
+		Assert.assertEquals(m1Saved.getId(), m1Loaded.getId());
+		this.checkMessagelData(m1, m1Loaded);
+		
+		//Save m2:
+		Message m2Saved = cr.saveMessage(m2);
+		Assert.assertSame(m2, m2Saved);
+		Assert.assertNotEquals(0, m2Saved.getCusID());
+		
+		// Check that we now get the two customers:
+		messages = cr.getMessages(cus);
+		Assert.assertEquals(2, messages.size());
+		m1Loaded = messages.get(0);
+		Assert.assertEquals(m1Saved.getId(), m1Loaded.getId());
+		this.checkMessagelData(m1, m1Loaded);
+		Message m2Loaded = messages.get(1);
+		Assert.assertEquals(m2Saved.getId(), m2Loaded.getId());
+		this.checkMessagelData(m2, m2Loaded);
+		
+		// Delete customer:
+		cr.deleteCustomer(cus);
+		
+		// Check that when saving a null-message we get a null object:
+		Message m = cr.saveMessage(null);
+		Assert.assertNull(m);
+		
+		// Check that if we try to save a message to a non-existing customer,
+		// we get a null-object:
+		m = new Message(d1, -3, "halla");
+		m = cr.saveMessage(m);
+		Assert.assertNull(m);
+		
+		// Check that if we try to save a message with null-values,
+		// we get a null-value back:
+		m = new Message(null, 0, null);
+		m = cr.saveMessage(m);
+		Assert.assertNull(m);
+	
+		
+	}
 	
 	
 	

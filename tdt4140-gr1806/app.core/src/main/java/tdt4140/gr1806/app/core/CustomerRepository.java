@@ -1,6 +1,7 @@
 package tdt4140.gr1806.app.core;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -69,23 +70,22 @@ public class CustomerRepository {
 	
 	
 	/**
-	 * If findAllCustomers() works, this will take in a customer
+	 * If createCustomerFromId(id) works, this will take in a customer
 	 * and return true if a customer with the same id exists in the
 	 * database, else false.
 	 */
-	private boolean isCustomerInDatabase(Customer cus) {
+	protected boolean isCustomerInDatabase(Customer cus) {
 		int id = cus.getId();
 		ArrayList<Customer> customerList = this.findAllCustomers();
 		// This should be using Customer.getCustomer(String name), but that doesn't exist in this branch
-		customerList.contains(cus);
 		for (Customer customer : customerList) {
 			if (customer.getId()==id) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
+	
 	
 	/**
 	 * Makes a Customer-object from the id
@@ -105,7 +105,8 @@ public class CustomerRepository {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+			customer = null;
+			
 		}
 		return customer;
 	}
@@ -120,6 +121,7 @@ public class CustomerRepository {
 	 * @param date Date of steps
 	 */
 	public void addStepsToCustomer(Customer customer, int steps, String date) {
+
 		try(Connection conn = ConnectionManager.connect()) {
 			if (!this.isCustomerInDatabase(customer)) {
 				throw new IllegalArgumentException("The customer is not in the database");
@@ -133,7 +135,6 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.err.println("Could not save to database.");
 			e.printStackTrace();
-		}finally {
 		}
 	}
 	
@@ -161,8 +162,32 @@ public class CustomerRepository {
 
 		Customer customer = new Customer(id, name, gender, date, telephone, bDate, height, weight);
 		return customer;
+	}	
+
+	public ArrayList<DayWithStepsData> getStepsDataOfCustomer(Customer customer, Date fromDate, Date toDate) {
+		String sql = "select steps, walkDay from StepsOnDay where customerId=? and (walkDay between ? and ?)";
+		ArrayList<DayWithStepsData> data = new ArrayList<>();
+
+		try (Connection conn = ConnectionManager.connect()){
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, customer.getId());
+			pstmt.setDate(2, fromDate);
+			pstmt.setDate(3, toDate);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Date day = rs.getDate("walkDay");
+				int steps = rs.getInt("steps");
+				data.add(new DayWithStepsData(day, steps));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
-	
 
 		
 	/**
@@ -185,7 +210,6 @@ public class CustomerRepository {
 				System.out.println("db error during selection of customers");
 				System.err.print(e);
 				customers = null;
-			}finally {
 			}
 		return customers;
 	}
@@ -210,7 +234,6 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.out.println("db error during deletion of customer");
         		System.err.print(e);
-		}finally {
 		}
 	}
 	
@@ -238,7 +261,6 @@ public class CustomerRepository {
 			System.out.println("db error during selection of total steps from customer");
     			System.err.print(e);
     			i = -1;
-		}finally {
 		}
 		return i;
 	}
@@ -253,7 +275,7 @@ public class CustomerRepository {
 	  * @return steps, integer representing the amount of steps registered to the customer the given time span,
 	  * or -1 if there is an exception or the customer does not exist.
 	  */
-	public int getTotalStepsInDateRange(Customer customer, Date startDate, Date endDate) {
+	public int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
 		int steps = 0;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
@@ -266,8 +288,8 @@ public class CustomerRepository {
 			}
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, customer.getId());
-			pstmt.setDate(2, startDate);
-			pstmt.setDate(3, endDate);
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				steps = rs.getInt("SUM(steps)");
@@ -278,13 +300,10 @@ public class CustomerRepository {
 			e.printStackTrace();
 			steps = -1;
 		}
-		finally {
-		}
 		return steps;
 	}
-	
 
-	
+
 	/**
 	 * 
 	 * @param goal
@@ -295,6 +314,7 @@ public class CustomerRepository {
 			if (!this.isCustomerInDatabase(new Customer(goal.getCustomerId(), null, null, null, null, null, 0, 0))) {
 				throw new IllegalArgumentException("The customer is not in the database");
 			}
+			deleteGoal(goal);
 			String sql = "insert into CustomerGoal "
 					+ "(customerId, "
 					+ "stepsGoal, "
@@ -313,50 +333,10 @@ public class CustomerRepository {
 			System.err.println("Could not save goal to database. ");
 			e.printStackTrace();
 			goal = null;
-		}finally {
 		}
 		return goal;
 	}
-	
-	
-	/**
-	 * Updates a goal for a customer.
-	 * @author henriette_andersen
-	 * @param goal, goal with a customerId that there already is saved a goal.
-	 * @return goal, the newly updated goal, or null if it did not work.
-	 */
-	public Goal updateGoal(Goal goal) {
-		try (Connection conn = ConnectionManager.connect()) {
-			if (!this.isCustomerInDatabase(new Customer(goal.getCustomerId(), null, null, null, null, null, 0, 0))) {
-				throw new IllegalArgumentException("The customer is not in the database");
-			}
-			String sql = "update CustomerGoal "
-					+ "set "
-					+ "stepsGoal = ?, "
-					+ "goalDeadline = ?, "
-					+ "goalStart = ? "
-					+ "where customerId = ?;";
 
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, goal.getGoal());
-			pstmt.setString(2, goal.getDeadLineStart());
-			pstmt.setString(3, goal.getDeadLineEnd());
-			pstmt.setInt(4, goal.getCustomerId());
-			pstmt.executeUpdate();
-			if (null == this.createGoalFromCustomerId(goal.getCustomerId())) {
-				throw new IllegalArgumentException("Cannot update when nothing is already saved.");
-			}
-			
-		} catch (Exception e) {
-			System.err.println("Could not update goal.");
-			e.printStackTrace();
-			goal = null;
-		}finally {
-		}
-		return goal;
-	}
-	
-	
 	
 	public Goal createGoalFromCustomerId(int customerId) {
 		Goal goal = null;
@@ -381,7 +361,6 @@ public class CustomerRepository {
 			System.err.println("Error in createGoalFromCustomerId");
 			e.printStackTrace();
 			goal = null;
-		}finally {
 		}
 		return goal;
 	}
@@ -432,7 +411,6 @@ public class CustomerRepository {
 		return messages;
 	}
 	
-	
 	/**
 	 * Saves message to DB
 	 * @param message
@@ -448,16 +426,18 @@ public class CustomerRepository {
 			if (!this.isCustomerInDatabase(new Customer(message.getCusID(), null, null, null, null, null, 0, 0))) {
 				throw new IllegalArgumentException("The customer is not in the database");
 			}
-			PreparedStatement pstmt = conn.prepareStatement(update);
+			PreparedStatement pstmt = conn.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1, message.getDate());
 			pstmt.setInt(2, message.getCusID());
 			pstmt.setString(3, message.getMessage());
 			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			rs.next();
+			message.setId(rs.getInt(1));
 		} catch(Exception e) {
 			System.err.println("Error while saving message to DB");
 			e.printStackTrace();
 			message = null;
-		}finally {
 		}
 		return message;
 	}

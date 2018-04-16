@@ -11,7 +11,7 @@ public class ResourceConfiguration extends ResourceConfig{
 	
 	public ResourceConfiguration() {
 		packages("tdt4140.gr1806.web.server");
-		register(StepReciever.class);
+		register(FitspoService.class);
 	}
 
 }
