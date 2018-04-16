@@ -24,9 +24,9 @@ import tdt4140.gr1806.app.core.Goal;
 
 /**
  * FitspoAppController Class uses the CustomerRepository Class to represent an updated list of customers and their total steps.
- * Controlling the FitspoApp_trainer.fxml
+ * Controlling the IndividualCustomer.fxml
  * @author Magnus
- * Modified by Tore
+ * Modified by Tore and Aasmund
  * @version 1.0
  * @see tdt4140.gr1806.app.core.Trainer.java
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
