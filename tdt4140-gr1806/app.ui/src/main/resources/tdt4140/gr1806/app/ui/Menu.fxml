@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -8,10 +12,63 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="133.0">
          <children>
-            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home" />
-            <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages" />
-            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals" />
-            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#graphStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Steps graf" />
+
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Home">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
+            <Button fx:id="messageBtn" mnemonicParsing="false" onAction="#messageStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Messages">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
+            <Button fx:id="goalBtn" mnemonicParsing="false" onAction="#goalStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Goals">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
+            <Button fx:id="somethingStrangeButton" mnemonicParsing="false" onAction="#graphStage" prefHeight="100.0" prefWidth="133.0" styleClass="menuButton" text="Steps graph">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect></Button>
          </children>
       </VBox>
    </children>

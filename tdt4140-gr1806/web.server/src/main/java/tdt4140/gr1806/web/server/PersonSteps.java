@@ -15,14 +15,14 @@ import java.sql.Date;
  */
 public class PersonSteps {
 	
-	private int PersonID, steps;
-	private Date date;
+	private int personID, steps;
+	private String dateString;
 	
 	public int getPersonID() {
-		return PersonID;
+		return personID;
 	}
 	public void setPersonID(int personID) {
-		PersonID = personID;
+		this.personID = personID;
 	}
 	public int getSteps() {
 		return steps;
@@ -30,11 +30,11 @@ public class PersonSteps {
 	public void setSteps(int steps) {
 		this.steps = steps;
 	}
-	public Date getDate() {
-		return date;
+	public String getDateString() {
+		return dateString;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
 	}
 	
 	
