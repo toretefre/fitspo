@@ -1,6 +1,7 @@
 package tdt4140.gr1806.app.core;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -63,8 +64,7 @@ public class CustomerRepository {
 			System.out.println("db error during inserting of new customer");
         		System.err.print(e);
         		customer = null;
-        	}finally {
-    		}
+        	}
 		return customer;
 	}
 	
@@ -105,7 +105,6 @@ public class CustomerRepository {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
 		}
 		return customer;
 	}
@@ -134,7 +133,6 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.err.println("Could not save to database.");
 			e.printStackTrace();
-		}finally {
 		}
 	}
 	
@@ -211,7 +209,6 @@ public class CustomerRepository {
 				System.out.println("db error during selection of customers");
 				System.err.print(e);
 				customers = null;
-			}finally {
 			}
 		return customers;
 	}
@@ -236,7 +233,6 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.out.println("db error during deletion of customer");
         		System.err.print(e);
-		}finally {
 		}
 	}
 	
@@ -264,7 +260,6 @@ public class CustomerRepository {
 			System.out.println("db error during selection of total steps from customer");
     			System.err.print(e);
     			i = -1;
-		}finally {
 		}
 		return i;
 	}
@@ -279,7 +274,7 @@ public class CustomerRepository {
 	  * @return steps, integer representing the amount of steps registered to the customer the given time span,
 	  * or -1 if there is an exception or the customer does not exist.
 	  */
-	public int getTotalStepsInDateRange(Customer customer, Date startDate, Date endDate) {
+	public int getTotalStepsInDateRange(Customer customer, LocalDate startDate, LocalDate endDate) {
 		int steps = 0;
 		String sql = "select SUM(steps) " +
 				"from StepsOnDay " +
@@ -292,8 +287,8 @@ public class CustomerRepository {
 			}
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, customer.getId());
-			pstmt.setDate(2, startDate);
-			pstmt.setDate(3, endDate);
+			pstmt.setObject(2, startDate);
+			pstmt.setObject(3, endDate);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				steps = rs.getInt("SUM(steps)");
@@ -303,8 +298,6 @@ public class CustomerRepository {
 			System.out.println("Error");
 			e.printStackTrace();
 			steps = -1;
-		}
-		finally {
 		}
 		return steps;
 	}
@@ -338,7 +331,6 @@ public class CustomerRepository {
 			System.err.println("Could not save goal to database. ");
 			e.printStackTrace();
 			goal = null;
-		}finally {
 		}
 		return goal;
 	}
@@ -376,7 +368,6 @@ public class CustomerRepository {
 			System.err.println("Could not update goal.");
 			e.printStackTrace();
 			goal = null;
-		}finally {
 		}
 		return goal;
 	}
@@ -406,7 +397,6 @@ public class CustomerRepository {
 			System.out.println("Error in createGoalFromCustomerId");
 			e.printStackTrace();
 			goal = null;
-		}finally {
 		}
 		return goal;
 	}
@@ -429,7 +419,6 @@ public class CustomerRepository {
 		} catch (Exception e) {
 			System.out.println("db error during deletion of customer");
         		System.err.print(e);
-		}finally {
 		}
 	}
 	
@@ -457,7 +446,6 @@ public class CustomerRepository {
 		catch(Exception e) {
 			System.out.println("Error in getMessages");
 			e.printStackTrace();
-		}finally {
 		}
 		return messages;
 	}
@@ -487,7 +475,6 @@ public class CustomerRepository {
 			System.out.println("Error in saveMessages");
 			e.printStackTrace();
 			message = null;
-		}finally {
 		}
 		return message;
 	}
