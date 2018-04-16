@@ -1,7 +1,6 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -22,7 +21,7 @@ import tdt4140.gr1806.app.core.Goal;
 public class CustomerViewController {
 	
 	FitspoAppController fitspo;
-	@FXML FitspoAppController_trainer oneCust;
+	@FXML IndividualCustomerController oneCust;
 	@FXML ScrollPane customerlist;
 	@FXML VBox content;
 	private CustomerRepository customerRepository = new CustomerRepository();
@@ -32,31 +31,31 @@ public class CustomerViewController {
 	 * the ScrollPane from FitspoApp.fxml. Sets differents ID for styling purposes.
 	 * @param customers
 	 * @see tdt4140.gr1806.app.core.Trainer.java
-	 * OBS: Alle metoder og felt skal være merket med @FXML
 	 */
 	public void homeLanding(ArrayList<Customer> customers) {
 		
+		// For all customers passed in: make horizontal box and fill it with relevant information
 		for (int i=0; i<customers.size(); i++) {
 			Customer currentCust = customers.get(i);
 			HBox person = new HBox();
 			person.setId("personbox" + i % 2);
 			person.setPrefWidth(customerlist.getPrefWidth());
+			
+			// This is just setting a onclick-method, the method itself will not run in this loop
 			person.setOnMouseClicked((event) -> {
 				Parent root;
 				
 				try {
 					// Essential line for getting goal into personview:
 					Goal goal = customerRepository.createGoalFromCustomerId(currentCust.getId());
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("FitspoApp_trainer.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("IndividualCustomer.fxml"));
 					root = loader.load();
-					FitspoAppController_trainer controller = (FitspoAppController_trainer)loader.getController();
+					IndividualCustomerController controller = (IndividualCustomerController)loader.getController();
 					controller.init(currentCust, goal);
 					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					stage.setScene(new Scene(root));
 					stage.show();	
 				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			});

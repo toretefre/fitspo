@@ -13,19 +13,14 @@ import javafx.stage.Stage;
 import tdt4140.gr1806.app.ui.FitspoAppController;
 
 /**
- * OBS: All methods and attributes must be marked with @FXML
  * @author Magnus
  *
  */
 
 public class MenuController {
 	
-	//this attribute is never used. remove?
-	private FitspoAppController fitspo;
-	
 	@FXML Button homeButton;
 	@FXML Button goalsButton;
-	FXMLLoader loader;
 	
 	@FXML 
 	public void homeStage(ActionEvent event) throws IOException {
@@ -55,7 +50,6 @@ public class MenuController {
 	}
 	
 	public void init(FitspoAppController fitspoAppController) {
-		fitspo = fitspoAppController;
 	};
 }
 

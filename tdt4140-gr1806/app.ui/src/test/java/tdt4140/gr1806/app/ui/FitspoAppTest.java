@@ -15,9 +15,9 @@ public class FitspoAppTest extends ApplicationTest {
 	
 	@BeforeClass
     public static void headless() {
-    		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
-    			GitlabCISupport.headless();
-    		}
+		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+			GitlabCISupport.headless();
+		}
     }
 
 	@Override
@@ -33,7 +33,4 @@ public class FitspoAppTest extends ApplicationTest {
     	Assert.assertTrue(true);
     }
     
-    /* 
-     * Check if number of HBox equals number of persons in the database.
-     */
 }

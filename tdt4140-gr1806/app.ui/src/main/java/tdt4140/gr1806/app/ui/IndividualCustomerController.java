@@ -1,7 +1,7 @@
 package tdt4140.gr1806.app.ui;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -31,7 +31,7 @@ import tdt4140.gr1806.app.core.Goal;
  * @see tdt4140.gr1806.app.core.Trainer.java
  * @see tdt4140.gr1806.app.ui.FitspoApp.fxml
  */
-public class FitspoAppController_trainer {
+public class IndividualCustomerController {
 	FitspoAppController mainController;
 	
 	@FXML private ScrollPane container;
@@ -58,11 +58,12 @@ public class FitspoAppController_trainer {
 		data.add(new String[]{"Steps", Integer.toString(this.customerRepository.getTotalSteps(selectedPerson))});
 		data.add(new String[]{"Registration Date", selectedPerson.getDateRegistered()});
 		
-		// Showing goals in list:
-		data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
-		data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
-		data.add(new String[]{"Steps left", String.valueOf((goal.getGoal()) - this.customerRepository.getTotalSteps(selectedPerson))});
-		
+		// If goals: Show them in view:
+		if (goal != null) {
+			data.add(new String[]{"Goal steps", Integer.toString(goal.getGoal())});
+			data.add(new String[]{"Goal deadline", goal.getDeadLineEnd()});
+			data.add(new String[]{"Steps left", String.valueOf((goal.getGoal()) - this.customerRepository.getTotalSteps(selectedPerson))});			
+		}
 		for (int i = 0; i < data.size(); i++) {
 			HBox dataRow = new HBox();
 			dataRow.setId("datarow" + i % 2);
@@ -74,7 +75,7 @@ public class FitspoAppController_trainer {
 			name.setId("personboxLabel");
 			
 			Label steps = new Label(data.get(i)[1]);
-			steps.setId("personboxSkrittLabel");
+			steps.setId("personboxStepsLabel");
 			
 			dataRow.getChildren().addAll(name,steps);
 			content.getChildren().add(dataRow);
@@ -89,19 +90,20 @@ public class FitspoAppController_trainer {
 	 */
 	
 	@FXML public void updateCustomerSteps(ActionEvent event) throws IOException {
-		LocalDate fromDate = from.getValue();
-		LocalDate toDate = to.getValue();
+		// From and To is Datepicker-objects in the view
+		// This gets the sql.Date from them
+		Date fromDate = Date.valueOf(from.getValue().toString());
+		Date toDate = Date.valueOf(to.getValue().toString());
 		
 		if(fromDate != null && toDate != null) {
-			int steps = CustomerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
-			//data.set(5, new String[] {"Steps", Integer.toString(steps)} );
+			int steps = customerRepository.getTotalStepsInDateRange(cus, fromDate, toDate);
 			HBox dataRow = new HBox();
 			dataRow.setId("1");
 			dataRow.setPrefWidth(container.getPrefWidth());
 			Label name = new Label("Steps");
 			name.setId("personboxLabel");
 			Label step = new Label(Integer.toString(steps));
-			step.setId("personboxSkrittLabel");
+			step.setId("personboxStepsLabel");
 			dataRow.getChildren().addAll(name, step);
 			content.getChildren().set(5, dataRow);
 		}
@@ -118,9 +120,9 @@ public class FitspoAppController_trainer {
 	@FXML
 	public void onButtonClick(ActionEvent event) throws Exception {
 		PopupWindow popup = new PopupWindow();
-		boolean answer = popup.display();
+		boolean confirm = popup.display();
 		
-		if (answer == true) {
+		if (confirm) {
 			customerRepository.deleteCustomer(cus);
 			Parent root = FXMLLoader.load(getClass().getResource("FitspoApp.fxml"));
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -131,7 +133,6 @@ public class FitspoAppController_trainer {
 
 
 	public void init(Customer target, Goal goal) {
-		System.out.println("Fitspoappcontroller_trainer initialized");
 		container.setFitToWidth(true);
 		loadCustomerData(target, goal);
 	}

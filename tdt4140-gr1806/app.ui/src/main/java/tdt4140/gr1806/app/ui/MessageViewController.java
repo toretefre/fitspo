@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -29,7 +28,7 @@ import tdt4140.gr1806.app.core.Message;
 public class MessageViewController {
 	
 	FitspoAppController fitspo;
-	CustomerRepository cr = new CustomerRepository();
+	CustomerRepository customerRepository = new CustomerRepository();
 	Customer selectedCustomer = null;
 	@FXML private ComboBox<Customer> customerComboBox;
 	@FXML private Button sendMessageBtn;
@@ -52,13 +51,12 @@ public class MessageViewController {
 		//Clearing the content first - dont want duplicate messages when using the application.
 		content.getChildren().clear();
 		
-		ArrayList<Message> messages = cr.getMessages(this.selectedCustomer);
+		ArrayList<Message> messages = customerRepository.getMessages(this.selectedCustomer);
 		for(Message m : messages) {
 			TextArea text = new TextArea();
 			text.setId("messageText");
 			text.wrapTextProperty();
-			text.setText(m.getDate().toString() + ": \n" +
-					m.getMessage());
+			text.setText(m.getDate().toString() + ": \n" + m.getMessage());
 			content.getChildren().add(text);
 		}
 		messageBox.setFitToWidth(true);
@@ -66,10 +64,10 @@ public class MessageViewController {
 	
 	@FXML 
 	public void sendMessage(ActionEvent event) throws SQLException {
-		String message = messageTextField.getText();
+		String input = messageTextField.getText();
 		Date sqlDate = new Date(System.currentTimeMillis());
-		Message m = new Message(sqlDate, this.selectedCustomer.getId(), message);
-		cr.saveMessage(m);
+		Message message = new Message(sqlDate, this.selectedCustomer.getId(), input);
+		customerRepository.saveMessage(message);
 		updateMessageField(event);
 		messageTextField.clear();
 	}
@@ -84,7 +82,7 @@ public class MessageViewController {
 	 */
 	public void initialize() {
 		// Fetches the Customers from the DB and places them in a observable list
-		ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(cr.findAllCustomers());
+		ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(customerRepository.findAllCustomers());
 		
 		// Updates the dropdown (customerComboBox) with the Customers
 		customerComboBox.setItems(observableCustomerList);
@@ -102,7 +100,7 @@ public class MessageViewController {
 				return customer.getName();
 			}
 			@Override
-			public Customer fromString(String strin) {
+			public Customer fromString(String string) {
 				return null;
 			}
 		});
