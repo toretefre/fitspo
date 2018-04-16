@@ -49,7 +49,7 @@ ScrollPane HBox {
 }
 
 .menuButton {
-	-fx-background-color:#2E4272;
+	-fx-background-color:"LightBlue";
 	-fx-font-size: 15;
 	-fx-border-color:#061539;
 	-fx-wrap-text: true;
