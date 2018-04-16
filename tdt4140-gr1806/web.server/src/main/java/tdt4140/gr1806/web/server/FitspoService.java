@@ -1,15 +1,8 @@
 package tdt4140.gr1806.web.server;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -18,8 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.glassfish.hk2.api.ServiceLocatorFactory.CreatePolicy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +40,7 @@ public class FitspoService {
 	@Produces(MediaType.TEXT_HTML)
 	public String handleForm(@QueryParam("id") int id, @QueryParam("steps") int steps, @QueryParam("date") Date date) {
 		try {		
-			checkConnection();
+
 			saveSteps(id, steps, date);
 		} catch (Exception e) {
 			System.err.println("Error encountered while trying to save to database!");
@@ -114,7 +105,6 @@ public class FitspoService {
 		String jsonString = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			checkConnection();
 			jsonString = mapper.writeValueAsString(customerRepo.findAllCustomers());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -141,7 +131,6 @@ public class FitspoService {
 		String cus = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			checkConnection();
 			Customer customer = customerRepo.createCustomerFromId(Integer.valueOf(id));
 			cus = mapper.writeValueAsString(customer);
 		} catch (NumberFormatException | JsonProcessingException e) {
@@ -159,14 +148,5 @@ public class FitspoService {
 	private void saveSteps(int id, int steps, Date date) {
 		Customer customer = customerRepo.createCustomerFromId(id);
 		customerRepo.addStepsToCustomer(customer, steps, date.toString());
-	}
-	
-	/**
-	 * Solving a problem where it didn't connect to the db on the first request.
-	 */
-	private void checkConnection() {
-		if (customerRepo.conn == null) {
-			customerRepo.connect();
-		}
 	}
 }
