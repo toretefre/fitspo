@@ -165,6 +165,31 @@ public class CustomerRepository {
 	}
 	
 
+	public ArrayList<DayWithStepsData> getStepsDataOfCustomer(Customer customer, Date fromDate, Date toDate) {
+		String sql = "select steps, walkDay from StepsOnDay where customerId=? and (walkDay between ? and ?)";
+		ArrayList<DayWithStepsData> data = new ArrayList<>();
+
+		try (Connection conn = ConnectionManager.connect()){
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, customer.getId());
+			pstmt.setDate(2, fromDate);
+			pstmt.setDate(3, toDate);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Date day = rs.getDate("walkDay");
+				int steps = rs.getInt("steps");
+				data.add(new DayWithStepsData(day, steps));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
 		
 	/**
 	 * Finding all the customers saved in the database.
