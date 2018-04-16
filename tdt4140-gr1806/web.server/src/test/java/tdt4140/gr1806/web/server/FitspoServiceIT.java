@@ -32,29 +32,29 @@ public class FitspoServiceIT {
 	 * Tests the simplest type of request.
 	 * Mostly to verify that the server is responding.
 	 */
-	@Test
-	public void testGet() {
-		InputStream urlStream = null;
-		String helloTest = null;
-		try {
-			URL url = new URL("http://localhost:8888/fitspo/hello?name=tester");
-			urlStream = url.openStream();
-			helloTest = ToStringHelper.InputStreamToString(urlStream);
-			urlStream.close();
-
-		} catch (MalformedURLException e) {
-			System.err.println("Malformed URL");
-			e.printStackTrace();
-			Assert.fail();
-		} catch (IOException e) {
-			System.err.println("IOException in testGet");
-			e.printStackTrace();
-			Assert.fail();
-		}
-
-		Assert.assertEquals(helloTest, "Hello, tester!");
-		
-	}
+//	@Test
+//	public void testGet() {
+//		InputStream urlStream = null;
+//		String helloTest = null;
+//		try {
+//			URL url = new URL("http://localhost:8888/fitspo/hello?name=tester");
+//			urlStream = url.openStream();
+//			helloTest = ToStringHelper.InputStreamToString(urlStream);
+//			urlStream.close();
+//
+//		} catch (MalformedURLException e) {
+//			System.err.println("Malformed URL");
+//			e.printStackTrace();
+//			Assert.fail();
+//		} catch (IOException e) {
+//			System.err.println("IOException in testGet");
+//			e.printStackTrace();
+//			Assert.fail();
+//		}
+//
+//		Assert.assertEquals(helloTest, "Hello, tester!");
+//		
+//	}
 	
 	
 	/**
