@@ -378,7 +378,7 @@ public class CustomerRepository {
 			pstmt.setInt(1, goal.getCustomerId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("db error during deletion of goal");
+			System.out.println("db error during deletion of customer");
         		System.err.print(e);
 		}
 	}
