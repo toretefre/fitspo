@@ -319,7 +319,7 @@ public class CustomerRepositoryTest {
 		Goal g1 = new Goal(cus.getId(), 10000, "2018-01-02", "2018-02-02" );
 		
 		// Check that you cannot call update goal when no goal is saved:
-		Goal g1Updated = cr.updateGoal(g1);
+		Goal g1Updated = cr.saveGoal(g1);
 		Assert.assertNull(g1Updated);
 		Goal g1Loaded = cr.createGoalFromCustomerId(cus.getId());
 		Assert.assertNull(g1Loaded);
@@ -342,14 +342,14 @@ public class CustomerRepositoryTest {
 		
 		// Update goal, and check that it worked:
 		Goal g3 = new Goal(cus.getId(), 500, "2018-01-02", "2018-02-02");
-		Goal g3Updated = cr.updateGoal(g3);
+		Goal g3Updated = cr.saveGoal(g3);
 		Assert.assertSame(g3, g3Updated);
 		Goal g3Loaded = cr.createGoalFromCustomerId(cus.getId());
 		this.checkGoalData(g3, g3Loaded);
 		
 		// Check that when goal is negative, a null object is returned.;
 		g3.setGoal(-7);
-		Goal g3Saved = cr.updateGoal(g3);
+		Goal g3Saved = cr.saveGoal(g3);
 		Assert.assertNull(g3Saved);
 	
 		
